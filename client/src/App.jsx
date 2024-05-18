@@ -1,35 +1,74 @@
-import { useState } from 'react'
-import reactLogo from './assets/react.svg'
-import viteLogo from '/vite.svg'
-import './App.css'
+// client/src/App.js
+import React, { useState, useEffect } from 'react';
+import axios from 'axios';
 
 function App() {
-  const [count, setCount] = useState(0)
+    const [appointments, setAppointments] = useState([]);
+    const [form, setForm] = useState({ clientName: '', date: '', service: '' });
 
-  return (
-    <>
-      <div>
-        <a href="https://vitejs.dev" target="_blank">
-          <img src={viteLogo} className="logo" alt="Vite logo" />
-        </a>
-        <a href="https://react.dev" target="_blank">
-          <img src={reactLogo} className="logo react" alt="React logo" />
-        </a>
-      </div>
-      <h1>Vite + React</h1>
-      <div className="card">
-        <button onClick={() => setCount((count) => count + 1)}>
-          count is {count}
-        </button>
-        <p>
-          Edit <code>src/App.jsx</code> and save to test HMR
-        </p>
-      </div>
-      <p className="read-the-docs">
-        Click on the Vite and React logos to learn more
-      </p>
-    </>
-  )
+    useEffect(() => {
+        async function fetchAppointments() {
+            try {
+                const response = await axios.get('/appointments');
+                setAppointments(response.data);
+            } catch (error) {
+                console.error('Error fetching appointments', error);
+            }
+        }
+        fetchAppointments();
+    }, []);
+
+    const handleChange = (e) => {
+        const { name, value } = e.target;
+        setForm((prevForm) => ({ ...prevForm, [name]: value }));
+    };
+
+    const handleSubmit = async (e) => {
+        e.preventDefault();
+        try {
+            const response = await axios.post('/book', form);
+            setAppointments((prevAppointments) => [...prevAppointments, response.data]);
+        } catch (error) {
+            console.error('Error booking appointment', error);
+        }
+    };
+
+    return (
+        <div>
+            <h1>Book an Appointment</h1>
+            <form onSubmit={handleSubmit}>
+                <input
+                    type="text"
+                    name="clientName"
+                    placeholder="Your Name"
+                    value={form.clientName}
+                    onChange={handleChange}
+                />
+                <input
+                    type="datetime-local"
+                    name="date"
+                    value={form.date}
+                    onChange={handleChange}
+                />
+                <input
+                    type="text"
+                    name="service"
+                    placeholder="Service"
+                    value={form.service}
+                    onChange={handleChange}
+                />
+                <button type="submit">Book</button>
+            </form>
+            <h2>Appointments</h2>
+            <ul>
+                {appointments.map((appointment) => (
+                    <li key={appointment._id}>
+                        {appointment.clientName} - {new Date(appointment.date).toLocaleString()} - {appointment.service} - {appointment.status}
+                    </li>
+                ))}
+            </ul>
+        </div>
+    );
 }
 
-export default App
+export default App;
