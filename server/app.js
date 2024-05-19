@@ -2,11 +2,14 @@ const express = require('express');
 const mongoose = require('mongoose');
 const bodyParser = require('body-parser');
 const appointmentRoutes = require('./routes/appointments');
+const cors = require('cors');
 
 const app = express();
 
 // Middleware
 app.use(bodyParser.json());
+app.use(cors());
+
 
 // Database connection
 mongoose.connect('mongodb://localhost:27017/appointments', {})

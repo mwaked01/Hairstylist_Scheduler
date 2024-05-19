@@ -9,7 +9,8 @@ function App() {
     useEffect(() => {
         async function fetchAppointments() {
             try {
-                const response = await axios.get('/appointments');
+                const response = await axios.get('http://localhost:3000/appointments');
+                console.log('Fetched appointments:', response.data); // Debugging line
                 setAppointments(response.data);
             } catch (error) {
                 console.error('Error fetching appointments', error);
