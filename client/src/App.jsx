@@ -6,11 +6,11 @@ function App() {
     const [appointments, setAppointments] = useState([]);
     const [form, setForm] = useState({ clientName: '', date: '', service: '' });
 
+    //Read data from from server /appointments
     useEffect(() => {
         async function fetchAppointments() {
             try {
                 const response = await axios.get('http://localhost:3000/appointments');
-                console.log('Fetched appointments:', response.data); // Debugging line
                 setAppointments(response.data);
             } catch (error) {
                 console.error('Error fetching appointments', error);
@@ -24,6 +24,7 @@ function App() {
         setForm((prevForm) => ({ ...prevForm, [name]: value }));
     };
 
+    //POST on server /appointemnts/book with new appointment
     const handleSubmit = async (e) => {
         e.preventDefault();
         try {

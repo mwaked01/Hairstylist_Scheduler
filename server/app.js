@@ -1,8 +1,12 @@
 const express = require('express');
 const mongoose = require('mongoose');
 const bodyParser = require('body-parser');
-const appointmentRoutes = require('./routes/appointments');
 const cors = require('cors');
+
+const appointmentRoutes = require('./routes/appointments');
+const clientsRoute = require('./routes/clients');
+
+
 
 const app = express();
 
@@ -12,7 +16,7 @@ app.use(cors());
 
 
 // Database connection
-mongoose.connect('mongodb://localhost:27017/appointments', {})
+mongoose.connect('mongodb://localhost:27017/brookes_scheduler', {})
 .then(() => {
   console.log('MongoDB connected');
 }).catch((error) => {
@@ -22,6 +26,7 @@ mongoose.connect('mongodb://localhost:27017/appointments', {})
 
 // Use routes
 app.use('/appointments', appointmentRoutes);
+app.use('/clients', clientsRoute);
 
 const PORT = process.env.PORT || 3000;
 app.listen(PORT, () => {

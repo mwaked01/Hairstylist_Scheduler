@@ -2,6 +2,16 @@ const express = require('express');
 const router = express.Router();
 const Appointment = require('../models/appointment');
 
+// Route to get all appointments
+router.get('/', async (req, res) => {
+    try {
+        const appointments = await Appointment.find();
+        res.status(200).json(appointments);
+    } catch (error) {
+        res.status(500).json({ message: 'Error retrieving appointments', error });
+    }
+});
+
 // Route to book an appointment
 router.post('/book', async (req, res) => {
     const { clientName, date, service } = req.body;
@@ -14,15 +24,6 @@ router.post('/book', async (req, res) => {
     }
 });
 
-// Route to get all appointments
-router.get('/', async (req, res) => {
-    try {
-        const appointments = await Appointment.find();
-        res.status(200).json(appointments);
-    } catch (error) {
-        res.status(500).json({ message: 'Error retrieving appointments', error });
-    }
-});
 
 // Route to update an appointment
 router.put('/:id', async (req, res) => {
