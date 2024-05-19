@@ -27,7 +27,7 @@ function App() {
     const handleSubmit = async (e) => {
         e.preventDefault();
         try {
-            const response = await axios.post('/book', form);
+            const response = await axios.post('http://localhost:3000/appointments/book', form);
             setAppointments((prevAppointments) => [...prevAppointments, response.data]);
         } catch (error) {
             console.error('Error booking appointment', error);
