@@ -1,5 +1,6 @@
 const mongoose = require("mongoose");
 const Client = require("../models/client");
+const {Appointment} = require('../models/appointment');
 
 mongoose
   .connect("mongodb://localhost:27017/brookes_scheduler", {})
@@ -7,9 +8,10 @@ mongoose
     console.log("MongoDB connected");
   })
   .catch((error) => {
-    console.error("Error connecting to MongoDB", error.message);
     process.exit(1); // Exit the process if connection fails
   });
+
+const seedAppointments = require("./appointments");
 
 const seedClients = [
   {
@@ -17,18 +19,8 @@ const seedClients = [
     phone: "555-555-5555",
     email: "john.doe@example.com",
     appointments: [
-      {
-        date: new Date(),
-        service: "Haircut",
-        status: "booked",
-        notes: "First appointment",
-      },
-      {
-        date: new Date(),
-        service: "Shave",
-        status: "completed",
-        notes: "Second appointment",
-      },
+      seedAppointments[1],
+      seedAppointments[1],
     ],
   },
   {
@@ -36,12 +28,7 @@ const seedClients = [
     phone: "555-555-5556",
     email: "jane.smith@example.com",
     appointments: [
-      {
-        date: new Date(),
-        service: "Haircut",
-        status: "booked",
-        notes: "First appointment",
-      },
+      seedAppointments[2],
     ],
   },
 ];
@@ -49,7 +36,9 @@ const seedClients = [
 const seedDatabase = async () => {
   try {
     await Client.deleteMany(); // Clear existing clients
+    await Appointment.deleteMany(); // Clear existing appointments
     await Client.insertMany(seedClients); // Insert the new seed data
+    await Appointment.insertMany(seedAppointments);
     console.log("Database seeded successfully");
   } catch (error) {
     console.error("Error seeding database", error.message);

@@ -3,20 +3,20 @@ import React, { useState, useEffect } from 'react';
 import axios from 'axios';
 
 function App() {
-    const [appointments, setAppointments] = useState([]);
+    const [clients, setClients] = useState([]);
     const [form, setForm] = useState({ clientName: '', date: '', service: '' });
 
-    //Read data from from server /appointments
+    //Read data from from server /clients
     useEffect(() => {
-        async function fetchAppointments() {
+        async function fetchClients() {
             try {
-                const response = await axios.get('http://localhost:3000/appointments');
-                setAppointments(response.data);
+                const response = await axios.get('http://localhost:3000/clients');
+                setClients(response.data);
             } catch (error) {
-                console.error('Error fetching appointments', error);
+                console.error('Error fetching clients info', error);
             }
         }
-        fetchAppointments();
+        fetchClients();
     }, []);
 
     const handleChange = (e) => {
@@ -61,11 +61,11 @@ function App() {
                 />
                 <button type="submit">Book</button>
             </form>
-            <h2>Appointments</h2>
+            <h2>Clients</h2>
             <ul>
-                {appointments.map((appointment) => (
-                    <li key={appointment._id}>
-                        {appointment.clientName} - {new Date(appointment.date).toLocaleString()} - {appointment.service} - {appointment.status}
+                {clients.map((client) => (
+                    <li key={client._id}>
+                        {client.name} - {client.phone} - {client.email} -{client.appointments.length} 
                     </li>
                 ))}
             </ul>
