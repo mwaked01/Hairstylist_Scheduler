@@ -29,12 +29,15 @@ const generateTimeSlots = () => {
   return slots;
 };
 
-
-
 const TimePicker = (props) => {
-
+  const {date} = props;
   const [slots, setSlots] = useState(generateTimeSlots());
 
+  const months = [
+    'January', 'February', 'March', 'April', 'May', 'June',
+    'July', 'August', 'September', 'October', 'November', 'December'
+  ];
+  
   useEffect(() => {
     const fetchAppointments = async () => {
       try {
@@ -61,6 +64,7 @@ const TimePicker = (props) => {
 
   return (
     <div>
+      <h2>{months[date.$M]} {date.$D}, {date.$y}</h2>
       <div className='slots'>
         {slots.map(slot => (
           <div key={slot} className='slot'>

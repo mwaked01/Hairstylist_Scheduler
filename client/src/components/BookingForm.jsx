@@ -8,14 +8,18 @@ const BookingForm = (props) => {
 
   return (
     <div>
-      {/* {formSection === 'Date' ?
+      {formSection === 'Date' ?
         <Calendar
           date={date}
           setDate={setDate}
           setFormSection={setFormSection}
-        />:<p>nothing</p>
-      } */}
-<TimePicker/>
+        />:formSection === 'Time' ? 
+        <TimePicker
+        date={date}
+        />:
+        <p>none</p>
+      }
+
     </div>
   )
 }
