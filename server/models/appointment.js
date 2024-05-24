@@ -1,33 +1,35 @@
-const mongoose = require('mongoose');
+const mongoose = require("mongoose");
 
-const appointmentSchema = new mongoose.Schema({
+const appointmentSchema = new mongoose.Schema(
+  {
     date: {
-        type: Date,
-        required: true,
+      type: Date,
+      required: true,
     },
     service: {
-        type: String,
-        required: true,
+      type: String,
+      required: true,
     },
     status: {
-        type: String,
-        required: true,
-        enum: ['booked', 'completed', 'cancelled'],
-        default: 'booked',
+      type: String,
+      required: true,
+      enum: ["booked", "completed", "cancelled"],
+      default: "booked",
     },
-    notes: {
-        type: String,
-        default: '',
+    clientNotes: {
+      type: String,
+      default: "",
     },
-}, {
+    stylistNotes: {
+      type: String,
+      default: "",
+    },
+  },
+  {
     timestamps: true,
-});
+  }
+);
 
+const Appointment = mongoose.model("Appointment", appointmentSchema);
 
-
-const Appointment = mongoose.model('Appointment', appointmentSchema);
-
-module.exports = {
-    Appointment,
-    appointmentSchema
-};
+module.exports = Appointment;

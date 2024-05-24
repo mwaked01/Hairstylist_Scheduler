@@ -1,23 +1,27 @@
-
 const seedAppointments = [
   {
-    date: new Date(),
+    _id: "6649a22a353d5e20ec2414f7",
+    date: new Date(2024, 5, 23, 14, 15),
     service: "Haircut",
-    status: "booked",
-    notes: "First appointment",
-  },
-  {
-    date: new Date(),
-    service: "Shave",
     status: "completed",
-    notes: "Second appointment",
+    clientNotes: "I want red hair",
+    stylistNotes: "First appointment",
   },
-
   {
-    date: new Date(),
-    service: "Haircut",
+    _id: "6649a22a353d5e20ec2414f8",
+    date: new Date(2024, 6, 2, 13, 30),
+    service: "Shave",
     status: "booked",
-    notes: "First appointment",
+    clientNotes: "I want clean shave",
+    stylistNotes: "second appointment",
+  },
+  {
+    _id: "6649a22a353d5e20ec2414f9",
+    date: new Date(2024, 6, 10, 12, 0),
+    service: "Haircut",
+    status: "completed",
+    clientNotes: "I want short hair",
+    stylistNotes: "First appointment",
   },
 ];
 

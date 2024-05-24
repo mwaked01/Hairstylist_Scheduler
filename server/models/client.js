@@ -1,9 +1,12 @@
 const mongoose = require("mongoose");
-const { appointmentSchema } = require("./appointment");
 
 const clientSchema = new mongoose.Schema(
   {
-    name: {
+    firstName: {
+      type: String,
+      required: true,
+    },
+    lastName: {
       type: String,
       required: true,
     },
@@ -15,7 +18,12 @@ const clientSchema = new mongoose.Schema(
       type: String,
       required: true,
     },
-    appointments: [appointmentSchema],
+    appointments: [
+      {
+        type: mongoose.Schema.Types.ObjectId,
+        ref: "Appointment",
+      },
+    ],
   },
   {
     timestamps: true,

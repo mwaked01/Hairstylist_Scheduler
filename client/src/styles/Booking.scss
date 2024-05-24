@@ -1,0 +1,25 @@
+#month{
+  margin: 1em;
+}
+
+.days-slots{
+  display: flex;
+}
+
+.days{
+  display: flex;
+  flex-direction: column;
+  width: 30vw;
+}
+.slots{
+  display: flex;
+  flex-direction: column;
+  // border: solid;
+  width: 90vw;
+}
+
+.slot{
+  border: solid;
+  padding: .5em;
+  margin: .5em;
+}
