@@ -30,14 +30,22 @@ const generateTimeSlots = () => {
 };
 
 const TimePicker = (props) => {
-  const {date} = props;
+  const { date, setFormSection } = props;
   const [slots, setSlots] = useState(generateTimeSlots());
+  const [time, setTime] = useState('08:00 Am');
+
 
   const months = [
     'January', 'February', 'March', 'April', 'May', 'June',
     'July', 'August', 'September', 'October', 'November', 'December'
   ];
-  
+
+  const handleSelectTime = (newTime) => {
+    setTime(newTime)
+    setFormSection('Time')
+    console.log(newTime)
+  }
+
   useEffect(() => {
     const fetchAppointments = async () => {
       try {
@@ -46,7 +54,7 @@ const TimePicker = (props) => {
         // Extract time part from each appointment's date
         const takenTimes = appointments.map(appointment => {
           const time = new Date(appointment.date).toLocaleTimeString('en-US', { hour: '2-digit', minute: '2-digit', hour12: true });
-          console.log(time)
+          // console.log(time)
           return time;
         });
 
@@ -67,12 +75,11 @@ const TimePicker = (props) => {
       <h2>{months[date.$M]} {date.$D}, {date.$y}</h2>
       <div className='slots'>
         {slots.map(slot => (
-          <div key={slot} className='slot'>
-            <div>{slot}</div>
+          <div key={slot} className='slot' onClick={() => { handleSelectTime(slot) }}>
+            {slot}
           </div>
         ))}
       </div>
-
     </div>
   );
 };

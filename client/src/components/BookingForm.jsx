@@ -13,11 +13,12 @@ const BookingForm = (props) => {
           date={date}
           setDate={setDate}
           setFormSection={setFormSection}
-        />:formSection === 'Time' ? 
-        <TimePicker
-        date={date}
-        />:
-        <p>none</p>
+        /> : formSection === 'Time' ?
+          <TimePicker
+            date={date}
+            setFormSection={setFormSection}
+          /> :
+          <p>none</p>
       }
 
     </div>
