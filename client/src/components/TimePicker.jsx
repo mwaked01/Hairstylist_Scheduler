@@ -30,9 +30,8 @@ const generateTimeSlots = () => {
 };
 
 const TimePicker = (props) => {
-  const { date, setFormSection } = props;
+  const { setTime, date, setFormSection } = props;
   const [slots, setSlots] = useState(generateTimeSlots());
-  const [time, setTime] = useState('08:00 Am');
 
 
   const months = [
@@ -42,8 +41,8 @@ const TimePicker = (props) => {
 
   const handleSelectTime = (newTime) => {
     setTime(newTime)
-    setFormSection('Time')
-    console.log(newTime)
+    setFormSection('ClientInfo')
+    // console.log(newTime)
   }
 
   useEffect(() => {
