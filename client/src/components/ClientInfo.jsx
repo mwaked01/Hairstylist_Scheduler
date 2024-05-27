@@ -11,21 +11,11 @@ import InputLabel from '@mui/material/InputLabel';
 import FormControl from '@mui/material/FormControl';
 
 const ClientInfo = (props) => {
-  const { time, date, setFormSection } = props;
-  const [client, setClient] = useState({
-    firstName: '',
-    lastName: '',
-    email: '',
-    phone: '',
-    service: '',
-    message: ''
-  });
-
+  const { client, setClient, handleSubmit, setFormSection, appointmentDate, setAppointmentDate } = props;
   const months = [
     'January', 'February', 'March', 'April', 'May', 'June',
     'July', 'August', 'September', 'October', 'November', 'December'
   ];
-
   useEffect(() => {
     const fetchClients = async () => {
       try {
@@ -53,15 +43,9 @@ const ClientInfo = (props) => {
     }));
   };
 
-  const handleSubmit = (e) => {
-    e.preventDefault();
-    // Add form submission logic here, e.g., sending data to the backend
-    console.log('Client information submitted:', client);
-  };
-
   return (
     <div>
-      <h2>{months[date.$M]} {date.$D}, {date.$y} at {time}</h2>
+      <h2>{months[appointmentDate.month]} {appointmentDate.day}, {appointmentDate.year} at {appointmentDate.time}</h2>
       <form onSubmit={handleSubmit} className='client-form'>
         <div className='client-form-input'>
           <section >
@@ -99,9 +83,9 @@ const ClientInfo = (props) => {
                   value={client.service}
                   onChange={handleChange}
                 >
-                  <MenuItem value="service1">Hair Cut</MenuItem>
-                  <MenuItem value="service2">Color</MenuItem>
-                  <MenuItem value="service3">Style</MenuItem>
+                  <MenuItem value="Hair Cut">Hair Cut</MenuItem>
+                  <MenuItem value="Color">Color</MenuItem>
+                  <MenuItem value="Style">Style</MenuItem>
                 </Select>
               </div>
             </FormControl>
@@ -132,13 +116,13 @@ const ClientInfo = (props) => {
             <div className='input'>
               <TextField
                 fullWidth
-                id="message"
+                id="clientNotes"
                 multiline
                 rows={4}
                 label="Additional Notes"
                 variant="filled"
-                name="message"
-                value={client.message}
+                name="clientNotes"
+                value={client.clientNotes}
                 onChange={handleChange}
               />
             </div>

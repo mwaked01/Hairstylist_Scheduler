@@ -30,18 +30,18 @@ const generateTimeSlots = () => {
 };
 
 const TimePicker = (props) => {
-  const { setTime, date, setFormSection } = props;
+  const {setFormSection, appointmentDate, setAppointmentDate } = props;
   const [slots, setSlots] = useState(generateTimeSlots());
-
-
   const months = [
     'January', 'February', 'March', 'April', 'May', 'June',
     'July', 'August', 'September', 'October', 'November', 'December'
   ];
-
   const handleSelectTime = (newTime) => {
-    setTime(newTime)
     setFormSection('ClientInfo')
+    setAppointmentDate((prevAppointmentDate) => ({
+      ...prevAppointmentDate,
+      time: newTime
+    }));
     // console.log(newTime)
   }
 
@@ -71,7 +71,7 @@ const TimePicker = (props) => {
 
   return (
     <div>
-      <h2>{months[date.$M]} {date.$D}, {date.$y}</h2>
+      <h2>{months[appointmentDate.month]} {appointmentDate.day}, {appointmentDate.year}</h2>
       <div className='slots'>
         {slots.map(slot => (
           <div key={slot} className='slot' onClick={() => { handleSelectTime(slot) }}>

@@ -28,7 +28,16 @@ const ClientList = (props) => {
             <ul>
               {client.appointments.map((appointment) => (
                 <li key={appointment._id}>
-                  {new Date(appointment.date).toLocaleDateString()} - {appointment.service} - {appointment.notes}
+                  {
+                    new Date(appointment.date).toLocaleString('en-US', {
+                      timeZone: 'America/Toronto', // Set the time zone to EDT
+                      hour12: true, // Use 12-hour format
+                      year: 'numeric',
+                      month: 'short',
+                      day: 'numeric',
+                      hour: 'numeric',
+                      minute: '2-digit'
+                    })} - {appointment.service} - {appointment.notes}
                 </li>
               ))}
             </ul>

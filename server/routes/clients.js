@@ -1,36 +1,53 @@
 const express = require("express");
 const router = express.Router();
 const Client = require("../models/client");
+const Appointment = require("../models/appointment");
 
 // Route to get all clients
-router.get('/', async (req, res) => {
-    try {
-        const clients = await Client.find().populate('appointments');
-        res.status(200).json(clients);
-    } catch (error) {
-        res.status(500).json({ message: 'Error retrieving clients', error });
-    }
+router.get("/", async (req, res) => {
+  try {
+    const clients = await Client.find().populate("appointments");
+    res.status(200).json(clients);
+  } catch (error) {
+    res.status(500).json({ message: "Error retrieving clients", error });
+  }
 });
 
-// Route to book an appointment
-router.post("/book", async (req, res) => {
-  const { clientName, date, service } = req.body;
-  const newAppointment = { date, service, status: "booked" };
+// Route to add a new client
+router.post("/", async (req, res) => {
+  const {
+    firstName,
+    lastName,
+    email,
+    phone,
+    service,
+    clientNotes,
+    appointment,
+  } = req.body;
   try {
-    // Find if the client already exists
-    let client = await Client.findOne({ clientName });
+    const newAppointment = new Appointment({
+      date: appointment.date,
+      service: appointment.service,
+      status: appointment.status,
+      clientNotes: appointment.clientNotes,
+    });
 
-    if (client) {
-      // Add the new appointment to the existing client
-      client.appointments.push(newAppointment);
-    } else {
-      // Create a new client with the appointment
-      console.log(clientName);
-    }
-    const savedClient = await client.save();
-    res.status(201).json(savedClient);
+    await newAppointment.save();
+
+    const newClient = new Client({
+      firstName,
+      lastName,
+      email,
+      phone,
+      appointments: [newAppointment._id],
+    });
+
+    await newClient.save();
+    res.status(201).json({ client: newClient, appointment: newAppointment });
   } catch (error) {
-    res.status(500).json({ message: "Error booking appointment", error });
+    res
+      .status(500)
+      .json({ message: "Error creating client or appointment", error });
   }
 });
 

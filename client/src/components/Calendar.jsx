@@ -4,9 +4,18 @@ import { DateCalendar } from '@mui/x-date-pickers/DateCalendar';
 import dayjs from 'dayjs';
 
 const Calendar = (props) => {
-  const { date, setDate, setFormSection } = props;
+  const { date, setDate, setFormSection, setAppointmentDate } = props;
+
+  
   const handleSelectDay = (newDate) => {
     setDate(newDate)
+    setAppointmentDate({
+      year: newDate.$y,
+      month: newDate.$M,
+      day: newDate.$D,
+      time: ""
+    });
+    // console.log(`${newDate.$M} ${newDate.$D}, ${newDate.$y}`)
     setFormSection('Time')
   }
 
