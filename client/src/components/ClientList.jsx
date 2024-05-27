@@ -24,7 +24,7 @@ const ClientList = (props) => {
       <ul>
         {clients.map((client) => (
           <li key={client._id}>
-            {client.name} - {client.phone} - {client.email}
+            {client.firstName}  {client.lastName} - {client.phone} - {client.email}
             <ul>
               {client.appointments.map((appointment) => (
                 <li key={appointment._id}>
@@ -37,7 +37,7 @@ const ClientList = (props) => {
                       day: 'numeric',
                       hour: 'numeric',
                       minute: '2-digit'
-                    })} - {appointment.service} - {appointment.notes}
+                    })} - {appointment.service} - {appointment.clientNotes}
                 </li>
               ))}
             </ul>

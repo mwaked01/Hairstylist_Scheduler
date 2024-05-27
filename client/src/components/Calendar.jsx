@@ -23,6 +23,12 @@ const Calendar = (props) => {
     return day.day() === 0; // 0 is Sunday
   };
 
+  const handleChange = (newValue, selectionState, selectedView) => {
+    if (selectedView === 'day') {
+      handleSelectDay(newValue);
+    }
+  };
+
   return (
     <LocalizationProvider dateAdapter={AdapterDayjs}>
       <DateCalendar
@@ -30,7 +36,7 @@ const Calendar = (props) => {
         maxDate={dayjs(`${new Date().getFullYear() + 1},${new Date().getMonth()},${new Date().getDate()}`)}
         disablePast
         shouldDisableDate={shouldDisableDate}
-        onChange={(newValue) => handleSelectDay(newValue)}
+        onChange={handleChange}
       />
     </LocalizationProvider>
   );

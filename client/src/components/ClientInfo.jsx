@@ -16,6 +16,7 @@ const ClientInfo = (props) => {
     'January', 'February', 'March', 'April', 'May', 'June',
     'July', 'August', 'September', 'October', 'November', 'December'
   ];
+  //to do: search if client email input is in db
   useEffect(() => {
     const fetchClients = async () => {
       try {
