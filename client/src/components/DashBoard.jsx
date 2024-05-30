@@ -11,7 +11,7 @@ const DashBoard = () => {
   const [clientSelected, setClientSelected] = useState("");
   const [searchQuery, setSearchQuery] = useState('');
   const [searchDate, setSearchDate] = useState(format(currentDate, 'yyyy-MM-dd'));
-
+  const [sortBY, setSortBy] = useState('Date')
   useEffect(() => {
     fetchAppointments(currentDate);
   }, [currentDate]);
@@ -40,6 +40,7 @@ const DashBoard = () => {
       const response = await axios.get(`http://localhost:8080/api/clients/search?query=${searchQuery}`);
       setAppointments(Array.isArray(response.data[0].appointments) ? response.data[0].appointments : [])
       setClientSelected(response.data[0])
+      setSortBy('Client')
     } catch (error) {
       console.error('Error searching clients:', error);
     }
@@ -48,9 +49,8 @@ const DashBoard = () => {
   const handleDateSearch = () => {
     const date = new Date(searchDate);
     setCurrentDate(addDays(date, 1));
+    setSortBy('Date')
   };
-
-
 
   return (
     <section>
@@ -71,18 +71,17 @@ const DashBoard = () => {
         />
         <button onClick={handleDateSearch}>Search by Date</button>
       </div>
-      {/*       
-      <AppointmentsByClient
-        appointments={appointments}
-        client={clientSelected}
-      /> */}
-
-      <AppointmentsByDate
-        appointments={appointments}
-        currentDate={currentDate}
-        setCurrentDate={setCurrentDate}
-      />
-
+      {sortBY === 'Date' ?
+        <AppointmentsByDate
+          appointments={appointments}
+          currentDate={currentDate}
+          setCurrentDate={setCurrentDate}
+        /> : sortBY === 'Client' ?
+          <AppointmentsByClient
+            appointments={appointments}
+            client={clientSelected}
+          /> : <p>Nothing to Show</p>
+      }
     </section>
   );
 };

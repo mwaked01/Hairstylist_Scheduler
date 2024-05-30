@@ -1,7 +1,6 @@
 
 const AppointmentsByClient = (props) => {
   const { appointments, client } = props;
-  console.log(appointments)
   return (
     <section>
 
