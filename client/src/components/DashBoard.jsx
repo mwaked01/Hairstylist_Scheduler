@@ -33,8 +33,8 @@ const DashBoard = () => {
 
   const handleSearch = async () => {
     try {
-      const response = await axios.get(`/api/clients/search?query=${searchQuery}`);
-      // Process the response as needed
+      const response = await axios.get(`http://localhost:8080/api/clients/search?query=${searchQuery}`);
+      setAppointments(Array.isArray(response.data[0].appointments)? response.data[0].appointments : [])
     } catch (error) {
       console.error('Error searching clients:', error);
     }
