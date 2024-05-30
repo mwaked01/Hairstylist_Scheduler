@@ -2,13 +2,9 @@ import { useState, useEffect } from 'react';
 import axios from 'axios';
 import { format, addDays, subDays, startOfToday } from 'date-fns';
 
-import AppointmentsByDate from './DashBoard_Components/AppointmentsByDate';
-import AppointmentsByClient from './DashBoard_Components/AppointmentsByClient';
-
-const DashBoard = () => {
+const AppointmentsByDate = () => {
   const [currentDate, setCurrentDate] = useState(new Date());
   const [appointments, setAppointments] = useState([]);
-  const [clientSelected, setClientSelected] = useState("");
   const [searchQuery, setSearchQuery] = useState('');
   const [searchDate, setSearchDate] = useState(format(currentDate, 'yyyy-MM-dd'));
 
@@ -38,8 +34,7 @@ const DashBoard = () => {
   const handleSearch = async () => {
     try {
       const response = await axios.get(`http://localhost:8080/api/clients/search?query=${searchQuery}`);
-      setAppointments(Array.isArray(response.data[0].appointments) ? response.data[0].appointments : [])
-      setClientSelected(response.data[0])
+      setAppointments(Array.isArray(response.data[0].appointments)? response.data[0].appointments : [])
     } catch (error) {
       console.error('Error searching clients:', error);
     }
@@ -77,11 +72,7 @@ const DashBoard = () => {
         />
         <button onClick={handleDateSearch}>Search by Date</button>
       </div>
-      <AppointmentsByClient
-        appointments={appointments}
-        client={clientSelected}
-      />
-      {/* <div>
+      <div>
         <button onClick={navigateToPreviousDay}>Previous Day</button>
         <h2>
           {format(currentDate, 'yyyy-MM-dd')}
@@ -104,9 +95,9 @@ const DashBoard = () => {
         ) : (
           <p>No appointments for this date.</p>
         )}
-      </div> */}
+      </div>
     </section>
   );
 };
 
-export default DashBoard;
+export default AppointmentsByDate;
