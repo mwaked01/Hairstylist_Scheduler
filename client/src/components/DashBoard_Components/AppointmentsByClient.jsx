@@ -1,5 +1,3 @@
-import { useState, useEffect } from 'react';
-
 
 const AppointmentsByClient = (props) => {
   const { appointments, client } = props;
@@ -26,7 +24,7 @@ const AppointmentsByClient = (props) => {
             </div>
           ))
         ) : (
-          <p>No appointments for this date.</p>
+          <p>No appointments found for this client.</p>
         )}
       </div>
     </section>

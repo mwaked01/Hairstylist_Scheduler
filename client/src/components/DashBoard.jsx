@@ -35,7 +35,7 @@ const DashBoard = () => {
     setSearchDate(e.target.value);
   };
 
-  const handleSearch = async () => {
+  const handleClientSearch = async () => {
     try {
       const response = await axios.get(`http://localhost:8080/api/clients/search?query=${searchQuery}`);
       setAppointments(Array.isArray(response.data[0].appointments) ? response.data[0].appointments : [])
@@ -50,13 +50,7 @@ const DashBoard = () => {
     setCurrentDate(addDays(date, 1));
   };
 
-  const navigateToNextDay = () => {
-    setCurrentDate(addDays(currentDate, 1));
-  };
 
-  const navigateToPreviousDay = () => {
-    setCurrentDate(subDays(currentDate, 1));
-  };
 
   return (
     <section>
@@ -67,7 +61,7 @@ const DashBoard = () => {
           value={searchQuery}
           onChange={(e) => setSearchQuery(e.target.value)}
         />
-        <button onClick={handleSearch}>Search</button>
+        <button onClick={handleClientSearch}>Search</button>
       </div>
       <div>
         <input
@@ -77,34 +71,18 @@ const DashBoard = () => {
         />
         <button onClick={handleDateSearch}>Search by Date</button>
       </div>
+      {/*       
       <AppointmentsByClient
         appointments={appointments}
         client={clientSelected}
-      />
-      {/* <div>
-        <button onClick={navigateToPreviousDay}>Previous Day</button>
-        <h2>
-          {format(currentDate, 'yyyy-MM-dd')}
-        </h2>
-        <button onClick={navigateToNextDay}>Next Day</button>
-      </div>
-      <div>
-        {appointments.length > 0 ? (
-          appointments.sort((a, b) => new Date(a.date) - new Date(b.date)).map((appointment) => (
-            <div key={appointment._id}>
-              <p>Time: {appointment.time}</p>
-              <p>Client: {appointment.client.firstName} {appointment.client.lastName}</p>
-              <p>Service: {appointment.service}</p>
-              <p>Status: {appointment.status}</p>
-              <p>Client Notes: {appointment.clientNotes}</p>
-              <p>Stylist Notes: {appointment.stylisttNotes}</p>
+      /> */}
 
-            </div>
-          ))
-        ) : (
-          <p>No appointments for this date.</p>
-        )}
-      </div> */}
+      <AppointmentsByDate
+        appointments={appointments}
+        currentDate={currentDate}
+        setCurrentDate={setCurrentDate}
+      />
+
     </section>
   );
 };
