@@ -6,12 +6,12 @@ import dayjs from 'dayjs';
 const Calendar = (props) => {
   const { date, setDate, setFormSection, setAppointmentDate } = props;
 
-  
+
   const handleSelectDay = (newDate) => {
     setDate(newDate)
     setAppointmentDate({
       year: newDate.$y,
-      month: newDate.$M,
+      month: newDate.$M < 10 ? `0${newDate.$M + 1}` : `${newDate.$M + 1}`,
       day: newDate.$D,
       time: ""
     });

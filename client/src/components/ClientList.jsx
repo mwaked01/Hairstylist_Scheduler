@@ -8,7 +8,7 @@ const ClientList = (props) => {
   useEffect(() => {
     async function fetchClients() {
       try {
-        const response = await axios.get('http://localhost:3000/clients');
+        const response = await axios.get('http://localhost:3000/api/clients');
         setClients(response.data);
       } catch (error) {
         console.error('Error fetching clients info', error);

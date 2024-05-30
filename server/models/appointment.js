@@ -3,7 +3,11 @@ const mongoose = require("mongoose");
 const appointmentSchema = new mongoose.Schema(
   {
     date: {
-      type: Date,
+      type: String,
+      required: true,
+    },
+    time: {
+      type: String,
       required: true,
     },
     service: {
@@ -15,6 +19,11 @@ const appointmentSchema = new mongoose.Schema(
       required: true,
       enum: ["booked", "completed", "cancelled"],
       default: "booked",
+    },
+    client: {
+      type: mongoose.Schema.Types.ObjectId,
+      ref: "Client",
+      // required: true,
     },
     clientNotes: {
       type: String,

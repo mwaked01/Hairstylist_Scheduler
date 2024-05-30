@@ -5,6 +5,7 @@ import NavBar from './components/NavBar';
 import Home from './components/Home';
 import ClientList from './components/ClientList'
 import BookingForm from './components/BookingForm';
+import DashBoard from './components/DashBoard';
 
 import "./App.css"
 
@@ -17,7 +18,7 @@ function App() {
           <Routes>
             <Route path="/Booking" element={<BookingForm />} />
 
-            <Route path="/ClientList" element={<ClientList />} />
+            <Route path="/ClientList" element={<DashBoard />} />
             <Route path="/" element={<Home />} />
           </Routes>
         </div>

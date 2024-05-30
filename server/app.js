@@ -25,10 +25,10 @@ mongoose.connect('mongodb://localhost:27017/brookes_scheduler', {})
 });
 
 // Use routes
-app.use('/appointments', appointmentRoutes);
-app.use('/clients', clientsRoute);
+app.use('/api/appointments', appointmentRoutes);
+app.use('/api/clients', clientsRoute);
 
-const PORT = process.env.PORT || 3000;
+const PORT = process.env.PORT || 8080;
 app.listen(PORT, () => {
     console.log(`Server is running on port ${PORT}`);
 });

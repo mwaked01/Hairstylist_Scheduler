@@ -2,7 +2,7 @@ const mongoose = require("mongoose");
 
 const seedClients = [
   {
-    _id: new mongoose.Types.ObjectId(),
+    _id: "6656b532de3c39f2712d0ba3",
     firstName: "John",
     lastName: "Doe",
     phone: "555-555-5555",
@@ -13,7 +13,7 @@ const seedClients = [
     ],
   },
   {
-    _id: new mongoose.Types.ObjectId(),
+    _id: "6656b532de3c39f2712d0ba4",
     firstName: "Jane",
     lastName: "Smith",
     phone: "555-555-5556",

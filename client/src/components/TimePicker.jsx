@@ -30,7 +30,7 @@ const generateTimeSlots = () => {
 };
 
 const TimePicker = (props) => {
-  const {setFormSection, appointmentDate, setAppointmentDate } = props;
+  const { setFormSection, appointmentDate, setAppointmentDate } = props;
   const [slots, setSlots] = useState(generateTimeSlots());
   const months = [
     'January', 'February', 'March', 'April', 'May', 'June',
@@ -48,18 +48,16 @@ const TimePicker = (props) => {
   useEffect(() => {
     const fetchAppointments = async () => {
       try {
-        const response = await axios.get('http://localhost:3000/appointments/dates');
+        const response = await axios.get(`http://localhost:8080/api/appointments/?date=${appointmentDate.year}-${appointmentDate.month}-${appointmentDate.day}`);
         const appointments = response.data;
         // Extract time part from each appointment's date
         const takenTimes = appointments.map(appointment => {
-          const time = new Date(appointment.date).toLocaleTimeString('en-US', { hour: '2-digit', minute: '2-digit', hour12: true });
-          // console.log(time)
+          const time = appointment.time;
           return time;
         });
 
         // Filter out taken times from slots
         const filteredSlots = slots.filter(slot => !takenTimes.includes(slot));
-
         setSlots(filteredSlots);
       } catch (error) {
         console.error('Error fetching appointments:', error);
@@ -71,7 +69,7 @@ const TimePicker = (props) => {
 
   return (
     <div>
-      <h2>{months[appointmentDate.month]} {appointmentDate.day}, {appointmentDate.year}</h2>
+      <h2>{months[appointmentDate.month-1]} {appointmentDate.day}, {appointmentDate.year}</h2>
       <div className='slots'>
         {slots.map(slot => (
           <div key={slot} className='slot' onClick={() => { handleSelectTime(slot) }}>

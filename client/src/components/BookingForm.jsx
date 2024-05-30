@@ -49,12 +49,13 @@ const BookingForm = (props) => {
     try {
       // console.log(formatDateToISOString(appointmentDate))
       const appointment = {
-        date: formatDateToISOString(appointmentDate),
+        date: `${appointmentDate.year}-${appointmentDate.month}-${appointmentDate.day}`,
+        time: appointmentDate.time,
         service: client.service,
         status: "booked",
         clientNotes: client.clientNotes
       };
-      const response = await axios.post('http://localhost:3000/clients', { ...client, appointment });
+      const response = await axios.post('http://localhost:8080/api/clients', { ...client, appointment });
       console.log('Client information submitted:', response.data);
     } catch (error) {
       console.error('Error submitting client information:', error);

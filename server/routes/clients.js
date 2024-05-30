@@ -13,6 +13,24 @@ router.get("/", async (req, res) => {
   }
 });
 
+// Route to search clients by name, email, or phone number
+router.get("/search", async (req, res) => {
+  const { query } = req.query;
+  try {
+    const clients = await Client.find({
+      $or: [
+        { firstName: { $regex: query, $options: "i" } },
+        { lastName: { $regex: query, $options: "i" } },
+        { email: { $regex: query, $options: "i" } },
+        { phone: { $regex: query, $options: "i" } },
+      ],
+    }).populate("appointments");
+    res.status(200).json(clients);
+  } catch (error) {
+    res.status(500).json({ message: "Error searching clients", error });
+  }
+});
+
 // Route to add a new client
 router.post("/", async (req, res) => {
   const {
@@ -20,13 +38,13 @@ router.post("/", async (req, res) => {
     lastName,
     email,
     phone,
-    service,
-    clientNotes,
     appointment,
   } = req.body;
+
   try {
     const newAppointment = new Appointment({
       date: appointment.date,
+      time: appointment.time,
       service: appointment.service,
       status: appointment.status,
       clientNotes: appointment.clientNotes,
@@ -41,7 +59,8 @@ router.post("/", async (req, res) => {
       phone,
       appointments: [newAppointment._id],
     });
-
+    newAppointment.client = newClient._id
+    await newAppointment.save();
     await newClient.save();
     res.status(201).json({ client: newClient, appointment: newAppointment });
   } catch (error) {
@@ -50,38 +69,5 @@ router.post("/", async (req, res) => {
       .json({ message: "Error creating client or appointment", error });
   }
 });
-
-// // Route to update an appointment
-// router.put('/:id', async (req, res) => {
-//     const { id } = req.params;
-//     const { clientName, date, service, status } = req.body;
-//     try {
-//         const updatedAppointment = await Appointment.findByIdAndUpdate(
-//             id,
-//             { clientName, date, service, status },
-//             { new: true }
-//         );
-//         if (!updatedAppointment) {
-//             return res.status(404).json({ message: 'Appointment not found' });
-//         }
-//         res.status(200).json(updatedAppointment);
-//     } catch (error) {
-//         res.status(500).json({ message: 'Error updating appointment', error });
-//     }
-// });
-
-// // Route to delete an appointment
-// router.delete('/:id', async (req, res) => {
-//     const { id } = req.params;
-//     try {
-//         const deletedAppointment = await Appointment.findByIdAndDelete(id);
-//         if (!deletedAppointment) {
-//             return res.status(404).json({ message: 'Appointment not found' });
-//         }
-//         res.status(200).json({ message: 'Appointment deleted successfully' });
-//     } catch (error) {
-//         res.status(500).json({ message: 'Error deleting appointment', error });
-//     }
-// });
 
 module.exports = router;
