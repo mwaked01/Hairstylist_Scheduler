@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from 'react';
-import "../styles/Booking.scss"
+import '../../styles/Booking.scss'
 import axios from 'axios';
 
 const generateTimeSlots = () => {

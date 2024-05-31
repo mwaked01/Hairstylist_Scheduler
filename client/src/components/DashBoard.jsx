@@ -1,3 +1,10 @@
+/*
+To Do:
+update client search to look up bu email and phone number
+only on full search query match.
+
+*/
+
 import { useState, useEffect } from 'react';
 import axios from 'axios';
 import { format, addDays, subDays, startOfToday } from 'date-fns';

@@ -1,9 +1,9 @@
 import { useState } from "react";
 import axios from 'axios';
 
-import Calendar from "./Calendar";
-import TimePicker from "./TimePicker";
-import ClientInfo from "./ClientInfo";
+import Calendar from "./BookingFormComponents/Calendar";
+import TimePicker from "./BookingFormComponents/TimePicker";
+import ClientInfo from "./BookingFormComponents/ClientInfo";
 
 const BookingForm = (props) => {
   const [formSection, setFormSection] = useState('Date')
