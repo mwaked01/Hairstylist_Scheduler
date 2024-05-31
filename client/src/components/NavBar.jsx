@@ -17,10 +17,10 @@ const NavBar = (props) => {
         Book an Appointment
       </NavLink>
       <NavLink 
-        to="/ClientList" 
+        to="/Dashboard" 
         className={({ isActive }) => (isActive ? 'active' : '')}
       >
-        Client List
+        Dashboard
       </NavLink>
     </nav>
   );
