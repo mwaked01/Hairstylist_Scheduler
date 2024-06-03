@@ -12,7 +12,7 @@ const Calendar = (props) => {
     setAppointmentDate({
       year: newDate.$y,
       month: newDate.$M < 10 ? `0${newDate.$M + 1}` : `${newDate.$M + 1}`,
-      day: newDate.$D,
+      day: newDate.$D < 10 ? `0${newDate.$D }` : `${newDate.$D}`,
       time: ""
     });
     // console.log(`${newDate.$M} ${newDate.$D}, ${newDate.$y}`)

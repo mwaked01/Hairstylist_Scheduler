@@ -9,7 +9,7 @@ import { useState, useEffect } from 'react';
 import axios from 'axios';
 import { format, addDays, subDays, startOfToday } from 'date-fns';
 
-import AppointmentsByDate from './DashBoard_Components/AppointmentsByDate';
+import AppointmentsByDateList from './DashBoard_Components/AppointmentsByDateList';
 import AppointmentsByClient from './DashBoard_Components/AppointmentsByClient';
 
 const DashBoard = () => {
@@ -79,7 +79,7 @@ const DashBoard = () => {
         <button onClick={handleDateSearch}>Search by Date</button>
       </div>
       {sortBY === 'Date' ?
-        <AppointmentsByDate
+        <AppointmentsByDateList
           appointments={appointments}
           currentDate={currentDate}
           setCurrentDate={setCurrentDate}
