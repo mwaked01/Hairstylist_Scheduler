@@ -5,6 +5,9 @@ import TableContainer from '@mui/material/TableContainer';
 import TableHead from '@mui/material/TableHead';
 import TableRow from '@mui/material/TableRow';
 import { styled } from '@mui/material/styles';
+import Button from '@mui/material/Button';
+
+import CalendarMonthOutlinedIcon from '@mui/icons-material/CalendarMonthOutlined';
 
 import AppointmentsByClientItem from "./AppointmentsByClientItem";
 
@@ -22,7 +25,7 @@ const StyledTableCell = styled(TableCell)(({ theme }) => ({
 
 
 const AppointmentsByClientList = (props) => {
-  const { appointments, client } = props;
+  const { appointments, client, setSortBy } = props;
 
   return (
     <section>
@@ -30,6 +33,9 @@ const AppointmentsByClientList = (props) => {
         <h2>
           {client.firstName} {client.lastName}
         </h2>
+        <Button id='appointment-list-btn' endIcon={<CalendarMonthOutlinedIcon />} onClick={() => setSortBy('Date')}>
+          Apointments
+        </Button>
       </div>
       <TableContainer >
         <Table stickyHeader sx={{ minWidth: 700, border: 3, borderColor: "#76c9e5", borderRadius: "10px" }} aria-label="Appointments Table">

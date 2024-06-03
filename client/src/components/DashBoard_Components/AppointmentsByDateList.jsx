@@ -79,9 +79,9 @@ const AppointmentsByDateList = (props) => {
           />
         </LocalizationProvider>
 
-        <Button id='client-list-btn' endIcon={<PeopleOutlineRoundedIcon />} onClick={()=>setSortBy('Client')}>
+        <Button id='client-list-btn' endIcon={<PeopleOutlineRoundedIcon />} onClick={() => setSortBy('Client')}>
           Client List
-          </Button>
+        </Button>
       </header>
 
       <TableContainer >

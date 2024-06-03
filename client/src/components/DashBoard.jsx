@@ -80,6 +80,7 @@ const DashBoard = () => {
           <AppointmentsByClientList
             appointments={appointments}
             client={clientSelected}
+            setSortBy={setSortBy}
           /> : <p>Nothing to Show</p>
       }
     </section>
