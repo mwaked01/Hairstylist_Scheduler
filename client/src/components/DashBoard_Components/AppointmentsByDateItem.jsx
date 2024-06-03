@@ -1,72 +1,58 @@
-import { format, addDays, subDays } from 'date-fns';
-import { DataGrid } from '@mui/x-data-grid';
+import TableBody from '@mui/material/TableBody';
+import TableRow from '@mui/material/TableRow';
+import TableCell, { tableCellClasses } from '@mui/material/TableCell';
+import { styled } from '@mui/material/styles';
 
-const convertTimeToDate = (time) => {
-  const [hoursMinutes, period] = time.split(' ');
-  const [hours, minutes] = hoursMinutes.split(':');
-  const date = new Date();
-  date.setHours(
-    period === 'PM' ? parseInt(hours, 10) % 12 + 12 : parseInt(hours, 10),
-    parseInt(minutes, 10)
-  );
-  return date;
-};
+const StyledTableCell = styled(TableCell)(({ theme }) => ({
+  [`&.${tableCellClasses.head}`]: {
+    backgroundColor: '#76c9e5',
+    color: theme.palette.common.white,
+    fontSize: '1em',
+    fontWeight: "bold",
+  },
+  [`&.${tableCellClasses.body}`]: {
+    fontSize: 14,
+  },
+}));
+
+const StyledTableRow = styled(TableRow)(({ theme }) => ({
+  '&:nth-of-type(odd)': {
+    backgroundColor: theme.palette.action.hover,
+  },
+  // hide last border
+  '&:last-child td, &:last-child th': {
+    border: 0,
+  },
+}));
+
 
 const AppointmentsByDateItem = (props) => {
-  const { appointments, currentDate, setCurrentDate } = props;
-  const navigateToNextDay = () => {
-    setCurrentDate(addDays(currentDate, 1));
-  };
-
-  const navigateToPreviousDay = () => {
-    setCurrentDate(subDays(currentDate, 1));
-  };
-
-  const columns = [
-    { field: 'time', headerName: 'Time' },
-    { field: 'name', headerName: 'Name', width: 150 },
-    { field: 'status', headerName: 'Status' },
-    { field: 'service', headerName: 'Service' },
-    { field: 'clientNotes', headerName: 'Client Notes' },
-    { field: 'stylistNotes', headerName: 'Stylist Notes' },
-  ];
-
-  const rows = appointments.map((appointment) => ({
-    id: appointment._id,
-    time: appointment.time,
-    name: `${appointment.client.firstName} ${appointment.client.lastName}`,
-    service: appointment.service,
-    status: appointment.status,
-    clientNotes: appointment.clientNotes,
-    stylistNotes: appointment.stylistNotes,
-  }));
-
-  rows.sort((a, b) => convertTimeToDate(a.time) - convertTimeToDate(b.time));
-
-  const handleRowClick = (params, event, details) => {
-    console.log('Row clicked:', params.row.id);
-  };
+  const { appointment } = props;
 
   return (
-    <section>
-      <div>
-        <button onClick={navigateToPreviousDay}>Previous Day</button>
-        <h2>
-          {format(currentDate, 'yyyy-MM-dd')}
-        </h2>
-        <button onClick={navigateToNextDay}>Next Day</button>
-      </div>
+    <StyledTableRow
+      key={appointment._id}
+    >
+      <StyledTableCell component="th" scope="row">
+        {appointment.time}
+      </StyledTableCell>
+      <StyledTableCell align="center">
+        {appointment.client.firstName} {appointment.client.lastName}
+      </StyledTableCell>
+      <StyledTableCell align="center">
+        {appointment.service}
+      </StyledTableCell>
+      <StyledTableCell align="center">
+        {appointment.status}
+      </StyledTableCell>
+      <StyledTableCell align="center">
+        {appointment.clientNotes}
+      </StyledTableCell>
+      <StyledTableCell align="center">
+        {appointment.stylistNotes}
+      </StyledTableCell>
+    </StyledTableRow>
 
-      <div style={{ height: 400, width: '100%' }}>
-        <DataGrid
-          rows={rows}
-          columns={columns}
-          // onRowClick={handleRowClick}
-
-        />
-      </div>
-
-    </section>
   );
 };
 

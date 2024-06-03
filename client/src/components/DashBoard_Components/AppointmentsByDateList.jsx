@@ -1,5 +1,4 @@
 import { format, addDays, subDays } from 'date-fns';
-import { DataGrid } from '@mui/x-data-grid';
 import Table from '@mui/material/Table';
 import TableBody from '@mui/material/TableBody';
 import TableCell, { tableCellClasses } from '@mui/material/TableCell';
@@ -7,6 +6,8 @@ import TableContainer from '@mui/material/TableContainer';
 import TableHead from '@mui/material/TableHead';
 import TableRow from '@mui/material/TableRow';
 import { styled } from '@mui/material/styles';
+
+import AppointmentsByDateItem from './AppointmentsByDateItem';
 
 const convertTimeToDate = (time) => {
   const [hoursMinutes, period] = time.split(' ');
@@ -31,15 +32,6 @@ const StyledTableCell = styled(TableCell)(({ theme }) => ({
   },
 }));
 
-const StyledTableRow = styled(TableRow)(({ theme }) => ({
-  '&:nth-of-type(odd)': {
-    backgroundColor: theme.palette.action.hover,
-  },
-  // hide last border
-  '&:last-child td, &:last-child th': {
-    border: 0,
-  },
-}));
 
 const AppointmentsByDateList = (props) => {
   const { appointments, currentDate, setCurrentDate } = props;
@@ -78,19 +70,10 @@ const AppointmentsByDateList = (props) => {
             {appointments.sort((a, b) => {
               return convertTimeToDate(a.time) - convertTimeToDate(b.time);
             }).map((appointment) => (
-              <StyledTableRow
+              <AppointmentsByDateItem
                 key={appointment._id}
-              >
-                <StyledTableCell component="th" scope="row">
-                  {appointment.time}
-                </StyledTableCell>
-                <StyledTableCell align="center">{appointment.client.firstName} {appointment.client.lastName}</StyledTableCell>
-                <StyledTableCell align="center">{appointment.service}</StyledTableCell>
-                <StyledTableCell align="center">{appointment.status}</StyledTableCell>
-                <StyledTableCell align="center">{appointment.clientNotes}</StyledTableCell>
-                <StyledTableCell align="center">{appointment.stylistNotes}</StyledTableCell>
-
-              </StyledTableRow>
+                appointment={appointment}
+              />
             ))}
           </TableBody>
         </Table>
