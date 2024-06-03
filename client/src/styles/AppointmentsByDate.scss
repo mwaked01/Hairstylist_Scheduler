@@ -1,6 +1,8 @@
 .display-date{
   display: flex;
   padding-bottom: .5em;
+  align-items: center;
+  justify-content: space-around;
 }
 
 #date{
@@ -17,4 +19,17 @@
 
 #next_day_btn{
   color: rgb(23, 74, 95);
+}
+
+#date-nav{
+  display: flex;
+}
+
+#client-list-btn{
+  color: white;
+  background-color: #76c9e5; 
+  font-family: "Poetsen One", sans-serif;
+  font-weight: 300;
+  &:hover {
+    color: rgb(23, 74, 95);  }
 }

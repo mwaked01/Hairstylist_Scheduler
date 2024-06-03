@@ -7,7 +7,7 @@ only on full search query match.
 
 import { useState, useEffect } from 'react';
 import axios from 'axios';
-import { format, addDays } from 'date-fns';
+import { format } from 'date-fns';
 
 import AppointmentsByDateList from './DashBoard_Components/AppointmentsByDateList';
 import AppointmentsByClientList from './DashBoard_Components/AppointmentsByClientList';
@@ -40,7 +40,9 @@ const DashBoard = () => {
   };
 
   const handleDateChange = (e) => {
-    setSearchDate(e.target.value);
+    setSearchDate(format(new Date(e), 'yyyy-MM-dd'));
+    setCurrentDate(new Date(e));
+    setSortBy('Date')
   };
 
   const handleClientSearch = async () => {
@@ -54,12 +56,6 @@ const DashBoard = () => {
     }
   };
 
-  const handleDateSearch = () => {
-    const date = new Date(searchDate);
-    setCurrentDate(addDays(date, 1));
-    setSortBy('Date')
-  };
-
   return (
     <section>
       <div>
@@ -71,19 +67,14 @@ const DashBoard = () => {
         />
         <button onClick={handleClientSearch}>Search</button>
       </div>
-      <div>
-        <input
-          type="date"
-          value={searchDate}
-          onChange={handleDateChange}
-        />
-        <button onClick={handleDateSearch}>Search by Date</button>
-      </div>
+
       {sortBY === 'Date' ?
         <AppointmentsByDateList
           appointments={appointments}
           currentDate={currentDate}
           setCurrentDate={setCurrentDate}
+          searchDate={searchDate}
+          handleDateChange={handleDateChange}
         /> : sortBY === 'Client' ?
           <AppointmentsByClientList
             appointments={appointments}

@@ -7,8 +7,15 @@ import TableHead from '@mui/material/TableHead';
 import TableRow from '@mui/material/TableRow';
 import { styled } from '@mui/material/styles';
 import Button from '@mui/material/Button';
+
 import ArrowBackIosRoundedIcon from '@mui/icons-material/ArrowBackIosRounded';
 import ArrowForwardIosRoundedIcon from '@mui/icons-material/ArrowForwardIosRounded';
+import PeopleOutlineRoundedIcon from '@mui/icons-material/PeopleOutlineRounded';
+
+import dayjs from 'dayjs';
+import { AdapterDayjs } from '@mui/x-date-pickers/AdapterDayjs';
+import { LocalizationProvider } from '@mui/x-date-pickers/LocalizationProvider';
+import { DatePicker } from '@mui/x-date-pickers/DatePicker';
 
 import AppointmentsByDateItem from './AppointmentsByDateItem';
 
@@ -39,7 +46,7 @@ const StyledTableCell = styled(TableCell)(({ theme }) => ({
 
 
 const AppointmentsByDateList = (props) => {
-  const { appointments, currentDate, setCurrentDate } = props;
+  const { appointments, currentDate, setCurrentDate, searchDate, handleDateChange } = props;
 
   const navigateToNextDay = () => {
     setCurrentDate(addDays(currentDate, 1));
@@ -52,17 +59,27 @@ const AppointmentsByDateList = (props) => {
   return (
     <section>
       <header className='display-date'>
-        <Button id='prev_day_btn' onClick={navigateToPreviousDay} startIcon={<ArrowBackIosRoundedIcon />}>
-          Prev
-          <br />
-          Day
-        </Button>
-        <h2 id='date'>
-          {format(currentDate, 'yyyy-MM-dd')}
-        </h2>
-        <Button id='next_day_btn' onClick={navigateToNextDay} endIcon={<ArrowForwardIosRoundedIcon />}>
-          Next<br /> Day
-        </Button>
+        <div id='date-nav'>
+          <Button id='prev_day_btn' onClick={navigateToPreviousDay} startIcon={<ArrowBackIosRoundedIcon />}>
+            Prev<br />Day
+          </Button>
+          <h3 id='date'>
+            {format(currentDate, 'yyyy-MM-dd')}
+          </h3>
+          <Button id='next_day_btn' onClick={navigateToNextDay} endIcon={<ArrowForwardIosRoundedIcon />}>
+            Next<br /> Day
+          </Button>
+        </div>
+
+        <LocalizationProvider dateAdapter={AdapterDayjs}>
+          <DatePicker
+            label="Search by Date"
+            value={dayjs(searchDate)}
+            onChange={handleDateChange}
+          />
+        </LocalizationProvider>
+
+        <Button id='client-list-btn' endIcon={<PeopleOutlineRoundedIcon />}>Client List</Button>
       </header>
 
       <TableContainer >
