@@ -1,0 +1,20 @@
+.display-date{
+  display: flex;
+  padding-bottom: .5em;
+}
+
+#date{
+  padding: .5em;
+  font-family: "Poetsen One", sans-serif;
+  font-weight: 300;
+  color: rgb(23, 74, 95);
+
+}
+
+#prev_day_btn{
+  color: rgb(23, 74, 95);
+}
+
+#next_day_btn{
+  color: rgb(23, 74, 95);
+}

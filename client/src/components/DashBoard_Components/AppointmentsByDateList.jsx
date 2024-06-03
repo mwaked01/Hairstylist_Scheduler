@@ -6,8 +6,13 @@ import TableContainer from '@mui/material/TableContainer';
 import TableHead from '@mui/material/TableHead';
 import TableRow from '@mui/material/TableRow';
 import { styled } from '@mui/material/styles';
+import Button from '@mui/material/Button';
+import ArrowBackIosRoundedIcon from '@mui/icons-material/ArrowBackIosRounded';
+import ArrowForwardIosRoundedIcon from '@mui/icons-material/ArrowForwardIosRounded';
 
 import AppointmentsByDateItem from './AppointmentsByDateItem';
+
+import '../../styles/AppointmentsByDate.scss'
 
 const convertTimeToDate = (time) => {
   const [hoursMinutes, period] = time.split(' ');
@@ -46,13 +51,19 @@ const AppointmentsByDateList = (props) => {
 
   return (
     <section>
-      <div>
-        <button onClick={navigateToPreviousDay}>Previous Day</button>
-        <h2>
+      <header className='display-date'>
+        <Button id='prev_day_btn' onClick={navigateToPreviousDay} startIcon={<ArrowBackIosRoundedIcon />}>
+          Prev
+          <br />
+          Day
+        </Button>
+        <h2 id='date'>
           {format(currentDate, 'yyyy-MM-dd')}
         </h2>
-        <button onClick={navigateToNextDay}>Next Day</button>
-      </div>
+        <Button id='next_day_btn' onClick={navigateToNextDay} endIcon={<ArrowForwardIosRoundedIcon />}>
+          Next<br /> Day
+        </Button>
+      </header>
 
       <TableContainer >
         {appointments.length > 0 ? (

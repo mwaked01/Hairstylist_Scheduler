@@ -7,7 +7,7 @@ only on full search query match.
 
 import { useState, useEffect } from 'react';
 import axios from 'axios';
-import { format, addDays, subDays, startOfToday } from 'date-fns';
+import { format, addDays } from 'date-fns';
 
 import AppointmentsByDateList from './DashBoard_Components/AppointmentsByDateList';
 import AppointmentsByClientList from './DashBoard_Components/AppointmentsByClientList';
@@ -19,6 +19,7 @@ const DashBoard = () => {
   const [searchQuery, setSearchQuery] = useState('');
   const [searchDate, setSearchDate] = useState(format(currentDate, 'yyyy-MM-dd'));
   const [sortBY, setSortBy] = useState('Date')
+
   useEffect(() => {
     fetchAppointments(currentDate);
   }, [currentDate]);
