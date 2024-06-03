@@ -1,29 +1,29 @@
-#month{
+#month {
   margin: 1em;
 }
 
-.days-slots{
+.days-slots {
   display: flex;
 }
 
-.days{
+.days {
   display: flex;
   flex-direction: column;
   width: 30vw;
 }
-.slots{
+.slots {
   display: flex;
   flex-direction: column;
   // border: solid;
   width: 90vw;
 }
 
-.slot{
+.slot {
   border: solid;
-  padding: .5em;
-  margin: .5em;
+  padding: 0.5em;
+  margin: 0.5em;
   &:hover {
-    background-color: rgb(127, 232, 255);
+    background-color: rgba(118, 201, 229, 0.5);
     cursor: pointer;
   }
 }
