@@ -10,7 +10,7 @@ import axios from 'axios';
 import { format, addDays, subDays, startOfToday } from 'date-fns';
 
 import AppointmentsByDateList from './DashBoard_Components/AppointmentsByDateList';
-import AppointmentsByClient from './DashBoard_Components/AppointmentsByClient';
+import AppointmentsByClientList from './DashBoard_Components/AppointmentsByClientList';
 
 const DashBoard = () => {
   const [currentDate, setCurrentDate] = useState(new Date());
@@ -84,7 +84,7 @@ const DashBoard = () => {
           currentDate={currentDate}
           setCurrentDate={setCurrentDate}
         /> : sortBY === 'Client' ?
-          <AppointmentsByClient
+          <AppointmentsByClientList
             appointments={appointments}
             client={clientSelected}
           /> : <p>Nothing to Show</p>
