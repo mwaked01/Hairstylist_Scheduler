@@ -75,6 +75,7 @@ const DashBoard = () => {
           setCurrentDate={setCurrentDate}
           searchDate={searchDate}
           handleDateChange={handleDateChange}
+          setSortBy={setSortBy}
         /> : sortBY === 'Client' ?
           <AppointmentsByClientList
             appointments={appointments}
