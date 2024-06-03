@@ -45,7 +45,7 @@ const AppointmentsByClientList = (props) => {
           </TableHead>
           <TableBody>
             {appointments.length > 0 ? (
-              appointments.sort((a, b) => new Date(a.date) - new Date(b.date))
+              appointments.sort((a, b) => new Date(b.date) - new Date(a.date))
                 .map((appointment) => (
                   <AppointmentsByClientItem
                     key={appointment._id}
