@@ -55,28 +55,32 @@ const AppointmentsByDateList = (props) => {
       </div>
 
       <TableContainer >
-        <Table stickyHeader sx={{ minWidth: 700, border: 3, borderColor: "#76c9e5", borderRadius: "10px" }} aria-label="Appointments Table">
-          <TableHead>
-            <TableRow>
-              <StyledTableCell>Time</StyledTableCell>
-              <StyledTableCell align="center">Name</StyledTableCell>
-              <StyledTableCell align="center">Status</StyledTableCell>
-              <StyledTableCell align="center">Service</StyledTableCell>
-              <StyledTableCell align="center">Client Notes</StyledTableCell>
-              <StyledTableCell align="center">Stylist Notes</StyledTableCell>
-            </TableRow>
-          </TableHead>
-          <TableBody>
-            {appointments.sort((a, b) => {
-              return convertTimeToDate(a.time) - convertTimeToDate(b.time);
-            }).map((appointment) => (
-              <AppointmentsByDateItem
-                key={appointment._id}
-                appointment={appointment}
-              />
-            ))}
-          </TableBody>
-        </Table>
+        {appointments.length > 0 ? (
+          <Table stickyHeader sx={{ minWidth: 700, border: 3, borderColor: "#76c9e5", borderRadius: "10px" }} aria-label="Appointments Table">
+            <TableHead>
+              <TableRow>
+                <StyledTableCell>Time</StyledTableCell>
+                <StyledTableCell align="center">Name</StyledTableCell>
+                <StyledTableCell align="center">Status</StyledTableCell>
+                <StyledTableCell align="center">Service</StyledTableCell>
+                <StyledTableCell align="center">Client Notes</StyledTableCell>
+                <StyledTableCell align="center">Stylist Notes</StyledTableCell>
+              </TableRow>
+            </TableHead>
+            <TableBody>
+              {appointments.sort((a, b) => {
+                return convertTimeToDate(a.time) - convertTimeToDate(b.time);
+              }).map((appointment) => (
+                <AppointmentsByDateItem
+                  key={appointment._id}
+                  appointment={appointment}
+                />
+              ))}
+            </TableBody>
+          </Table>
+        ) : (
+          <p>No appointments found for this day.</p>
+        )}
       </TableContainer>
     </section>
   );
