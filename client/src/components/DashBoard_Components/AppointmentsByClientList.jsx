@@ -6,8 +6,11 @@ import TableHead from '@mui/material/TableHead';
 import TableRow from '@mui/material/TableRow';
 import { styled } from '@mui/material/styles';
 import Button from '@mui/material/Button';
+import InputBase from '@mui/material/InputBase';
 
+import IconButton from '@mui/material/IconButton';
 import CalendarMonthOutlinedIcon from '@mui/icons-material/CalendarMonthOutlined';
+import PersonSearchOutlinedIcon from '@mui/icons-material/PersonSearchOutlined';
 
 import AppointmentsByClientItem from "./AppointmentsByClientItem";
 
@@ -25,7 +28,14 @@ const StyledTableCell = styled(TableCell)(({ theme }) => ({
 
 
 const AppointmentsByClientList = (props) => {
-  const { appointments, client, setSortBy } = props;
+  const {
+    appointments,
+    client,
+    setSortBy,
+    searchQuery,
+    setSearchQuery,
+    handleClientSearch
+  } = props;
 
   return (
     <section>
@@ -33,6 +43,17 @@ const AppointmentsByClientList = (props) => {
         <h2>
           {client.firstName} {client.lastName}
         </h2>
+
+        <InputBase
+          placeholder="Search client by name, phone #, or email"
+          inputProps={{ 'aria-label': 'client search' }}
+          value={searchQuery}
+          onChange={(e) => setSearchQuery(e.target.value)}
+        />
+        <IconButton onClick={handleClientSearch} type="button" sx={{ p: '10px' }} aria-label="search">
+          <PersonSearchOutlinedIcon />
+        </IconButton>
+
         <Button id='appointment-list-btn' endIcon={<CalendarMonthOutlinedIcon />} onClick={() => setSortBy('Date')}>
           Apointments
         </Button>

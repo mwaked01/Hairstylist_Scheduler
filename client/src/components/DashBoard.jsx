@@ -58,15 +58,7 @@ const DashBoard = () => {
 
   return (
     <section>
-      <div>
-        <input
-          type="text"
-          placeholder="Search by name, email, or phone"
-          value={searchQuery}
-          onChange={(e) => setSearchQuery(e.target.value)}
-        />
-        <button onClick={handleClientSearch}>Search</button>
-      </div>
+
 
       {sortBY === 'Date' ?
         <AppointmentsByDateList
@@ -81,6 +73,9 @@ const DashBoard = () => {
             appointments={appointments}
             client={clientSelected}
             setSortBy={setSortBy}
+            searchQuery={searchQuery}
+            setSearchQuery={setSearchQuery}
+            handleClientSearch={handleClientSearch}
           /> : <p>Nothing to Show</p>
       }
     </section>
