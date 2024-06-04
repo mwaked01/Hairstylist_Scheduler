@@ -11,6 +11,7 @@ import { format } from 'date-fns';
 
 import AppointmentsByDateList from './DashBoard_Components/AppointmentsByDateList';
 import AppointmentsByClientList from './DashBoard_Components/AppointmentsByClientList';
+import ClientList from './DashBoard_Components/ClientList';
 
 const DashBoard = () => {
   const [currentDate, setCurrentDate] = useState(new Date());
@@ -19,6 +20,19 @@ const DashBoard = () => {
   const [searchQuery, setSearchQuery] = useState('');
   const [searchDate, setSearchDate] = useState(format(currentDate, 'yyyy-MM-dd'));
   const [sortBY, setSortBy] = useState('Date')
+  const [clients, setClients] = useState([]);
+
+  useEffect(() => {
+    async function fetchClients() {
+      try {
+        const response = await axios.get('http://localhost:8080/api/clients');
+        setClients(response.data);
+      } catch (error) {
+        console.error('Error fetching clients info', error);
+      }
+    }
+    fetchClients();
+  }, []);
 
   useEffect(() => {
     fetchAppointments(currentDate);
@@ -69,14 +83,22 @@ const DashBoard = () => {
           handleDateChange={handleDateChange}
           setSortBy={setSortBy}
         /> : sortBY === 'Client' ?
-          <AppointmentsByClientList
-            appointments={appointments}
-            client={clientSelected}
+          <ClientList
+            clients={clients}
             setSortBy={setSortBy}
             searchQuery={searchQuery}
             setSearchQuery={setSearchQuery}
             handleClientSearch={handleClientSearch}
-          /> : <p>Nothing to Show</p>
+          />
+          // <AppointmentsByClientList
+          //   appointments={appointments}
+          //   client={clientSelected}
+          //   setSortBy={setSortBy}
+          //   searchQuery={searchQuery}
+          //   setSearchQuery={setSearchQuery}
+          //   handleClientSearch={handleClientSearch}
+          // />
+          : <p>Nothing to Show</p>
       }
     </section>
   );
