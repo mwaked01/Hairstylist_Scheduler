@@ -11,6 +11,7 @@ import InputBase from '@mui/material/InputBase';
 import IconButton from '@mui/material/IconButton';
 import CalendarMonthOutlinedIcon from '@mui/icons-material/CalendarMonthOutlined';
 import PersonSearchOutlinedIcon from '@mui/icons-material/PersonSearchOutlined';
+import PeopleOutlineRoundedIcon from '@mui/icons-material/PeopleOutlineRounded';
 
 import AppointmentsByClientItem from "./AppointmentsByClientItem";
 
@@ -40,16 +41,13 @@ const AppointmentsByClientList = (props) => {
   return (
     <section>
       <div>
-        <h2>
-          {client.firstName} {client.lastName}
-        </h2>
 
         <InputBase
           placeholder="Search client by name, phone #, or email"
           inputProps={{ 'aria-label': 'client search' }}
           value={searchQuery}
           onChange={(e) => setSearchQuery(e.target.value)}
-        />
+          />
         <IconButton onClick={handleClientSearch} type="button" sx={{ p: '10px' }} aria-label="search">
           <PersonSearchOutlinedIcon />
         </IconButton>
@@ -57,6 +55,12 @@ const AppointmentsByClientList = (props) => {
         <Button id='appointment-list-btn' endIcon={<CalendarMonthOutlinedIcon />} onClick={() => setSortBy('Date')}>
           Apointments
         </Button>
+        <Button id='client-list-btn' endIcon={<PeopleOutlineRoundedIcon />} onClick={() => setSortBy('ClientList')}>
+          Client List
+        </Button>
+          <h2>
+            {client.firstName} {client.lastName}
+          </h2>
       </div>
       <TableContainer >
         <Table stickyHeader sx={{ minWidth: 700, border: 3, borderColor: "#76c9e5", borderRadius: "10px" }} aria-label="Appointments Table">
