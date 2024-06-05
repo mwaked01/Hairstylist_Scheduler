@@ -11,8 +11,8 @@ import InputBase from '@mui/material/InputBase';
 import IconButton from '@mui/material/IconButton';
 import CalendarMonthOutlinedIcon from '@mui/icons-material/CalendarMonthOutlined';
 import PersonSearchOutlinedIcon from '@mui/icons-material/PersonSearchOutlined';
-
-import AppointmentsByClientItem from "./AppointmentsByClientItem";
+import EventAvailableRoundedIcon from '@mui/icons-material/EventAvailableRounded';
+import EventBusyRoundedIcon from '@mui/icons-material/EventBusyRounded';
 
 const StyledTableCell = styled(TableCell)(({ theme }) => ({
   [`&.${tableCellClasses.head}`]: {
@@ -45,7 +45,7 @@ const ClientList = (props) => {
     setSearchQuery,
     handleClientSearch
   } = props;
-  console.log(clients)
+
   return (
     <section>
       <div>
@@ -71,8 +71,7 @@ const ClientList = (props) => {
               <StyledTableCell>Name</StyledTableCell>
               <StyledTableCell align="center">Phone #</StyledTableCell>
               <StyledTableCell align="center">Email</StyledTableCell>
-              <StyledTableCell align="center">Total Appointments</StyledTableCell>
-              <StyledTableCell align="center">Upcoming Appointments</StyledTableCell>
+              <StyledTableCell align="center">Upcoming Appointment</StyledTableCell>
             </TableRow>
           </TableHead>
           <TableBody>
@@ -88,13 +87,24 @@ const ClientList = (props) => {
                 <StyledTableCell align="center">
                   {client.email}
                 </StyledTableCell>
-                <StyledTableCell align="center">
-                  {client.appointments.length}
-                </StyledTableCell>
-                <StyledTableCell align="center">
-                  {client.Email}
-                </StyledTableCell>
 
+                {client.appointments.length > 0 ? (
+                  <>
+                    {client.appointments.some(appointment => appointment.status === 'booked') ? (
+                      <StyledTableCell align="center">
+                        <EventAvailableRoundedIcon sx={{ color: "#63E6BE" }} />
+                      </StyledTableCell>
+                    ) : (
+                      <StyledTableCell align="center">
+                        <EventBusyRoundedIcon sx={{ color: "#E66565" }} />
+                      </StyledTableCell>
+                    )}
+                  </>
+                ) : (
+                  <StyledTableCell align="center">
+                    <EventBusyRoundedIcon sx={{ color: "#E66565" }} />
+                  </StyledTableCell>
+                )}
               </StyledTableRow>
             ))}
             {/* )  */}
