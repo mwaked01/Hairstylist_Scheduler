@@ -32,7 +32,9 @@ const ClientList = (props) => {
     setSortBy,
     searchQuery,
     setSearchQuery,
-    handleClientSearch
+    handleClientSearch,
+    setClientSelected,
+    setAppointments
   } = props;
 
   return (
@@ -69,6 +71,9 @@ const ClientList = (props) => {
                 <ClientListItem
                   key={client._id}
                   client={client}
+                  setClientSelected={setClientSelected}
+                  setSortBy={setSortBy}
+                  setAppointments={setAppointments}
                 />
               ))}
             </TableBody>

@@ -82,22 +82,24 @@ const DashBoard = () => {
           searchDate={searchDate}
           handleDateChange={handleDateChange}
           setSortBy={setSortBy}
-        /> : sortBY === 'Client' ?
+        /> : sortBY === 'ClientList' ?
           <ClientList
             clients={clients}
             setSortBy={setSortBy}
             searchQuery={searchQuery}
             setSearchQuery={setSearchQuery}
             handleClientSearch={handleClientSearch}
+            setClientSelected={setClientSelected}
+            setAppointments={setAppointments}
+          />:sortBY === 'Client' ?
+          <AppointmentsByClientList
+            appointments={appointments}
+            client={clientSelected}
+            setSortBy={setSortBy}
+            searchQuery={searchQuery}
+            setSearchQuery={setSearchQuery}
+            handleClientSearch={handleClientSearch}
           />
-          // <AppointmentsByClientList
-          //   appointments={appointments}
-          //   client={clientSelected}
-          //   setSortBy={setSortBy}
-          //   searchQuery={searchQuery}
-          //   setSearchQuery={setSearchQuery}
-          //   handleClientSearch={handleClientSearch}
-          // />
           : <p>Nothing to Show</p>
       }
     </section>

@@ -80,7 +80,7 @@ const AppointmentsByClientList = (props) => {
                   />
                 ))
             ) : (
-              <p>No appointments found for this client.</p>
+              <>No appointments found for this client.</>
             )}
           </TableBody>
         </Table>

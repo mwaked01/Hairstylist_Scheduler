@@ -33,11 +33,20 @@ const StyledTableRow = styled(TableRow)(({ theme }) => ({
 
 const ClientListItem = (props) => {
   const {
-    client
+    client,
+    setClientSelected,
+    setSortBy,
+    setAppointments
   } = props;
 
+  const handleClientSelect = async () => {
+    setClientSelected(client)
+    setAppointments(client.appointments)
+    setSortBy('Client')
+  };
+
   return (
-    <StyledTableRow key={client._id}>
+    <StyledTableRow key={client._id} onClick={handleClientSelect}>
       <StyledTableCell component="th" scope="row">
         {client.firstName} {client.lastName}
       </StyledTableCell>
