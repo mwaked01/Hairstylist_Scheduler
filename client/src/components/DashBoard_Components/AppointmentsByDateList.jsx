@@ -19,7 +19,7 @@ import { DatePicker } from '@mui/x-date-pickers/DatePicker';
 
 import AppointmentsByDateItem from './AppointmentsByDateItem';
 
-import '../../styles/AppointmentsByDate.scss'
+// import '../../styles/DashBoard.scss'
 
 const convertTimeToDate = (time) => {
   const [hoursMinutes, period] = time.split(' ');
@@ -58,7 +58,7 @@ const AppointmentsByDateList = (props) => {
 
   return (
     <section>
-      <header className='display-date'>
+      <header className='dashboard-header'>
         <div id='date-nav'>
           <Button id='prev_day_btn' onClick={navigateToPreviousDay} startIcon={<ArrowBackIosRoundedIcon />}>
             Prev<br />Day
@@ -79,7 +79,7 @@ const AppointmentsByDateList = (props) => {
           />
         </LocalizationProvider>
 
-        <Button id='client-list-btn' endIcon={<PeopleOutlineRoundedIcon />} onClick={() => setSortBy('ClientList')}>
+        <Button className='dashboard-nav-btns' endIcon={<PeopleOutlineRoundedIcon />} onClick={() => setSortBy('ClientList')}>
           Client List
         </Button>
       </header>

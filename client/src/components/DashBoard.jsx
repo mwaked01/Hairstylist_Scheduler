@@ -13,6 +13,8 @@ import AppointmentsByDateList from './DashBoard_Components/AppointmentsByDateLis
 import AppointmentsByClientList from './DashBoard_Components/AppointmentsByClientList';
 import ClientList from './DashBoard_Components/ClientList';
 
+import '../styles/DashBoard.scss'
+
 const DashBoard = () => {
   const [currentDate, setCurrentDate] = useState(new Date());
   const [appointments, setAppointments] = useState([]);
@@ -91,16 +93,16 @@ const DashBoard = () => {
             handleClientSearch={handleClientSearch}
             setClientSelected={setClientSelected}
             setAppointments={setAppointments}
-          />:sortBY === 'Client' ?
-          <AppointmentsByClientList
-            appointments={appointments}
-            client={clientSelected}
-            setSortBy={setSortBy}
-            searchQuery={searchQuery}
-            setSearchQuery={setSearchQuery}
-            handleClientSearch={handleClientSearch}
-          />
-          : <p>Nothing to Show</p>
+          /> : sortBY === 'Client' ?
+            <AppointmentsByClientList
+              appointments={appointments}
+              client={clientSelected}
+              setSortBy={setSortBy}
+              searchQuery={searchQuery}
+              setSearchQuery={setSearchQuery}
+              handleClientSearch={handleClientSearch}
+            />
+            : <p>Nothing to Show</p>
       }
     </section>
   );

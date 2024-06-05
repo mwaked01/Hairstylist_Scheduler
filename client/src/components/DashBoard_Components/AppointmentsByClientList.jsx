@@ -40,28 +40,29 @@ const AppointmentsByClientList = (props) => {
 
   return (
     <section>
-      <div>
-
-        <InputBase
-          placeholder="Search client by name, phone #, or email"
-          inputProps={{ 'aria-label': 'client search' }}
-          value={searchQuery}
-          onChange={(e) => setSearchQuery(e.target.value)}
+      <header className='dashboard-header'>
+        <h2 id='client-name'>
+          {client.firstName} {client.lastName}
+        </h2>
+        <div>
+          <InputBase
+            placeholder="Search client by name, phone #, or email"
+            inputProps={{ 'aria-label': 'client search' }}
+            value={searchQuery}
+            onChange={(e) => setSearchQuery(e.target.value)}
+            variant="outlined"
           />
-        <IconButton onClick={handleClientSearch} type="button" sx={{ p: '10px' }} aria-label="search">
-          <PersonSearchOutlinedIcon />
-        </IconButton>
-
-        <Button id='appointment-list-btn' endIcon={<CalendarMonthOutlinedIcon />} onClick={() => setSortBy('Date')}>
+          <IconButton onClick={handleClientSearch} type="button" sx={{ p: '10px' }} aria-label="search">
+            <PersonSearchOutlinedIcon />
+          </IconButton>
+        </div>
+        <Button className='dashboard-nav-btns' endIcon={<CalendarMonthOutlinedIcon />} onClick={() => setSortBy('Date')}>
           Apointments
         </Button>
-        <Button id='client-list-btn' endIcon={<PeopleOutlineRoundedIcon />} onClick={() => setSortBy('ClientList')}>
+        <Button className='dashboard-nav-btns' endIcon={<PeopleOutlineRoundedIcon />} onClick={() => setSortBy('ClientList')}>
           Client List
         </Button>
-          <h2>
-            {client.firstName} {client.lastName}
-          </h2>
-      </div>
+      </header>
       <TableContainer >
         <Table stickyHeader sx={{ minWidth: 700, border: 3, borderColor: "#76c9e5", borderRadius: "10px" }} aria-label="Appointments Table">
           <TableHead>

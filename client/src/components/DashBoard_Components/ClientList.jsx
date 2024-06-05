@@ -39,21 +39,22 @@ const ClientList = (props) => {
 
   return (
     <section>
-      <div>
-        <InputBase
-          placeholder="Search client by name, phone #, or email"
-          inputProps={{ 'aria-label': 'client search' }}
-          value={searchQuery}
-          onChange={(e) => setSearchQuery(e.target.value)}
-        />
-        <IconButton onClick={handleClientSearch} type="button" sx={{ p: '10px' }} aria-label="search">
-          <PersonSearchOutlinedIcon />
-        </IconButton>
-
-        <Button id='appointment-list-btn' endIcon={<CalendarMonthOutlinedIcon />} onClick={() => setSortBy('Date')}>
+      <header className='dashboard-header'>
+        <div>
+          <InputBase
+            placeholder="Search client by name, phone #, or email"
+            inputProps={{ 'aria-label': 'client search' }}
+            value={searchQuery}
+            onChange={(e) => setSearchQuery(e.target.value)}
+          />
+          <IconButton onClick={handleClientSearch} type="button" sx={{ p: '10px' }} aria-label="search">
+            <PersonSearchOutlinedIcon />
+          </IconButton>
+        </div>
+        <Button className='dashboard-nav-btns' endIcon={<CalendarMonthOutlinedIcon />} onClick={() => setSortBy('Date')}>
           Apointments
         </Button>
-      </div>
+      </header>
 
       <TableContainer >
         {clients.length > 0 ?
