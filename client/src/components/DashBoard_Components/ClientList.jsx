@@ -11,8 +11,8 @@ import InputBase from '@mui/material/InputBase';
 import IconButton from '@mui/material/IconButton';
 import CalendarMonthOutlinedIcon from '@mui/icons-material/CalendarMonthOutlined';
 import PersonSearchOutlinedIcon from '@mui/icons-material/PersonSearchOutlined';
-import EventAvailableRoundedIcon from '@mui/icons-material/EventAvailableRounded';
-import EventBusyRoundedIcon from '@mui/icons-material/EventBusyRounded';
+
+import ClientListItem from './ClientListItem';
 
 const StyledTableCell = styled(TableCell)(({ theme }) => ({
   [`&.${tableCellClasses.head}`]: {
@@ -25,17 +25,6 @@ const StyledTableCell = styled(TableCell)(({ theme }) => ({
     fontSize: 14,
   },
 }));
-
-const StyledTableRow = styled(TableRow)(({ theme }) => ({
-  '&:nth-of-type(odd)': {
-    backgroundColor: theme.palette.action.hover,
-  },
-  // hide last border
-  '&:last-child td, &:last-child th': {
-    border: 0,
-  },
-}));
-
 
 const ClientList = (props) => {
   const {
@@ -65,54 +54,28 @@ const ClientList = (props) => {
       </div>
 
       <TableContainer >
-        <Table stickyHeader sx={{ minWidth: 700, border: 3, borderColor: "#76c9e5", borderRadius: "10px" }} aria-label="Appointments Table">
-          <TableHead>
-            <TableRow>
-              <StyledTableCell>Name</StyledTableCell>
-              <StyledTableCell align="center">Phone #</StyledTableCell>
-              <StyledTableCell align="center">Email</StyledTableCell>
-              <StyledTableCell align="center">Upcoming Appointment</StyledTableCell>
-            </TableRow>
-          </TableHead>
-          <TableBody>
-            {/* {clients.length > 0 ? ( */}
-            {clients.map((client) => (
-              <StyledTableRow key={client._id}>
-                <StyledTableCell component="th" scope="row">
-                  {client.firstName} {client.lastName}
-                </StyledTableCell>
-                <StyledTableCell align="center">
-                  {client.phone}
-                </StyledTableCell>
-                <StyledTableCell align="center">
-                  {client.email}
-                </StyledTableCell>
+        {clients.length > 0 ?
+          <Table stickyHeader sx={{ minWidth: 700, border: 3, borderColor: "#76c9e5", borderRadius: "10px" }} aria-label="Appointments Table">
+            <TableHead>
+              <TableRow>
+                <StyledTableCell>Name</StyledTableCell>
+                <StyledTableCell align="center">Phone #</StyledTableCell>
+                <StyledTableCell align="center">Email</StyledTableCell>
+                <StyledTableCell align="center">Upcoming Appointment</StyledTableCell>
+              </TableRow>
+            </TableHead>
+            <TableBody>
+              {clients.map((client) => (
+                <ClientListItem
+                  key={client._id}
+                  client={client}
+                />
+              ))}
+            </TableBody>
+          </Table>
+          : <>No Clients Found</>
+        }
 
-                {client.appointments.length > 0 ? (
-                  <>
-                    {client.appointments.some(appointment => appointment.status === 'booked') ? (
-                      <StyledTableCell align="center">
-                        <EventAvailableRoundedIcon sx={{ color: "#63E6BE" }} />
-                      </StyledTableCell>
-                    ) : (
-                      <StyledTableCell align="center">
-                        <EventBusyRoundedIcon sx={{ color: "#E66565" }} />
-                      </StyledTableCell>
-                    )}
-                  </>
-                ) : (
-                  <StyledTableCell align="center">
-                    <EventBusyRoundedIcon sx={{ color: "#E66565" }} />
-                  </StyledTableCell>
-                )}
-              </StyledTableRow>
-            ))}
-            {/* )  */}
-            {/* : (
-              <p>No clients found.</p>
-            )} */}
-          </TableBody>
-        </Table>
       </TableContainer>
 
     </section>
