@@ -1,3 +1,13 @@
+#dashboard{
+  padding-top: 20px;
+  .dashboard-table {
+    display: flex;
+    justify-content: center;
+    width: 60%;
+    min-width: fit-content;
+  }
+}
+
 .dashboard-content {
   display: flex;
   flex-direction: column;
@@ -46,9 +56,10 @@ header {
   }
 }
 
-.dashboard-table {
-  display: flex;
-  justify-content: center;
-  width: 60%;
-  min-width: fit-content;
+#client-row{
+  &:hover{
+    border: solid;
+    background-color:rgba(138, 224, 138, 0.904);
+    cursor:pointer;
+  }
 }

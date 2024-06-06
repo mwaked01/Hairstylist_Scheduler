@@ -7,6 +7,7 @@ import Button from '@mui/material/Button';
 
 import EventAvailableRoundedIcon from '@mui/icons-material/EventAvailableRounded';
 import EventBusyRoundedIcon from '@mui/icons-material/EventBusyRounded';
+import { Cursor } from 'mongoose';
 
 const StyledTableCell = styled(TableCell)(({ theme }) => ({
   [`&.${tableCellClasses.head}`]: {
@@ -31,6 +32,7 @@ const StyledTableRow = styled(TableRow)(({ theme }) => ({
   '&:last-child td, &:last-child th': {
     border: 0,
   },
+
 }));
 
 
@@ -49,7 +51,7 @@ const ClientListItem = (props) => {
   };
 
   return (
-    <StyledTableRow key={client._id} onClick={handleClientSelect}>
+    <StyledTableRow key={client._id} onClick={handleClientSelect} id='client-row'>
       <StyledTableCell component="th" scope="row">
         {client.firstName} {client.lastName}
       </StyledTableCell>

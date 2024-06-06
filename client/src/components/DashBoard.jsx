@@ -73,9 +73,7 @@ const DashBoard = () => {
   };
 
   return (
-    <section>
-
-
+    <section id='dashboard'>
       {sortBY === 'Date' ?
         <AppointmentsByDateList
           appointments={appointments}
