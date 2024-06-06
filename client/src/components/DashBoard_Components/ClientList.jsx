@@ -38,7 +38,7 @@ const ClientList = (props) => {
   } = props;
 
   return (
-    <section>
+    <section className='dashboard-content'>
       <header className='dashboard-header'>
         <div>
           <InputBase
@@ -56,9 +56,9 @@ const ClientList = (props) => {
         </Button>
       </header>
 
-      <TableContainer >
+      <TableContainer className='dashboard-table'>
         {clients.length > 0 ?
-          <Table stickyHeader sx={{ minWidth: 700, border: 3, borderColor: "#76c9e5", borderRadius: "10px" }} aria-label="Appointments Table">
+          <Table stickyHeader sx={{ maxWidth: 700, border: 3, borderColor: "#76c9e5", borderRadius: "10px" }} aria-label="Appointments Table">
             <TableHead>
               <TableRow>
                 <StyledTableCell>Name</StyledTableCell>

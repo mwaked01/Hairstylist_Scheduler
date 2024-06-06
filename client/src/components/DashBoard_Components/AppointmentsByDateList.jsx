@@ -57,7 +57,7 @@ const AppointmentsByDateList = (props) => {
   };
 
   return (
-    <section>
+    <section className='dashboard-content'>
       <header className='dashboard-header'>
         <div id='date-nav'>
           <Button id='prev_day_btn' onClick={navigateToPreviousDay} startIcon={<ArrowBackIosRoundedIcon />}>
@@ -84,9 +84,9 @@ const AppointmentsByDateList = (props) => {
         </Button>
       </header>
 
-      <TableContainer >
+      <TableContainer className='dashboard-table'>
         {appointments.length > 0 ? (
-          <Table stickyHeader sx={{ minWidth: 700, border: 3, borderColor: "#76c9e5", borderRadius: "10px" }} aria-label="Appointments Table">
+          <Table stickyHeader sx={{ maxWidth: 700, border: 3, borderColor: "#76c9e5", borderRadius: "10px" }} aria-label="Appointments Table">
             <TableHead>
               <TableRow>
                 <StyledTableCell>Time</StyledTableCell>

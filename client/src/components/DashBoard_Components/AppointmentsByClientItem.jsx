@@ -16,7 +16,10 @@ const StyledTableCell = styled(TableCell)(({ theme }) => ({
 
 const StyledTableRow = styled(TableRow)(({ theme }) => ({
   '&:nth-of-type(odd)': {
-    backgroundColor: theme.palette.action.hover,
+    backgroundColor: '#cae5eeef',
+  },
+  '&:nth-of-type(even)': {
+    backgroundColor: '#8fadb7e1',
   },
   // hide last border
   '&:last-child td, &:last-child th': {
@@ -37,10 +40,10 @@ const AppointmentsByClientItem = (props) => {
         {appointment.time} 
       </StyledTableCell>
       <StyledTableCell align="center">
-        {appointment.service}
+        {appointment.status}
       </StyledTableCell>
       <StyledTableCell align="center">
-        {appointment.status}
+        {appointment.service}
       </StyledTableCell>
       <StyledTableCell align="center">
         {appointment.clientNotes}

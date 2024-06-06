@@ -39,7 +39,7 @@ const AppointmentsByClientList = (props) => {
   } = props;
 
   return (
-    <section>
+    <section className='dashboard-content'>
       <header className='dashboard-header'>
         <h2 id='client-name'>
           {client.firstName} {client.lastName}
@@ -63,8 +63,8 @@ const AppointmentsByClientList = (props) => {
           Client List
         </Button>
       </header>
-      <TableContainer >
-        <Table stickyHeader sx={{ minWidth: 700, border: 3, borderColor: "#76c9e5", borderRadius: "10px" }} aria-label="Appointments Table">
+      <TableContainer className='dashboard-table' >
+        <Table stickyHeader sx={{ maxWidth: 700,  border: 3, borderColor: "#76c9e5", borderRadius: "10px" }} aria-label="Appointments Table">
           <TableHead>
             <TableRow>
               <StyledTableCell>Date</StyledTableCell>
