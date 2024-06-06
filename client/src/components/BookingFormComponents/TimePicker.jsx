@@ -45,36 +45,38 @@ const TimePicker = (props) => {
     // console.log(newTime)
   }
 
+  const fetchAppointments = async () => {
+    try {
+      const response = await axios.get(`http://localhost:8080/api/appointments/${appointmentDate.year}-${appointmentDate.month}-${appointmentDate.day}`);
+      const appointments = response.data;
+      // Extract time part from each appointment's date
+      const takenTimes = appointments.map(appointment => {
+        const time = appointment.time;
+        return time;
+      });
+      // Filter out taken times from slots
+      const filteredSlots = slots.filter(slot => !takenTimes.includes(slot));
+      setSlots(filteredSlots);
+    } catch (error) {
+      console.error('Error fetching appointments:', error);
+    }
+  };
   useEffect(() => {
-    const fetchAppointments = async () => {
-      try {
-        const response = await axios.get(`http://localhost:8080/api/appointments/?date=${appointmentDate.year}-${appointmentDate.month}-${appointmentDate.day}`);
-        const appointments = response.data;
-        // Extract time part from each appointment's date
-        const takenTimes = appointments.map(appointment => {
-          const time = appointment.time;
-          return time;
-        });
-
-        // Filter out taken times from slots
-        const filteredSlots = slots.filter(slot => !takenTimes.includes(slot));
-        setSlots(filteredSlots);
-      } catch (error) {
-        console.error('Error fetching appointments:', error);
-      }
-    };
 
     fetchAppointments();
   }, []);
-
+  let slotGroup = []
   return (
     <div id='time-picker'>
       <h2>{months[appointmentDate.month - 1]} {appointmentDate.day}, {appointmentDate.year}</h2>
+
       <div className='slots'>
         {slots.map((slot, index) => {
           const firstTwoChars = slot.slice(0, 2);
           const previousFirstTwoChars = index > 0 ? slots[index - 1].slice(0, 2) : null;
-  
+          slotGroup.push(<div className='slot' onClick={() => { handleSelectTime(slot) }}>
+            {slot}
+          </div>)
           return (
             <React.Fragment key={slot}>
               {index > 0 && firstTwoChars !== previousFirstTwoChars && <br />}
