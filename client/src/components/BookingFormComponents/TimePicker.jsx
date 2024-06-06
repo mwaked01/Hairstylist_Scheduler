@@ -68,14 +68,22 @@ const TimePicker = (props) => {
   }, []);
 
   return (
-    <div>
-      <h2>{months[appointmentDate.month-1]} {appointmentDate.day}, {appointmentDate.year}</h2>
+    <div id='time-picker'>
+      <h2>{months[appointmentDate.month - 1]} {appointmentDate.day}, {appointmentDate.year}</h2>
       <div className='slots'>
-        {slots.map(slot => (
-          <div key={slot} className='slot' onClick={() => { handleSelectTime(slot) }}>
-            {slot}
-          </div>
-        ))}
+        {slots.map((slot, index) => {
+          const firstTwoChars = slot.slice(0, 2);
+          const previousFirstTwoChars = index > 0 ? slots[index - 1].slice(0, 2) : null;
+  
+          return (
+            <React.Fragment key={slot}>
+              {index > 0 && firstTwoChars !== previousFirstTwoChars && <br />}
+              <div className='slot' onClick={() => { handleSelectTime(slot) }}>
+                {slot}
+              </div>
+            </React.Fragment>
+          );
+        })}
       </div>
     </div>
   );

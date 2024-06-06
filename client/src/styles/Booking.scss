@@ -11,19 +11,42 @@
   flex-direction: column;
   width: 30vw;
 }
-.slots {
+
+// .slots {
+//   display: flex;
+//   flex-direction: column;
+//   // border: solid;
+//   width: 90vw;
+// }
+
+// .slot {
+//   border: solid;
+//   padding: 0.5em;
+//   margin: 0.5em;
+//   &:hover {
+//     background-color: rgba(118, 201, 229, 0.5);
+//     cursor: pointer;
+//   }
+// }
+
+#time-picker {
   display: flex;
   flex-direction: column;
-  // border: solid;
-  width: 90vw;
+  align-items: center;
+}
+
+.slots {
+  // width: 40vw;
+  // display: flex;
+  // flex-wrap: wrap;
 }
 
 .slot {
-  border: solid;
-  padding: 0.5em;
   margin: 0.5em;
+  padding: 0.5em;
+  border: 2px solid #76c9e5;
   &:hover {
-    background-color: rgba(118, 201, 229, 0.5);
+    background-color:rgba(175, 243, 175, 0.904);
     cursor: pointer;
   }
 }
