@@ -13,6 +13,7 @@ import CalendarMonthOutlinedIcon from '@mui/icons-material/CalendarMonthOutlined
 import PersonSearchOutlinedIcon from '@mui/icons-material/PersonSearchOutlined';
 
 import ClientListItem from './ClientListItem';
+import AppointmentsButton from './AppointmentsButton';
 
 const StyledTableCell = styled(TableCell)(({ theme }) => ({
   [`&.${tableCellClasses.head}`]: {
@@ -34,7 +35,8 @@ const ClientList = (props) => {
     setSearchQuery,
     handleClientSearch,
     setClientSelected,
-    setAppointments
+    setAppointments,
+    setCurrentDate
   } = props;
 
   return (
@@ -51,14 +53,15 @@ const ClientList = (props) => {
             <PersonSearchOutlinedIcon />
           </IconButton>
         </div>
-        <Button className='dashboard-nav-btns' endIcon={<CalendarMonthOutlinedIcon />} onClick={() => setSortBy('Date')}>
-          Apointments
-        </Button>
+        <AppointmentsButton
+          setSortBy={setSortBy}
+          setCurrentDate={setCurrentDate}
+        />
       </header>
 
       <TableContainer className='dashboard-table'>
         {clients.length > 0 ?
-          <Table stickyHeader sx={{ maxWidth: 700, border: 3, borderColor: "#76c9e5", borderRadius: "10px" }} aria-label="Appointments Table">
+          <Table stickyHeader sx={{ border: 3, borderColor: "#76c9e5", borderRadius: "10px" }} aria-label="Appointments Table">
             <TableHead>
               <TableRow>
                 <StyledTableCell>Name</StyledTableCell>

@@ -42,9 +42,9 @@ const DashBoard = () => {
 
 
   const fetchAppointments = async (date) => {
-    const year = currentDate.getFullYear();
-    const month = String(currentDate.getMonth() + 1).padStart(2, '0'); // Add 1 to month because it is zero-based
-    const day = String(currentDate.getDate()).padStart(2, '0');
+    const year = date.getFullYear();
+    const month = String(date.getMonth() + 1).padStart(2, '0'); // Add 1 to month because it is zero-based
+    const day = String(date.getDate()).padStart(2, '0');
     try {
       const response = await axios.get(`http://localhost:8080/api/appointments/${year}-${month}-${day}`);
       setAppointments(Array.isArray(response.data) ? response.data : []);
@@ -93,6 +93,7 @@ const DashBoard = () => {
             handleClientSearch={handleClientSearch}
             setClientSelected={setClientSelected}
             setAppointments={setAppointments}
+            setCurrentDate={setCurrentDate}
           /> : sortBY === 'Client' ?
             <AppointmentsByClientList
               appointments={appointments}
@@ -101,6 +102,7 @@ const DashBoard = () => {
               searchQuery={searchQuery}
               setSearchQuery={setSearchQuery}
               handleClientSearch={handleClientSearch}
+              setCurrentDate={setCurrentDate}
             />
             : <p>Nothing to Show</p>
       }

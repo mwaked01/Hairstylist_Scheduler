@@ -1,17 +1,20 @@
-.dashboard-content{
-display: flex;
-flex-direction: column;
-align-items: center;
+.dashboard-content {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
 }
+
 .dashboard-header {
   display: flex;
   padding-bottom: 0.5em;
   align-items: center;
   justify-content: space-around;
-  width: 700px;
+  width: 60%;
+  min-width: fit-content;
 }
 
-#date, #client-name{
+#date,
+#client-name {
   padding: 0.5em;
   font-family: "Poetsen One", sans-serif;
   font-weight: 300;
@@ -36,14 +39,16 @@ header {
     background-color: #76c9e5;
     font-family: "Poetsen One", sans-serif;
     font-weight: 300;
+
     &:hover {
       color: rgb(23, 74, 95);
     }
   }
 }
 
-.dashboard-table{
+.dashboard-table {
   display: flex;
   justify-content: center;
-  width: 700px;
+  width: 60%;
+  min-width: fit-content;
 }

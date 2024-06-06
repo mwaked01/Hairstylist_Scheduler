@@ -14,6 +14,7 @@ import PersonSearchOutlinedIcon from '@mui/icons-material/PersonSearchOutlined';
 import PeopleOutlineRoundedIcon from '@mui/icons-material/PeopleOutlineRounded';
 
 import AppointmentsByClientItem from "./AppointmentsByClientItem";
+import AppointmentsButton from './AppointmentsButton';
 
 const StyledTableCell = styled(TableCell)(({ theme }) => ({
   [`&.${tableCellClasses.head}`]: {
@@ -35,7 +36,8 @@ const AppointmentsByClientList = (props) => {
     setSortBy,
     searchQuery,
     setSearchQuery,
-    handleClientSearch
+    handleClientSearch,
+    setCurrentDate
   } = props;
 
   return (
@@ -56,15 +58,16 @@ const AppointmentsByClientList = (props) => {
             <PersonSearchOutlinedIcon />
           </IconButton>
         </div>
-        <Button className='dashboard-nav-btns' endIcon={<CalendarMonthOutlinedIcon />} onClick={() => setSortBy('Date')}>
-          Apointments
-        </Button>
+        <AppointmentsButton
+          setSortBy={setSortBy}
+          setCurrentDate={setCurrentDate}
+        />
         <Button className='dashboard-nav-btns' endIcon={<PeopleOutlineRoundedIcon />} onClick={() => setSortBy('ClientList')}>
           Client List
         </Button>
       </header>
       <TableContainer className='dashboard-table' >
-        <Table stickyHeader sx={{ maxWidth: 700,  border: 3, borderColor: "#76c9e5", borderRadius: "10px" }} aria-label="Appointments Table">
+        <Table stickyHeader sx={{ border: 3, borderColor: "#76c9e5", borderRadius: "10px" }} aria-label="Appointments Table">
           <TableHead>
             <TableRow>
               <StyledTableCell>Date</StyledTableCell>

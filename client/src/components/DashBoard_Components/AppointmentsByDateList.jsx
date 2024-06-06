@@ -86,7 +86,7 @@ const AppointmentsByDateList = (props) => {
 
       <TableContainer className='dashboard-table'>
         {appointments.length > 0 ? (
-          <Table stickyHeader sx={{ maxWidth: 700, border: 3, borderColor: "#76c9e5", borderRadius: "10px" }} aria-label="Appointments Table">
+          <Table stickyHeader sx={{ border: 3, borderColor: "#76c9e5", borderRadius: "10px" }} aria-label="Appointments Table">
             <TableHead>
               <TableRow>
                 <StyledTableCell>Time</StyledTableCell>
