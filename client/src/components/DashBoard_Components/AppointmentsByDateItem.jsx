@@ -1,6 +1,7 @@
 import TableRow from '@mui/material/TableRow';
 import TableCell, { tableCellClasses } from '@mui/material/TableCell';
 import { styled } from '@mui/material/styles';
+import StylistNotesButton from './StylistNotesButton'
 
 const StyledTableCell = styled(TableCell)(({ theme }) => ({
   [`&.${tableCellClasses.head}`]: {
@@ -50,7 +51,9 @@ const AppointmentsByDateItem = (props) => {
         {appointment.clientNotes}
       </StyledTableCell>
       <StyledTableCell align="center">
-        {appointment.stylistNotes}
+        {appointment.stylistNotes === "" ?
+          <StylistNotesButton /> :
+          appointment.stylistNotes}
       </StyledTableCell>
     </StyledTableRow>
 

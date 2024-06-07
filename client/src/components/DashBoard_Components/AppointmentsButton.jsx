@@ -1,7 +1,5 @@
 import Button from '@mui/material/Button';
-
 import CalendarMonthOutlinedIcon from '@mui/icons-material/CalendarMonthOutlined';
-import PeopleOutlineRoundedIcon from '@mui/icons-material/PeopleOutlineRounded';
 
 const AppointmentsButton = (props) => {
   const {
@@ -15,8 +13,6 @@ const AppointmentsButton = (props) => {
   }
 
   return (
-
-
         <Button
           className='dashboard-nav-btns'
           endIcon={<CalendarMonthOutlinedIcon />}
@@ -24,7 +20,6 @@ const AppointmentsButton = (props) => {
         >
           Appointments
         </Button>
-
   );
 };
 
