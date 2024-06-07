@@ -1,37 +1,30 @@
-#month {
-  margin: 1em;
-}
-
-.days-slots {
-  display: flex;
-}
-
-.days {
-  display: flex;
-  flex-direction: column;
-  width: 30vw;
-}
-
 #time-picker {
   display: flex;
   flex-direction: column;
   align-items: center;
 }
 
-.slots {
-  // width: 40vw;
-  // display: flex;
-  // flex-wrap: wrap;
-  // flex-direction: column;
+.date {
+  font-family: "Poetsen One", sans-serif;
+  font-weight: 300;
+  color: rgb(23, 74, 95);
+}
+
+.slot-group {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
 }
 
 .slot {
-
-  margin: 0.5em;
-  padding: 0.5em;
+  font-size: rem;
+  font-family: "Poetsen One", sans-serif;
+  font-weight: 300;
+  margin: 0.25em;
+  padding: 0.25em;
   border: 2px solid #76c9e5;
   &:hover {
-    background-color:rgba(175, 243, 175, 0.904);
+    background-color: rgba(175, 243, 175, 0.904);
     cursor: pointer;
   }
 }

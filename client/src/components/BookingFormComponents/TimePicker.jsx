@@ -45,6 +45,10 @@ const TimePicker = (props) => {
     // console.log(newTime)
   }
 
+  useEffect(() => {
+    fetchAppointments();
+  }, []);
+
   const fetchAppointments = async () => {
     try {
       const response = await axios.get(`http://localhost:8080/api/appointments/${appointmentDate.year}-${appointmentDate.month}-${appointmentDate.day}`);
@@ -61,30 +65,51 @@ const TimePicker = (props) => {
       console.error('Error fetching appointments:', error);
     }
   };
-  useEffect(() => {
 
-    fetchAppointments();
-  }, []);
+
   let slotGroup = []
   return (
     <div id='time-picker'>
-      <h2>{months[appointmentDate.month - 1]} {appointmentDate.day}, {appointmentDate.year}</h2>
+      <h2 className='date'>{months[appointmentDate.month - 1]} {appointmentDate.day}, {appointmentDate.year}</h2>
 
       <div className='slots'>
         {slots.map((slot, index) => {
           const firstTwoChars = slot.slice(0, 2);
           const previousFirstTwoChars = index > 0 ? slots[index - 1].slice(0, 2) : null;
-          slotGroup.push(<div className='slot' onClick={() => { handleSelectTime(slot) }}>
-            {slot}
-          </div>)
-          return (
-            <React.Fragment key={slot}>
-              {index > 0 && firstTwoChars !== previousFirstTwoChars && <br />}
-              <div className='slot' onClick={() => { handleSelectTime(slot) }}>
+
+          if (index === 0 || firstTwoChars === previousFirstTwoChars) {
+            slotGroup.push(
+              <div className='slot' key={slot} onClick={() => { handleSelectTime(slot) }}>
                 {slot}
               </div>
-            </React.Fragment>
-          );
+            );
+          } else {
+            const group = slotGroup;
+            slotGroup = [
+              <div className='slot' key={slot} onClick={() => { handleSelectTime(slot) }}>
+                {slot}
+              </div>
+            ];
+
+            return (
+              <React.Fragment key={index}>
+                <div className='slot-group'>
+                  {group}
+                </div>
+              </React.Fragment>
+            );
+          }
+
+          if (index === slots.length - 1) {
+            const group = slotGroup;
+            return (
+              <div className='slot-group' key={index}>
+                {group}
+              </div>
+            );
+          }
+
+          return null;
         })}
       </div>
     </div>

@@ -1,8 +1,14 @@
+#client-info{
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
 .client-form {
   display: flex;
   flex-direction: column;
   align-items: center;
-  button{
+  button {
     margin: 20px;
   }
 }
@@ -12,7 +18,11 @@
   justify-content: center;
 }
 
-
+.date {
+  font-family: "Poetsen One", sans-serif;
+  font-weight: 300;
+  color: rgb(23, 74, 95);
+}
 
 .input {
   padding: 10px;

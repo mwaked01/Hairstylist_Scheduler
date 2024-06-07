@@ -45,8 +45,8 @@ const ClientInfo = (props) => {
   };
 
   return (
-    <div>
-      <h2>{months[appointmentDate.month-1]} {appointmentDate.day}, {appointmentDate.year} at {appointmentDate.time}</h2>
+    <div id='client-info'>
+      <h2 className='date'>{months[appointmentDate.month-1]} {appointmentDate.day}, {appointmentDate.year} at {appointmentDate.time}</h2>
       <form onSubmit={handleSubmit} className='client-form'>
         <div className='client-form-input'>
           <section >
