@@ -1,11 +1,11 @@
 #dashboard{
   padding-top: 20px;
-  .dashboard-table {
-    display: flex;
-    justify-content: center;
-    width: 60%;
-    min-width: fit-content;
-  }
+}
+.dashboard-table {
+  display: flex;
+  justify-content: center;
+  max-width: 70vw;
+  min-width: fit-content;
 }
 
 .dashboard-content {
@@ -58,7 +58,6 @@ header {
 
 #client-row{
   &:hover{
-    border: solid;
     background-color:rgba(138, 224, 138, 0.904);
     cursor:pointer;
   }
