@@ -1,4 +1,6 @@
 import { useState } from "react";
+import { useNavigate } from 'react-router-dom';
+
 import axios from 'axios';
 
 import Calendar from "./BookingFormComponents/Calendar";
@@ -23,6 +25,8 @@ const BookingForm = (props) => {
     clientNotes: ''
   });
 
+  const navigate = useNavigate();
+  
   const formatDateToISOString = (dateInput) => {
     const [time, period] = dateInput.time.split(' ');
     let [hours, minutes] = time.split(':').map(Number);
@@ -57,6 +61,7 @@ const BookingForm = (props) => {
       };
       const response = await axios.post('http://localhost:8080/api/clients', { ...client, appointment });
       console.log('Client information submitted:', response.data);
+      navigate('/');
     } catch (error) {
       console.error('Error submitting client information:', error);
     }
