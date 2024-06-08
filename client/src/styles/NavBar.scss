@@ -11,11 +11,13 @@ nav {
   font-size: 1.5rem;
   font-family: "Poetsen One", sans-serif;
   font-weight: 300;
+  z-index: 1;
   .logo {
     color: rgb(255, 223, 43);
     display: flex;
     flex-direction: column;
     align-items: center;
+    justify-content: center;
     padding: 0.5em;
     font-size: 1.25rem;
     img{
@@ -26,6 +28,7 @@ nav {
   .nav-btns{
     display: flex;
     justify-content: space-between;
+    align-items: center;
   }
 
   a {

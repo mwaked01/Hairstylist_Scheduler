@@ -4,10 +4,27 @@
   align-items: center;
 }
 
-.date {
-  font-family: "Poetsen One", sans-serif;
-  font-weight: 300;
-  color: rgb(23, 74, 95);
+header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  width: 30vw;
+
+  .back-btn {
+    font-size: medium;
+    font-family: "Poetsen One", sans-serif;
+    font-weight: 300;
+    color: rgb(23, 74, 95);
+    border: solid;
+    border-radius: 10px;
+    border-color: rgb(23, 74, 95);
+  }
+
+  .date {
+    font-family: "Poetsen One", sans-serif;
+    font-weight: 300;
+    color: rgb(23, 74, 95);
+  }
 }
 
 .slot-group {

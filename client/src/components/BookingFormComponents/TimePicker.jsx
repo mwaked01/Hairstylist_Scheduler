@@ -2,6 +2,9 @@ import React, { useState, useEffect } from 'react';
 import '../../styles/Booking.scss'
 import axios from 'axios';
 
+import IconButton from '@mui/material/IconButton';
+import ArrowBackIosNewIcon from '@mui/icons-material/ArrowBackIosNew';
+
 const generateTimeSlots = () => {
   const slots = [];
   for (let i = 8; i <= 18; i++) {
@@ -70,7 +73,13 @@ const TimePicker = (props) => {
   let slotGroup = []
   return (
     <div id='time-picker'>
-      <h2 className='date'>{months[appointmentDate.month - 1]} {appointmentDate.day}, {appointmentDate.year}</h2>
+      <header>
+        <IconButton onClick={() => { setFormSection('Date') }} type="button" className='back-btn' aria-label="search">
+          <ArrowBackIosNewIcon fontSize='small' />
+          Calendar
+        </IconButton>
+        <h2 className='date'>{months[appointmentDate.month - 1]} {appointmentDate.day}, {appointmentDate.year}</h2>
+      </header>
 
       <div className='slots'>
         {slots.map((slot, index) => {

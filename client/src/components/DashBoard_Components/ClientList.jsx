@@ -5,11 +5,9 @@ import TableContainer from '@mui/material/TableContainer';
 import TableHead from '@mui/material/TableHead';
 import TableRow from '@mui/material/TableRow';
 import { styled } from '@mui/material/styles';
-import Button from '@mui/material/Button';
 import InputBase from '@mui/material/InputBase';
 
 import IconButton from '@mui/material/IconButton';
-import CalendarMonthOutlinedIcon from '@mui/icons-material/CalendarMonthOutlined';
 import PersonSearchOutlinedIcon from '@mui/icons-material/PersonSearchOutlined';
 
 import ClientListItem from './ClientListItem';
