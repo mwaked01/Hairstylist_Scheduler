@@ -1,7 +1,4 @@
-import React, { useState, useEffect } from 'react';
 import '../../styles/ClientInfo.scss'
-
-import axios from 'axios';
 
 import TextField from '@mui/material/TextField';
 import Button from '@mui/material/Button';
@@ -9,6 +6,9 @@ import MenuItem from '@mui/material/MenuItem';
 import Select from '@mui/material/Select';
 import InputLabel from '@mui/material/InputLabel';
 import FormControl from '@mui/material/FormControl';
+
+import IconButton from '@mui/material/IconButton';
+import ArrowBackIosNewIcon from '@mui/icons-material/ArrowBackIosNew';
 
 const ClientInfo = (props) => {
   const { client, setClient, handleSubmit, setFormSection, appointmentDate, setAppointmentDate } = props;
@@ -46,7 +46,14 @@ const ClientInfo = (props) => {
 
   return (
     <div id='client-info'>
-      <h2 className='date'>{months[appointmentDate.month-1]} {appointmentDate.day}, {appointmentDate.year} at {appointmentDate.time}</h2>
+      <header>
+        <IconButton onClick={() => { setFormSection('Time') }} type="button" className='back-btn' aria-label="search">
+          <ArrowBackIosNewIcon fontSize='small' />
+          Time
+        </IconButton>
+        <h2 className='date'>{months[appointmentDate.month - 1]} {appointmentDate.day}, {appointmentDate.year} at {appointmentDate.time}</h2>
+      </header>
+
       <form onSubmit={handleSubmit} className='client-form'>
         <div className='client-form-input'>
           <section >
