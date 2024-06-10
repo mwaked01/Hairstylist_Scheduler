@@ -3,6 +3,8 @@ import '../../styles/StylistNotesButton.scss'
 
 import Button from '@mui/material/Button';
 import Modal from '@mui/material/Modal';
+import TextField from '@mui/material/TextField';
+
 import AddCommentRoundedIcon from '@mui/icons-material/AddCommentRounded';
 
 const style = {
@@ -26,6 +28,20 @@ const StylistNotesButton = (props) => {
   const handleOpenModal = () => setOpenModal(true);
   const handleCloseModal = () => setOpenModal(false);
 
+  // const handleChange = (e) => {
+  //   const { name, value } = e.target;
+  //   setClient(prevClient => ({
+  //     ...prevClient,
+  //     [name]: value
+  //   }));
+  // };
+
+
+  const handleSubmit = async (e) => {
+    e.preventDefault();
+    console.log('notes submitted')
+  };
+
   return (
     <div className='add-btn'>
       <AddCommentRoundedIcon
@@ -37,12 +53,22 @@ const StylistNotesButton = (props) => {
         open={openModal}
         onClose={handleCloseModal}
       >
-        <div style={style}>
-          <h2>Add a Note</h2>
-          <p>Here you can add a new note.</p>
-          {/* Add your form or other elements here */}
-          <Button onClick={handleCloseModal}>Close</Button>
-        </div>
+        <form style={style} onSubmit={handleSubmit}>
+          <TextField
+            fullWidth
+            id="stylistNotes"
+            multiline
+            rows={10}
+            label="Add Notes"
+            variant="filled"
+            name="stylistNotes"
+            // value={client.clientNotes}
+            // onChange={handleChange}
+          />
+
+          <Button onClick={handleCloseModal} variant="contained" color="error">Cancel </Button>
+          <Button type="submit" variant="contained" color="primary"> Submit</Button>
+        </form>
       </Modal>
     </div>
   );
