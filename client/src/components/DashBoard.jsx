@@ -83,6 +83,7 @@ const DashBoard = () => {
           searchDate={searchDate}
           handleDateChange={handleDateChange}
           setSortBy={setSortBy}
+          sortBY={sortBY}
         /> : sortBY === 'ClientList' ?
           <ClientList
             clients={clients}
@@ -102,6 +103,7 @@ const DashBoard = () => {
               setSearchQuery={setSearchQuery}
               handleClientSearch={handleClientSearch}
               setCurrentDate={setCurrentDate}
+              sortBY={sortBY}
             />
             : <p>Nothing to Show</p>
       }

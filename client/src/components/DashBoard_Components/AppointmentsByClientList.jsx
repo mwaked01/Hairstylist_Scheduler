@@ -9,11 +9,10 @@ import Button from '@mui/material/Button';
 import InputBase from '@mui/material/InputBase';
 
 import IconButton from '@mui/material/IconButton';
-import CalendarMonthOutlinedIcon from '@mui/icons-material/CalendarMonthOutlined';
 import PersonSearchOutlinedIcon from '@mui/icons-material/PersonSearchOutlined';
 import PeopleOutlineRoundedIcon from '@mui/icons-material/PeopleOutlineRounded';
 
-import AppointmentsByClientItem from "./AppointmentsByClientItem";
+import AppointmentsItem from "./AppointmentsItem";
 import AppointmentsButton from './AppointmentsButton';
 
 const StyledTableCell = styled(TableCell)(({ theme }) => ({
@@ -37,7 +36,8 @@ const AppointmentsByClientList = (props) => {
     searchQuery,
     setSearchQuery,
     handleClientSearch,
-    setCurrentDate
+    setCurrentDate,
+    sortBY
   } = props;
 
   return (
@@ -82,9 +82,10 @@ const AppointmentsByClientList = (props) => {
             {appointments.length > 0 ? (
               appointments.sort((a, b) => new Date(b.date) - new Date(a.date))
                 .map((appointment) => (
-                  <AppointmentsByClientItem
+                  <AppointmentsItem
                     key={appointment._id}
                     appointment={appointment}
+                    sortBY={sortBY}
                   />
                 ))
             ) : (

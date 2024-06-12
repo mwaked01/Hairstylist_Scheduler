@@ -17,7 +17,7 @@ import { AdapterDayjs } from '@mui/x-date-pickers/AdapterDayjs';
 import { LocalizationProvider } from '@mui/x-date-pickers/LocalizationProvider';
 import { DatePicker } from '@mui/x-date-pickers/DatePicker';
 
-import AppointmentsByDateItem from './AppointmentsByDateItem';
+import AppointmentsItem from './AppointmentsItem';
 
 // import '../../styles/DashBoard.scss'
 
@@ -46,7 +46,7 @@ const StyledTableCell = styled(TableCell)(({ theme }) => ({
 
 
 const AppointmentsByDateList = (props) => {
-  const { appointments, setAppointments, currentDate, setCurrentDate, searchDate, handleDateChange, setSortBy } = props;
+  const { appointments, setAppointments, currentDate, setCurrentDate, searchDate, handleDateChange, setSortBy, sortBY } = props;
 
   const navigateToNextDay = () => {
     setCurrentDate(addDays(currentDate, 1));
@@ -111,10 +111,11 @@ const AppointmentsByDateList = (props) => {
               {appointments.sort((a, b) => {
                 return convertTimeToDate(a.time) - convertTimeToDate(b.time);
               }).map((appointment) => (
-                <AppointmentsByDateItem
+                <AppointmentsItem
                   key={appointment._id}
                   appointment={appointment}
                   updateAppointmentNotes={updateAppointmentNotes}
+                  sortBY={sortBY}
                 />
               ))}
             </TableBody>

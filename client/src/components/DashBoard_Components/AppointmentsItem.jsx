@@ -1,6 +1,7 @@
 import TableRow from '@mui/material/TableRow';
 import TableCell, { tableCellClasses } from '@mui/material/TableCell';
 import { styled } from '@mui/material/styles';
+import StylistNotesButton from './StylistNotesButton'
 
 const StyledTableCell = styled(TableCell)(({ theme }) => ({
   [`&.${tableCellClasses.head}`]: {
@@ -27,17 +28,24 @@ const StyledTableRow = styled(TableRow)(({ theme }) => ({
   },
 }));
 
-const AppointmentsByClientItem = (props) => {
-  const { appointment } = props;
+const AppointmentsItem = (props) => {
+  const { appointment, updateAppointmentNotes, sortBY } = props;
+
   return (
     <StyledTableRow
       key={appointment._id}
     >
       <StyledTableCell component="th" scope="row">
-        {appointment.date}
+        {sortBY === 'Date' ?
+          appointment.time :
+          appointment.date
+        }
       </StyledTableCell>
       <StyledTableCell align="center">
-        {appointment.time} 
+      {sortBY === 'Date' ?
+          `${appointment.client.firstName} ${appointment.client.lastName}` :
+          appointment.time
+        }
       </StyledTableCell>
       <StyledTableCell align="center">
         {appointment.status}
@@ -49,35 +57,16 @@ const AppointmentsByClientItem = (props) => {
         {appointment.clientNotes}
       </StyledTableCell>
       <StyledTableCell align="center">
-        {appointment.stylistNotes}
+        {appointment.stylistNotes === "" ?
+          <StylistNotesButton
+            appointment={appointment}
+            updateAppointmentNotes={updateAppointmentNotes}
+          /> :
+          appointment.stylistNotes}
       </StyledTableCell>
     </StyledTableRow>
-    // <section>
 
-    //   <div>
-    //     <h2>
-    //       {client.firstName} {client.lastName}
-    //     </h2>
-    //   </div>
-    //   <div>
-    //     {appointments.length > 0 ? (
-    //       appointments.sort((a, b) => new Date(a.date) - new Date(b.date)).map((appointment) => (
-    //         <div key={appointment._id}>
-    //           <p>Date: {appointment.date}</p>
-    //           <p>Time: {appointment.time}</p>
-    //           <p>Service: {appointment.service}</p>
-    //           <p>Status: {appointment.status}</p>
-    //           <p>Client Notes: {appointment.clientNotes}</p>
-    //           <p>Stylist Notes: {appointment.stylisttNotes}</p>
-
-    //         </div>
-    //       ))
-    //     ) : (
-    //       <p>No appointments found for this client.</p>
-    //     )}
-    //   </div>
-    // </section>
   );
 };
 
-export default AppointmentsByClientItem;
+export default AppointmentsItem;
