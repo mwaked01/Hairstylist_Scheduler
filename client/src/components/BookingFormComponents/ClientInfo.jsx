@@ -16,25 +16,6 @@ const ClientInfo = (props) => {
     'January', 'February', 'March', 'April', 'May', 'June',
     'July', 'August', 'September', 'October', 'November', 'December'
   ];
-  //to do: search if client email input is in db
-  // useEffect(() => {
-  //   const fetchClients = async () => {
-  //     try {
-  //       const response = await axios.get('http://localhost:8080/api/clients');
-  //       const clients = response.data;
-  //       const currentClients = clients.map(client => {
-  //         const firstName = (client.firstName);
-  //         // console.log(firstName)
-  //         return firstName;
-  //       });
-  //       //add logic to check if client exists
-  //     } catch (error) {
-  //       console.error('Error fetching appointments:', error);
-  //     }
-  //   };
-
-  //   fetchClients();
-  // }, []);
 
   const handleChange = (e) => {
     const { name, value } = e.target;

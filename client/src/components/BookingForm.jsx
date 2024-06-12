@@ -26,32 +26,10 @@ const BookingForm = (props) => {
   });
 
   const navigate = useNavigate();
-  
-  const formatDateToISOString = (dateInput) => {
-    const [time, period] = dateInput.time.split(' ');
-    let [hours, minutes] = time.split(':').map(Number);
-
-    if (period === 'PM' && hours !== 12) {
-      hours += 12;
-    } else if (period === 'AM' && hours === 12) {
-      hours = 0;
-    }
-
-    const date = new Date(
-      dateInput.year,
-      dateInput.month,
-      dateInput.day,
-      hours,
-      minutes
-    );
-
-    return date.toISOString();
-  }
 
   const handleSubmit = async (e) => {
     e.preventDefault();
     try {
-      // console.log(formatDateToISOString(appointmentDate))
       const appointment = {
         date: `${appointmentDate.year}-${appointmentDate.month}-${appointmentDate.day}`,
         time: appointmentDate.time,
@@ -59,8 +37,24 @@ const BookingForm = (props) => {
         status: "booked",
         clientNotes: client.clientNotes
       };
-      const response = await axios.post('http://localhost:8080/api/clients', { ...client, appointment });
-      console.log('Client information submitted:', response.data);
+
+      const searchResponse = await axios.get('http://localhost:8080/api/clients/searchByEmailAndPhone', {
+        params: {
+          email: client.email,
+          phone: client.phone
+        }
+      });
+
+      if (searchResponse.data) {
+        // Client exists, add a new appointment to this client
+        const addAppointmentResponse = await axios.post(`http://localhost:8080/api/clients/addAppointment/${searchResponse.data._id}`, appointment);
+        console.log('Added appointment to existing client:', addAppointmentResponse.data);
+      } else {
+        // Client does not exist, create a new client
+        const response = await axios.post('http://localhost:8080/api/clients', { ...client, appointment });
+        console.log('Client information submitted:', response.data);
+      }
+
       navigate('/');
     } catch (error) {
       console.error('Error submitting client information:', error);

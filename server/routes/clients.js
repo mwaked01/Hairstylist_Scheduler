@@ -70,4 +70,54 @@ router.post("/", async (req, res) => {
   }
 });
 
+// Route to search clients by email and phone number
+router.get("/searchByEmailAndPhone", async (req, res) => {
+  const { email, phone } = req.query;
+  try {
+    const client = await Client.findOne({
+      email: { $regex: email, $options: "i" },
+      phone: { $regex: phone, $options: "i" },
+    }).populate("appointments");
+    res.status(200).json(client);
+  } catch (error) {
+    res.status(500).json({ message: "Error searching clients", error });
+  }
+});
+
+// Route to add a new appointment to an existing client
+router.post("/addAppointment/:clientId", async (req, res) => {
+  const { clientId } = req.params;
+  const {
+    date,
+    time,
+    service,
+    status,
+    clientNotes
+  } = req.body;
+
+  try {
+    const newAppointment = new Appointment({
+      date,
+      time,
+      service,
+      status,
+      clientNotes,
+      client: clientId
+    });
+
+    await newAppointment.save();
+
+    const client = await Client.findById(clientId);
+    client.appointments.push(newAppointment._id);
+    await client.save();
+
+    res.status(201).json({ client, appointment: newAppointment });
+  } catch (error) {
+    res
+      .status(500)
+      .json({ message: "Error creating appointment", error });
+  }
+});
+
+
 module.exports = router;
