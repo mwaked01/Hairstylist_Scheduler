@@ -23,4 +23,20 @@ router.get('/:date', async (req, res) => {
   }
 });
 
+// Route to update stylist notes for an appointment
+router.put('/:id', async (req, res) => {
+  try {
+    const { id } = req.params;
+    const { stylistNotes } = req.body;
+    const appointment = await Appointment.findByIdAndUpdate(
+      id,
+      { stylistNotes },
+      { new: true }
+    );
+    res.status(200).json(appointment);
+  } catch (error) {
+    res.status(500).json({ message: 'Error updating stylist notes', error });
+  }
+});
+
 module.exports = router;

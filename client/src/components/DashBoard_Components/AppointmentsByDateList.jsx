@@ -46,7 +46,7 @@ const StyledTableCell = styled(TableCell)(({ theme }) => ({
 
 
 const AppointmentsByDateList = (props) => {
-  const { appointments, currentDate, setCurrentDate, searchDate, handleDateChange, setSortBy } = props;
+  const { appointments, setAppointments, currentDate, setCurrentDate, searchDate, handleDateChange, setSortBy } = props;
 
   const navigateToNextDay = () => {
     setCurrentDate(addDays(currentDate, 1));
@@ -54,6 +54,16 @@ const AppointmentsByDateList = (props) => {
 
   const navigateToPreviousDay = () => {
     setCurrentDate(subDays(currentDate, 1));
+  };
+
+  const updateAppointmentNotes = (id, newNotes) => {
+    setAppointments((prevAppointments) =>
+      prevAppointments.map((appointment) =>
+        appointment._id === id
+          ? { ...appointment, stylistNotes: newNotes }
+          : appointment
+      )
+    );
   };
 
   return (
@@ -104,6 +114,7 @@ const AppointmentsByDateList = (props) => {
                 <AppointmentsByDateItem
                   key={appointment._id}
                   appointment={appointment}
+                  updateAppointmentNotes={updateAppointmentNotes}
                 />
               ))}
             </TableBody>

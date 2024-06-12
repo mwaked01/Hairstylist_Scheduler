@@ -29,7 +29,7 @@ const StyledTableRow = styled(TableRow)(({ theme }) => ({
 }));
 
 const AppointmentsByDateItem = (props) => {
-  const { appointment } = props;
+  const { appointment, updateAppointmentNotes } = props;
 
   return (
     <StyledTableRow
@@ -52,7 +52,10 @@ const AppointmentsByDateItem = (props) => {
       </StyledTableCell>
       <StyledTableCell align="center">
         {appointment.stylistNotes === "" ?
-          <StylistNotesButton /> :
+          <StylistNotesButton
+            appointment={appointment}
+            updateAppointmentNotes={updateAppointmentNotes}
+          /> :
           appointment.stylistNotes}
       </StyledTableCell>
     </StyledTableRow>
