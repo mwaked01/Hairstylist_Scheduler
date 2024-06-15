@@ -34,23 +34,29 @@ const ClientList = (props) => {
     handleClientSearch,
     setClientSelected,
     setAppointments,
-    setCurrentDate
+    setCurrentDate,
+    searchError
   } = props;
 
   return (
     <section className='dashboard-content'>
       <header className='dashboard-header'>
-        <div>
-          <InputBase
-            placeholder="Search client by name, phone #, or email"
-            inputProps={{ 'aria-label': 'client search' }}
-            value={searchQuery}
-            onChange={(e) => setSearchQuery(e.target.value)}
-          />
-          <IconButton onClick={handleClientSearch} type="button" sx={{ p: '10px' }} aria-label="search">
-            <PersonSearchOutlinedIcon />
-          </IconButton>
-        </div>
+        <section>
+          <div>
+            <InputBase
+              placeholder="Search client by name, phone #, or email"
+              inputProps={{ 'aria-label': 'client search' }}
+              value={searchQuery}
+              onChange={(e) => setSearchQuery(e.target.value)}
+            />
+            <IconButton onClick={handleClientSearch} type="button" sx={{ p: '10px' }} aria-label="search">
+              <PersonSearchOutlinedIcon />
+            </IconButton>
+          </div>
+          <div className='error-message'>
+            {searchError !== "" && searchError}
+          </div>
+        </section>
         <AppointmentsButton
           setSortBy={setSortBy}
           setCurrentDate={setCurrentDate}
@@ -80,7 +86,7 @@ const ClientList = (props) => {
               ))}
             </TableBody>
           </Table>
-          : <>No Clients Found</>
+          : <div className='error-message'>No Clients Found</div>
         }
 
       </TableContainer>
