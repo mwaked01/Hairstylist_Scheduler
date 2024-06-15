@@ -49,13 +49,12 @@ const AppointmentsByDateList = (props) => {
   const {
     appointments,
     setAppointments,
-    client,
     currentDate,
     setCurrentDate,
     searchDate,
     handleDateChange,
-    setSortBy,
-    sortBY
+    handleClientListButton,
+    sortBY,
   } = props;
 
   const navigateToNextDay = () => {
@@ -99,7 +98,7 @@ const AppointmentsByDateList = (props) => {
           />
         </LocalizationProvider>
 
-        <Button className='dashboard-nav-btns' endIcon={<PeopleOutlineRoundedIcon />} onClick={() => setSortBy('ClientList')}>
+        <Button className='dashboard-nav-btns' endIcon={<PeopleOutlineRoundedIcon />} onClick={() => handleClientListButton()}>
           Client List
         </Button>
       </header>

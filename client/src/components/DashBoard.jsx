@@ -23,16 +23,9 @@ const DashBoard = () => {
   const [searchDate, setSearchDate] = useState(format(currentDate, 'yyyy-MM-dd'));
   const [sortBY, setSortBy] = useState('Date')
   const [clients, setClients] = useState([]);
+  const [searchError, setSearchError] = useState('');
 
   useEffect(() => {
-    async function fetchClients() {
-      try {
-        const response = await axios.get('http://localhost:8080/api/clients');
-        setClients(response.data);
-      } catch (error) {
-        console.error('Error fetching clients info', error);
-      }
-    }
     fetchClients();
   }, []);
 
@@ -40,7 +33,14 @@ const DashBoard = () => {
     fetchAppointments(currentDate);
   }, [currentDate]);
 
-
+  const fetchClients = async () => {
+    try {
+      const response = await axios.get('http://localhost:8080/api/clients');
+      setClients(response.data);
+    } catch (error) {
+      console.error('Error fetching clients info', error);
+    }
+  }
   const fetchAppointments = async (date) => {
     const year = date.getFullYear();
     const month = String(date.getMonth() + 1).padStart(2, '0'); // Add 1 to month because it is zero-based
@@ -62,15 +62,30 @@ const DashBoard = () => {
   };
 
   const handleClientSearch = async () => {
-    try {
-      const response = await axios.get(`http://localhost:8080/api/clients/search?query=${searchQuery}`);
-      setAppointments(Array.isArray(response.data[0].appointments) ? response.data[0].appointments : [])
-      setClientSelected(response.data[0])
-      setSortBy('Client')
-    } catch (error) {
-      console.error('Error searching clients:', error);
+    if (searchQuery.trim() === "") {
+      setSearchError('Search can not be empty')
+    } else {
+      try {
+        const response = await axios.get(`http://localhost:8080/api/clients/search?query=${searchQuery}`);
+        if (response.data.length > 0) {
+          setClients(Array.isArray(response.data) ? response.data : [])
+          setSearchError("")
+        } else {
+          setClients([])
+          setSearchError("")
+          // setSearchError('No clients found');
+        }
+      } catch (error) {
+        console.error('Error searching clients:', error);
+      }
     }
   };
+
+  const handleClientListButton = () => {
+    fetchClients();
+    setSortBy('ClientList');
+    setSearchError('')
+  }
 
   return (
     <section id='dashboard'>
@@ -85,6 +100,7 @@ const DashBoard = () => {
           handleDateChange={handleDateChange}
           setSortBy={setSortBy}
           sortBY={sortBY}
+          handleClientListButton={handleClientListButton}
         /> : sortBY === 'ClientList' ?
           <ClientList
             clients={clients}
@@ -95,6 +111,9 @@ const DashBoard = () => {
             setClientSelected={setClientSelected}
             setAppointments={setAppointments}
             setCurrentDate={setCurrentDate}
+            searchError={searchError}
+            handleClientListButton={handleClientListButton}
+            setSearchError={setSearchError}
           /> : sortBY === 'Client' ?
             <AppointmentsByClientList
               appointments={appointments}
@@ -105,6 +124,8 @@ const DashBoard = () => {
               handleClientSearch={handleClientSearch}
               setCurrentDate={setCurrentDate}
               sortBY={sortBY}
+              handleClientListButton={handleClientListButton}
+              setSearchError={setSearchError}
             />
             : <p>Nothing to Show</p>
       }

@@ -19,10 +19,10 @@ router.get("/search", async (req, res) => {
   try {
     const clients = await Client.find({
       $or: [
-        { firstName: { $regex: query, $options: "i" } },
-        { lastName: { $regex: query, $options: "i" } },
-        { email: { $regex: query, $options: "i" } },
-        { phone: { $regex: query, $options: "i" } },
+        { firstName: { $regex: `^${query}$`, $options: "i" } },
+        { lastName: { $regex: `^${query}$`, $options: "i" } },
+        { email: { $regex: `^${query}$`, $options: "i" } },
+        { phone: { $regex: `^${query}$`, $options: "i" } },
       ],
     }).populate("appointments");
     res.status(200).json(clients);
@@ -30,6 +30,8 @@ router.get("/search", async (req, res) => {
     res.status(500).json({ message: "Error searching clients", error });
   }
 });
+
+
 
 // Route to add a new client
 router.post("/", async (req, res) => {

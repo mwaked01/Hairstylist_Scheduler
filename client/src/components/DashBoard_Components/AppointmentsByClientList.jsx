@@ -33,11 +33,10 @@ const AppointmentsByClientList = (props) => {
     appointments,
     client,
     setSortBy,
-    searchQuery,
-    setSearchQuery,
-    handleClientSearch,
+    setSearchError,
     setCurrentDate,
-    sortBY
+    sortBY,
+    handleClientListButton
   } = props;
 
   return (
@@ -46,23 +45,13 @@ const AppointmentsByClientList = (props) => {
         <h2 id='client-name'>
           {client.firstName} {client.lastName}
         </h2>
-        <div>
-          <InputBase
-            placeholder="Search client by name, phone #, or email"
-            inputProps={{ 'aria-label': 'client search' }}
-            value={searchQuery}
-            onChange={(e) => setSearchQuery(e.target.value)}
-            variant="outlined"
-          />
-          <IconButton onClick={handleClientSearch} type="button" sx={{ p: '10px' }} aria-label="search">
-            <PersonSearchOutlinedIcon />
-          </IconButton>
-        </div>
+
         <AppointmentsButton
           setSortBy={setSortBy}
           setCurrentDate={setCurrentDate}
+          setSearchError={setSearchError}
         />
-        <Button className='dashboard-nav-btns' endIcon={<PeopleOutlineRoundedIcon />} onClick={() => setSortBy('ClientList')}>
+        <Button className='dashboard-nav-btns' endIcon={<PeopleOutlineRoundedIcon />} onClick={() => handleClientListButton()}>
           Client List
         </Button>
       </header>

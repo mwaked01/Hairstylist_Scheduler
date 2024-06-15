@@ -4,22 +4,24 @@ import CalendarMonthOutlinedIcon from '@mui/icons-material/CalendarMonthOutlined
 const AppointmentsButton = (props) => {
   const {
     setSortBy,
-    setCurrentDate
+    setCurrentDate,
+    setSearchError,
   } = props;
 
   const handleAppointmentButton = () => {
     setSortBy('Date')
     setCurrentDate(new Date())
+    setSearchError('')
   }
 
   return (
-        <Button
-          className='dashboard-nav-btns'
-          endIcon={<CalendarMonthOutlinedIcon />}
-          onClick={handleAppointmentButton}
-        >
-          Appointments
-        </Button>
+    <Button
+      className='dashboard-nav-btns'
+      endIcon={<CalendarMonthOutlinedIcon />}
+      onClick={handleAppointmentButton}
+    >
+      Appointments
+    </Button>
   );
 };
 

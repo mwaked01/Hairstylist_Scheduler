@@ -6,9 +6,11 @@ import TableHead from '@mui/material/TableHead';
 import TableRow from '@mui/material/TableRow';
 import { styled } from '@mui/material/styles';
 import InputBase from '@mui/material/InputBase';
+import Button from '@mui/material/Button';
 
 import IconButton from '@mui/material/IconButton';
 import PersonSearchOutlinedIcon from '@mui/icons-material/PersonSearchOutlined';
+import PeopleOutlineRoundedIcon from '@mui/icons-material/PeopleOutlineRounded';
 
 import ClientListItem from './ClientListItem';
 import AppointmentsButton from './AppointmentsButton';
@@ -34,26 +36,38 @@ const ClientList = (props) => {
     handleClientSearch,
     setClientSelected,
     setAppointments,
-    setCurrentDate
+    setCurrentDate,
+    searchError,
+    handleClientListButton,
+    setSearchError,
   } = props;
 
   return (
     <section className='dashboard-content'>
       <header className='dashboard-header'>
-        <div>
-          <InputBase
-            placeholder="Search client by name, phone #, or email"
-            inputProps={{ 'aria-label': 'client search' }}
-            value={searchQuery}
-            onChange={(e) => setSearchQuery(e.target.value)}
-          />
-          <IconButton onClick={handleClientSearch} type="button" sx={{ p: '10px' }} aria-label="search">
-            <PersonSearchOutlinedIcon />
-          </IconButton>
-        </div>
+        <section>
+          <div>
+            <InputBase
+              placeholder="Search client by name, phone #, or email"
+              inputProps={{ 'aria-label': 'client search' }}
+              value={searchQuery}
+              onChange={(e) => setSearchQuery(e.target.value)}
+            />
+            <IconButton onClick={handleClientSearch} type="button" sx={{ p: '10px' }} aria-label="search">
+              <PersonSearchOutlinedIcon />
+            </IconButton>
+          </div>
+          <div className='error-message'>
+            {searchError !== "" && searchError}
+          </div>
+        </section>
+        <Button className='dashboard-nav-btns' endIcon={<PeopleOutlineRoundedIcon />} onClick={() => handleClientListButton()}>
+          Client List
+        </Button>
         <AppointmentsButton
           setSortBy={setSortBy}
           setCurrentDate={setCurrentDate}
+          setSearchError={setSearchError}
         />
       </header>
 
@@ -80,7 +94,7 @@ const ClientList = (props) => {
               ))}
             </TableBody>
           </Table>
-          : <>No Clients Found</>
+          : <div className='error-message'>No Clients Found</div>
         }
 
       </TableContainer>
