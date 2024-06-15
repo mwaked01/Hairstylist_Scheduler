@@ -6,9 +6,11 @@ import TableHead from '@mui/material/TableHead';
 import TableRow from '@mui/material/TableRow';
 import { styled } from '@mui/material/styles';
 import InputBase from '@mui/material/InputBase';
+import Button from '@mui/material/Button';
 
 import IconButton from '@mui/material/IconButton';
 import PersonSearchOutlinedIcon from '@mui/icons-material/PersonSearchOutlined';
+import PeopleOutlineRoundedIcon from '@mui/icons-material/PeopleOutlineRounded';
 
 import ClientListItem from './ClientListItem';
 import AppointmentsButton from './AppointmentsButton';
@@ -35,7 +37,9 @@ const ClientList = (props) => {
     setClientSelected,
     setAppointments,
     setCurrentDate,
-    searchError
+    searchError,
+    handleClientListButton,
+    setSearchError,
   } = props;
 
   return (
@@ -57,9 +61,13 @@ const ClientList = (props) => {
             {searchError !== "" && searchError}
           </div>
         </section>
+        <Button className='dashboard-nav-btns' endIcon={<PeopleOutlineRoundedIcon />} onClick={() => handleClientListButton()}>
+          Client List
+        </Button>
         <AppointmentsButton
           setSortBy={setSortBy}
           setCurrentDate={setCurrentDate}
+          setSearchError={setSearchError}
         />
       </header>
 

@@ -46,7 +46,16 @@ const StyledTableCell = styled(TableCell)(({ theme }) => ({
 
 
 const AppointmentsByDateList = (props) => {
-  const { appointments, setAppointments, currentDate, setCurrentDate, searchDate, handleDateChange, setSortBy, sortBY } = props;
+  const {
+    appointments,
+    setAppointments,
+    currentDate,
+    setCurrentDate,
+    searchDate,
+    handleDateChange,
+    handleClientListButton,
+    sortBY,
+  } = props;
 
   const navigateToNextDay = () => {
     setCurrentDate(addDays(currentDate, 1));
@@ -89,7 +98,7 @@ const AppointmentsByDateList = (props) => {
           />
         </LocalizationProvider>
 
-        <Button className='dashboard-nav-btns' endIcon={<PeopleOutlineRoundedIcon />} onClick={() => setSortBy('ClientList')}>
+        <Button className='dashboard-nav-btns' endIcon={<PeopleOutlineRoundedIcon />} onClick={() => handleClientListButton()}>
           Client List
         </Button>
       </header>
