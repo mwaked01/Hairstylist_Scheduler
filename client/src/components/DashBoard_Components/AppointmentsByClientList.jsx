@@ -65,6 +65,7 @@ const AppointmentsByClientList = (props) => {
               <StyledTableCell align="center">Service</StyledTableCell>
               <StyledTableCell align="center">Client Notes</StyledTableCell>
               <StyledTableCell align="center">Stylist Notes</StyledTableCell>
+              <StyledTableCell align="center">Edit</StyledTableCell>
             </TableRow>
           </TableHead>
           <TableBody>

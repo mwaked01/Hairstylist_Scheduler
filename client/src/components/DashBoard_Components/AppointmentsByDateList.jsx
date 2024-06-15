@@ -55,6 +55,7 @@ const AppointmentsByDateList = (props) => {
     handleDateChange,
     handleClientListButton,
     sortBY,
+    client
   } = props;
 
   const navigateToNextDay = () => {
