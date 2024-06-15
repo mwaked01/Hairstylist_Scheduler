@@ -1,7 +1,10 @@
+import { useState } from 'react';
+
 import TableRow from '@mui/material/TableRow';
 import TableCell, { tableCellClasses } from '@mui/material/TableCell';
 import { styled } from '@mui/material/styles';
 import StylistNotesButton from './StylistNotesButton'
+import EditAppointment from './EditAppointment';
 
 const StyledTableCell = styled(TableCell)(({ theme }) => ({
   [`&.${tableCellClasses.head}`]: {
@@ -26,18 +29,20 @@ const StyledTableRow = styled(TableRow)(({ theme }) => ({
   '&:last-child td, &:last-child th': {
     border: 0,
   },
-  '&:hover':{
-    backgroundColor:'rgba(138, 224, 138, 0.904)',
-    cursor:'pointer',
+  '&:hover': {
+    backgroundColor: 'rgba(138, 224, 138, 0.904)',
+    cursor: 'pointer',
   }
 }));
 
 const AppointmentsItem = (props) => {
-  const { appointment, updateAppointmentNotes, sortBY } = props;
+  const { appointment, updateAppointmentNotes, sortBY, client } = props;
+  const [editAppointment, setEditAppointment] = useState(false)
 
   return (
     <StyledTableRow
       key={appointment._id}
+      onClick={() => { setEditAppointment(true) }}
     >
       <StyledTableCell component="th" scope="row">
         {sortBY === 'Date' ?
@@ -46,7 +51,7 @@ const AppointmentsItem = (props) => {
         }
       </StyledTableCell>
       <StyledTableCell align="center">
-      {sortBY === 'Date' ?
+        {sortBY === 'Date' ?
           `${appointment.client.firstName} ${appointment.client.lastName}` :
           appointment.time
         }
@@ -67,6 +72,11 @@ const AppointmentsItem = (props) => {
             updateAppointmentNotes={updateAppointmentNotes}
           /> :
           appointment.stylistNotes}
+      </StyledTableCell>
+      <StyledTableCell align="center">
+        <EditAppointment
+          appointment={appointment}
+        />
       </StyledTableCell>
     </StyledTableRow>
 

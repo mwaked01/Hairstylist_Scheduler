@@ -46,7 +46,17 @@ const StyledTableCell = styled(TableCell)(({ theme }) => ({
 
 
 const AppointmentsByDateList = (props) => {
-  const { appointments, setAppointments, currentDate, setCurrentDate, searchDate, handleDateChange, setSortBy, sortBY } = props;
+  const {
+    appointments,
+    setAppointments,
+    client,
+    currentDate,
+    setCurrentDate,
+    searchDate,
+    handleDateChange,
+    setSortBy,
+    sortBY
+  } = props;
 
   const navigateToNextDay = () => {
     setCurrentDate(addDays(currentDate, 1));
@@ -105,6 +115,7 @@ const AppointmentsByDateList = (props) => {
                 <StyledTableCell align="center">Service</StyledTableCell>
                 <StyledTableCell align="center">Client Notes</StyledTableCell>
                 <StyledTableCell align="center">Stylist Notes</StyledTableCell>
+                <StyledTableCell align="center">Edit</StyledTableCell>
               </TableRow>
             </TableHead>
             <TableBody>
@@ -114,6 +125,7 @@ const AppointmentsByDateList = (props) => {
                 <AppointmentsItem
                   key={appointment._id}
                   appointment={appointment}
+                  client={client}
                   updateAppointmentNotes={updateAppointmentNotes}
                   sortBY={sortBY}
                 />
