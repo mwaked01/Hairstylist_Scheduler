@@ -64,9 +64,11 @@ const DashBoard = () => {
   const handleClientSearch = async () => {
     try {
       const response = await axios.get(`http://localhost:8080/api/clients/search?query=${searchQuery}`);
-      setAppointments(Array.isArray(response.data[0].appointments) ? response.data[0].appointments : [])
-      setClientSelected(response.data[0])
-      setSortBy('Client')
+      if (searchQuery !== "" && response.data.length > 0) {
+        setClients(Array.isArray(response.data) ? response.data : [])
+      } else {
+        console.log('No clients found');
+      }
     } catch (error) {
       console.error('Error searching clients:', error);
     }
