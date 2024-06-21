@@ -125,6 +125,7 @@ const AppointmentsByDateList = (props) => {
                 <AppointmentsItem
                   key={appointment._id}
                   appointment={appointment}
+                  setAppointments={setAppointments}
                   client={client}
                   updateAppointmentNotes={updateAppointmentNotes}
                   sortBY={sortBY}

@@ -1,4 +1,4 @@
-import { useState } from 'react';
+import { useState, useEffect } from 'react';
 import axios from 'axios';
 
 import '../../styles/StylistNotesButton.scss'
@@ -12,20 +12,84 @@ import Modal from '@mui/material/Modal';
 import TextField from '@mui/material/TextField';
 import EditCalendarRoundedIcon from '@mui/icons-material/EditCalendarRounded';
 
+const generateTimeSlots = () => {
+  const slots = [];
+  for (let i = 8; i <= 18; i++) {
+    // Format hours with leading zero if less than 10
+    const hour = i < 10 ? `0${i}` : `${i}`;
+
+    if (i < 12) {
+      slots.push(`${hour}:00 AM`);
+      slots.push(`${hour}:15 AM`);
+      slots.push(`${hour}:30 AM`);
+      slots.push(`${hour}:45 AM`);
+    } else if (i === 12) {
+      slots.push(`${hour}:00 PM`);
+      slots.push(`${hour}:15 PM`);
+      slots.push(`${hour}:30 PM`);
+      slots.push(`${hour}:45 PM`);
+    } else {
+      const hour12 = i - 12 < 10 ? `0${i - 12}` : `${i - 12}`;
+      slots.push(`${hour12}:00 PM`);
+      slots.push(`${hour12}:15 PM`);
+      slots.push(`${hour12}:30 PM`);
+      slots.push(`${hour12}:45 PM`);
+    }
+  }
+  return slots;
+};
+
 const EditAppointment = (props) => {
   const {
     appointment,
+    setAppointments,
   } = props;
+
   const [openModal, setOpenModal] = useState(false);
-  const [stylistNotes, setStylistNotes] = useState(appointment.stylistNotes || '');
+  const [newInfo, setNewInfo] = useState(appointment);
+  const [slots, setSlots] = useState(generateTimeSlots());
 
   const handleOpenModal = () => setOpenModal(true);
   const handleCloseModal = () => setOpenModal(false);
 
-  const handleChange = (e) => {
-    setStylistNotes(e.target.value);
+  useEffect(() => {
+    fetchAppointments();
+  }, []);
+
+  const fetchAppointments = async () => {
+    try {
+      const response = await axios.get(`http://localhost:8080/api/appointments/${appointment.year}-${appointment.month}-${appointment.day}`);
+      const appointments = response.data;
+      // Extract time part from each appointment's date
+      const takenTimes = appointments.map(appointment => {
+        const time = appointment.time;
+        return time;
+      });
+      // Filter out taken times from slots
+      const filteredSlots = slots.filter(slot => !takenTimes.includes(slot));
+      setSlots(filteredSlots);
+    } catch (error) {
+      console.error('Error fetching appointments:', error);
+    }
   };
 
+  const handleChange = (e) => {
+    const { name, value } = e.target;
+    setNewInfo(prevClient => ({
+      ...prevClient,
+      [name]: value
+    }));
+  };
+
+  const updateAppointment = (id, newNotes) => {
+    setAppointments((prevAppointments) =>
+      prevAppointments.map((appointment) =>
+        appointment._id === id
+          ? { ...appointment, stylistNotes: newNotes }
+          : appointment
+      )
+    );
+  };
 
   const handleSubmit = async (e) => {
     e.preventDefault();
@@ -35,7 +99,7 @@ const EditAppointment = (props) => {
       });
       if (response.status === 200) {
         // Update the appointment's stylistNotes in the parent component
-        updateAppointmentNotes(appointment._id, stylistNotes);
+        updateAppointment(appointment._id, stylistNotes);
         setOpenModal(false);
       } else {
         console.error('Error updating stylist notes');
@@ -44,6 +108,11 @@ const EditAppointment = (props) => {
       console.error('Error updating stylist notes:', error);
     }
   };
+
+  const handleCancel = () => {
+    setNewInfo(appointment)
+    setOpenModal(false)
+  }
 
   return (
     <div >
@@ -59,75 +128,84 @@ const EditAppointment = (props) => {
       >
         <div id='stylist-notes-modal'>
           <form onSubmit={handleSubmit} id="stylist-notes">
-          <section >
-            <div className='input'>
-              <TextField
-                required
-                id="date"
-                label="Date"
-                variant="filled"
-                name="date"
-                value={appointment.date}
-                onChange={handleChange}
-              />
-            </div>
-            <div className='input'>
-              <TextField
-                required
-                id="time"
-                label="Time"
-                variant="filled"
-                name="time"
-                value={appointment.time}
-                onChange={handleChange}
-              />
-            </div>
-            <FormControl fullWidth variant="filled" required>
+            <section >
               <div className='input'>
-                <InputLabel
-                  id="service-label">Service Type</InputLabel>
-                <Select
-                  fullWidth
-                  labelId="service-label"
-                  id="service"
-                  name="service"
-                  value={appointment.service}
+                <TextField
+                  required
+                  // id="date"
+                  type='date'
+                  label="Date"
+                  variant="filled"
+                  name="date"
+                  value={newInfo.date}
                   onChange={handleChange}
-                >
-                  <MenuItem value="Hair Cut">Hair Cut</MenuItem>
-                  <MenuItem value="Color">Color</MenuItem>
-                  <MenuItem value="Style">Style</MenuItem>
-                </Select>
+                />
               </div>
-            </FormControl>
-          </section>
-          <section >
-            <div className='input'>
-              <TextField
-                required
-                id="status"
-                label="status"
-                variant="filled"
-                name="status"
-                value={appointment.status}
-                onChange={handleChange}
-              />
-            </div>
-            <div className='input'>
-              <TextField
-                required
-                id="stylistNotes"
-                label="stylistNotes"
-                variant="filled"
-                name="stylistNotes"
-                value={appointment.stylistNotes}
-                onChange={handleChange}
-              />
-            </div>
+              <FormControl variant="filled" required>
+                <div className='input'>
+                  <InputLabel
+                    id="time-label">Time</InputLabel>
+                  <Select
+                    fullWidth
+                    labelId="time-label"
+                    id="time"
+                    name="time"
+                    value={newInfo.time}
+                    onChange={handleChange}
+                  >
+                    {slots.map((slot) =>
+                      <MenuItem key={slot} value={slot}>{slot}</MenuItem>
+                    )}
+                  </Select>
+                </div>
+              </FormControl>
 
-          </section>
+              <FormControl variant="filled" required>
+                <div className='input'>
+                  <InputLabel
+                    id="service-label">Service Type</InputLabel>
+                  <Select
+                    fullWidth
+                    labelId="service-label"
+                    id="service"
+                    name="service"
+                    value={newInfo.service}
+                    onChange={handleChange}
+                  >
+                    <MenuItem value="Hair Cut">Hair Cut</MenuItem>
+                    <MenuItem value="Color">Color</MenuItem>
+                    <MenuItem value="Style">Style</MenuItem>
+                  </Select>
+                </div>
+              </FormControl>
+            </section>
+            <section >
+              <div className='input'>
+                <TextField
+                  required
+                  id="status"
+                  label="status"
+                  variant="filled"
+                  name="status"
+                  value={newInfo.status}
+                  onChange={handleChange}
+                />
+              </div>
+              <div className='input'>
+                <TextField
+                  required
+                  id="stylistNotes"
+                  label="stylistNotes"
+                  variant="filled"
+                  name="stylistNotes"
+                  value={newInfo.stylistNotes}
+                  onChange={handleChange}
+                />
+              </div>
+
+            </section>
             <section className='modal-btns'>
-              <Button onClick={handleCloseModal} variant="contained" color="error">Cancel </Button>
+              <Button onClick={handleCancel} variant="contained" color="error">Cancel </Button>
               <Button type="submit" variant="contained" color="primary"> Submit</Button>
             </section>
           </form>

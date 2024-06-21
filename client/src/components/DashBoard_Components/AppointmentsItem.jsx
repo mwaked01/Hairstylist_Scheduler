@@ -36,7 +36,7 @@ const StyledTableRow = styled(TableRow)(({ theme }) => ({
 }));
 
 const AppointmentsItem = (props) => {
-  const { appointment, updateAppointmentNotes, sortBY, client } = props;
+  const { appointment, updateAppointmentNotes, sortBY, setAppointments } = props;
   const [editAppointment, setEditAppointment] = useState(false)
 
   return (
@@ -76,6 +76,7 @@ const AppointmentsItem = (props) => {
       <StyledTableCell align="center">
         <EditAppointment
           appointment={appointment}
+          setAppointments={setAppointments}
         />
       </StyledTableCell>
     </StyledTableRow>
