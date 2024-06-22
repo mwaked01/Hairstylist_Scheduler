@@ -53,7 +53,8 @@ const EditAppointment = (props) => {
   const handleCloseModal = () => setOpenModal(false);
 
   useEffect(() => {
-    // console.log(newInfo.date)
+    setSlots(generateTimeSlots())
+    console.log(generateTimeSlots())
     fetchAppointments();
   }, [newInfo]);
 
@@ -68,7 +69,6 @@ const EditAppointment = (props) => {
       });
       // Filter out taken times from slots
       const filteredSlots = slots.filter(slot => !takenTimes.includes(slot) || slot === newInfo.time);
-      // filteredSlots.push(newInfo.time)
       setSlots(filteredSlots);
     } catch (error) {
       console.error('Error fetching appointments:', error);
