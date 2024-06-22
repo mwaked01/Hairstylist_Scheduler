@@ -53,12 +53,13 @@ const EditAppointment = (props) => {
   const handleCloseModal = () => setOpenModal(false);
 
   useEffect(() => {
+    // console.log(newInfo.date)
     fetchAppointments();
-  }, []);
+  }, [newInfo]);
 
   const fetchAppointments = async () => {
     try {
-      const response = await axios.get(`http://localhost:8080/api/appointments/${appointment.year}-${appointment.month}-${appointment.day}`);
+      const response = await axios.get(`http://localhost:8080/api/appointments/${newInfo.date}`);
       const appointments = response.data;
       // Extract time part from each appointment's date
       const takenTimes = appointments.map(appointment => {
@@ -66,7 +67,8 @@ const EditAppointment = (props) => {
         return time;
       });
       // Filter out taken times from slots
-      const filteredSlots = slots.filter(slot => !takenTimes.includes(slot));
+      const filteredSlots = slots.filter(slot => !takenTimes.includes(slot) || slot === newInfo.time);
+      // filteredSlots.push(newInfo.time)
       setSlots(filteredSlots);
     } catch (error) {
       console.error('Error fetching appointments:', error);
