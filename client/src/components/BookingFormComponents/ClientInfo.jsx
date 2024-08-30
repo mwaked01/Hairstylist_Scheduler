@@ -39,31 +39,29 @@ const ClientInfo = (props) => {
         <h2 className='date'>{months[appointmentDate.month - 1]} {appointmentDate.day}, {appointmentDate.year} at {appointmentDate.time}</h2>
       </header>
 
-      <div className='client-btns'>
-        {/* <NewClientButton setFormSection={setFormSection} /> */}
-        {/* <ReturningClientButton setFormSection={setFormSection} /> */}
-      </div>
       {formSection === 'ReturningClient' ?
-
-        <div>
-<NewClientButton setFormSection={setFormSection} />
-          <InputBase
-            placeholder="Search by Email or Phone #"
-            inputProps={{ 'aria-label': 'client search' }}
-          // value={searchQuery}
-          // onChange={(e) => setSearchQuery(e.target.value)}
-          />
-          <IconButton
-            // onClick={handleClientSearch}
-            type="button" sx={{ p: '10px' }}
-            aria-label="search"
-          >
-            <PersonSearchOutlinedIcon />
-          </IconButton>
+        <div id='ReturningClient'>
+          <NewClientButton setFormSection={setFormSection} />
+          <form id='returning-client-search-bar'>
+            <TextField
+              // onInput={(e) => {
+              //   setSearchQuery(e.target.value);
+              // }}
+              label="Enter an Email or a Phone Number..."
+              variant="outlined"
+              placeholder="Search..."
+              size="small"
+              fullWidth
+            />
+            <IconButton type="submit" aria-label=" search">
+              <PersonSearchOutlinedIcon />
+            </IconButton>
+          </form>
         </div>
         :
-        <form onSubmit={handleSubmit} className='client-form'>
-                 <ReturningClientButton setFormSection={setFormSection} />
+        <form onSubmit={handleSubmit} id='NewClient'>
+          <ReturningClientButton setFormSection={setFormSection} />
+
 
           <div className='client-form-input'>
             <section >
@@ -81,11 +79,11 @@ const ClientInfo = (props) => {
               <div className='input'>
                 <TextField
                   required
-                  id="last-name"
-                  label="Last Name"
+                  id="email"
+                  label="Email"
                   variant="filled"
-                  name="lastName"
-                  value={client.lastName}
+                  name="email"
+                  value={client.email}
                   onChange={handleChange}
                 />
               </div>
@@ -109,18 +107,18 @@ const ClientInfo = (props) => {
               </FormControl>
             </section>
             <section >
-              <div className='input'>
+              <div className='input-right'>
                 <TextField
                   required
-                  id="email"
-                  label="Email"
+                  id="last-name"
+                  label="Last Name"
                   variant="filled"
-                  name="email"
-                  value={client.email}
+                  name="lastName"
+                  value={client.lastName}
                   onChange={handleChange}
                 />
               </div>
-              <div className='input'>
+              <div className='input-right'>
                 <TextField
                   required
                   id="phone"
@@ -131,7 +129,7 @@ const ClientInfo = (props) => {
                   onChange={handleChange}
                 />
               </div>
-              <div className='input'>
+              <div className='input-right'>
                 <TextField
                   fullWidth
                   id="clientNotes"

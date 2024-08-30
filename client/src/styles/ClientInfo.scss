@@ -16,6 +16,7 @@
 .client-form-input {
   display: flex;
   justify-content: center;
+  width: 25rem;
 }
 
 header {
@@ -42,6 +43,14 @@ header {
 
 .input {
   padding: 10px;
+  padding-left: 0px;
+  padding-right: 20px;
+}
+
+.input-right {
+  padding: 10px;
+  padding-left: 0px;
+  padding-right: 0px;
 }
 
 .client-btns {
@@ -49,9 +58,16 @@ header {
   justify-content: space-between;
   width: 25rem;
 }
-// #ReturningClientButton {
-//   color: white;
-//   background-color: #76c9e5;
-//   border: solid;
-//   border-color: rgb(255, 223, 43);
-// }
+
+#NewClient {
+  width: 25rem;
+}
+
+#ReturningClient {
+  width: 25rem;
+}
+
+#returning-client-search-bar {
+  padding-top: 10px;
+  display: flex;
+}
