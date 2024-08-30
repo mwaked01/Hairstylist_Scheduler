@@ -40,7 +40,7 @@ const TimePicker = (props) => {
     'July', 'August', 'September', 'October', 'November', 'December'
   ];
   const handleSelectTime = (newTime) => {
-    setFormSection('ClientInfo')
+    setFormSection('NewClient')
     setAppointmentDate((prevAppointmentDate) => ({
       ...prevAppointmentDate,
       time: newTime

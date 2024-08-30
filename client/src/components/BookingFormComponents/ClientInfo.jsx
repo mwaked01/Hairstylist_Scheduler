@@ -6,9 +6,13 @@ import MenuItem from '@mui/material/MenuItem';
 import Select from '@mui/material/Select';
 import InputLabel from '@mui/material/InputLabel';
 import FormControl from '@mui/material/FormControl';
+import InputBase from '@mui/material/InputBase';
 
 import IconButton from '@mui/material/IconButton';
 import ArrowBackIosNewIcon from '@mui/icons-material/ArrowBackIosNew';
+import PersonSearchOutlinedIcon from '@mui/icons-material/PersonSearchOutlined';
+import NewClientButton from './NewClientButton';
+import ReturningClientButton from './ReturningClientButton';
 
 const ClientInfo = (props) => {
   const { client, setClient, handleSubmit, setFormSection, appointmentDate, setAppointmentDate } = props;
@@ -34,6 +38,27 @@ const ClientInfo = (props) => {
         </IconButton>
         <h2 className='date'>{months[appointmentDate.month - 1]} {appointmentDate.day}, {appointmentDate.year} at {appointmentDate.time}</h2>
       </header>
+
+      <div className='client-btns'>
+        <NewClientButton />
+        <ReturningClientButton />
+      </div>
+
+      <div>
+        <InputBase
+          placeholder="Search by Email or Phone #"
+          inputProps={{ 'aria-label': 'client search' }}
+        // value={searchQuery}
+        // onChange={(e) => setSearchQuery(e.target.value)}
+        />
+        <IconButton
+          // onClick={handleClientSearch}
+          type="button" sx={{ p: '10px' }}
+          aria-label="search"
+        >
+          <PersonSearchOutlinedIcon />
+        </IconButton>
+      </div>
 
       <form onSubmit={handleSubmit} className='client-form'>
         <div className='client-form-input'>
@@ -117,7 +142,7 @@ const ClientInfo = (props) => {
             </div>
           </section>
         </div>
-        <Button type="submit" variant="contained" color="primary">
+        <Button type="submit" variant="contained" color="success">
           Submit
         </Button>
       </form>

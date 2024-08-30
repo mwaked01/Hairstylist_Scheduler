@@ -1,4 +1,4 @@
-#client-info{
+#client-info {
   display: flex;
   flex-direction: column;
   align-items: center;
@@ -43,3 +43,15 @@ header {
 .input {
   padding: 10px;
 }
+
+.client-btns {
+  display: flex;
+  justify-content: space-between;
+  width: 25rem;
+}
+// #ReturningClientButton {
+//   color: white;
+//   background-color: #76c9e5;
+//   border: solid;
+//   border-color: rgb(255, 223, 43);
+// }

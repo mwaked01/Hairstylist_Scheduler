@@ -75,7 +75,7 @@ const BookingForm = (props) => {
             appointmentDate={appointmentDate}
             setAppointmentDate={setAppointmentDate}
             setFormSection={setFormSection}
-          /> : formSection === 'ClientInfo' ?
+          /> : formSection === 'NewClient' || formSection === 'ReturningClient' ?
             <ClientInfo
               client={client}
               setClient={setClient}
