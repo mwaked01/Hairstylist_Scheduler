@@ -15,7 +15,7 @@ import NewClientButton from './NewClientButton';
 import ReturningClientButton from './ReturningClientButton';
 
 const ClientInfo = (props) => {
-  const { client, setClient, handleSubmit, setFormSection, appointmentDate, setAppointmentDate } = props;
+  const { client, setClient, handleSubmit, setFormSection, formSection, appointmentDate, setAppointmentDate } = props;
   const months = [
     'January', 'February', 'March', 'April', 'May', 'June',
     'July', 'August', 'September', 'October', 'November', 'December'
@@ -40,112 +40,117 @@ const ClientInfo = (props) => {
       </header>
 
       <div className='client-btns'>
-        <NewClientButton />
-        <ReturningClientButton />
+        {/* <NewClientButton setFormSection={setFormSection} /> */}
+        {/* <ReturningClientButton setFormSection={setFormSection} /> */}
       </div>
+      {formSection === 'ReturningClient' ?
 
-      <div>
-        <InputBase
-          placeholder="Search by Email or Phone #"
-          inputProps={{ 'aria-label': 'client search' }}
-        // value={searchQuery}
-        // onChange={(e) => setSearchQuery(e.target.value)}
-        />
-        <IconButton
-          // onClick={handleClientSearch}
-          type="button" sx={{ p: '10px' }}
-          aria-label="search"
-        >
-          <PersonSearchOutlinedIcon />
-        </IconButton>
-      </div>
-
-      <form onSubmit={handleSubmit} className='client-form'>
-        <div className='client-form-input'>
-          <section >
-            <div className='input'>
-              <TextField
-                required
-                id="first-name"
-                label="First Name"
-                variant="filled"
-                name="firstName"
-                value={client.firstName}
-                onChange={handleChange}
-              />
-            </div>
-            <div className='input'>
-              <TextField
-                required
-                id="last-name"
-                label="Last Name"
-                variant="filled"
-                name="lastName"
-                value={client.lastName}
-                onChange={handleChange}
-              />
-            </div>
-            <FormControl fullWidth variant="filled" required>
-              <div className='input'>
-                <InputLabel
-                  id="service-label">Service Type</InputLabel>
-                <Select
-                  fullWidth
-                  labelId="service-label"
-                  id="service"
-                  name="service"
-                  value={client.service}
-                  onChange={handleChange}
-                >
-                  <MenuItem value="Hair Cut">Hair Cut</MenuItem>
-                  <MenuItem value="Color">Color</MenuItem>
-                  <MenuItem value="Style">Style</MenuItem>
-                </Select>
-              </div>
-            </FormControl>
-          </section>
-          <section >
-            <div className='input'>
-              <TextField
-                required
-                id="email"
-                label="Email"
-                variant="filled"
-                name="email"
-                value={client.email}
-                onChange={handleChange}
-              />
-            </div>
-            <div className='input'>
-              <TextField
-                required
-                id="phone"
-                label="Phone Number"
-                variant="filled"
-                name="phone"
-                value={client.phone}
-                onChange={handleChange}
-              />
-            </div>
-            <div className='input'>
-              <TextField
-                fullWidth
-                id="clientNotes"
-                multiline
-                rows={4}
-                label="Additional Notes"
-                variant="filled"
-                name="clientNotes"
-                value={client.clientNotes}
-                onChange={handleChange}
-              />
-            </div>
-          </section>
+        <div>
+<NewClientButton setFormSection={setFormSection} />
+          <InputBase
+            placeholder="Search by Email or Phone #"
+            inputProps={{ 'aria-label': 'client search' }}
+          // value={searchQuery}
+          // onChange={(e) => setSearchQuery(e.target.value)}
+          />
+          <IconButton
+            // onClick={handleClientSearch}
+            type="button" sx={{ p: '10px' }}
+            aria-label="search"
+          >
+            <PersonSearchOutlinedIcon />
+          </IconButton>
         </div>
-        <Button type="submit" variant="contained" color="success">
-          Submit
-        </Button>
-      </form>
+        :
+        <form onSubmit={handleSubmit} className='client-form'>
+                 <ReturningClientButton setFormSection={setFormSection} />
+
+          <div className='client-form-input'>
+            <section >
+              <div className='input'>
+                <TextField
+                  required
+                  id="first-name"
+                  label="First Name"
+                  variant="filled"
+                  name="firstName"
+                  value={client.firstName}
+                  onChange={handleChange}
+                />
+              </div>
+              <div className='input'>
+                <TextField
+                  required
+                  id="last-name"
+                  label="Last Name"
+                  variant="filled"
+                  name="lastName"
+                  value={client.lastName}
+                  onChange={handleChange}
+                />
+              </div>
+              <FormControl fullWidth variant="filled" required>
+                <div className='input'>
+                  <InputLabel
+                    id="service-label">Service Type</InputLabel>
+                  <Select
+                    fullWidth
+                    labelId="service-label"
+                    id="service"
+                    name="service"
+                    value={client.service}
+                    onChange={handleChange}
+                  >
+                    <MenuItem value="Hair Cut">Hair Cut</MenuItem>
+                    <MenuItem value="Color">Color</MenuItem>
+                    <MenuItem value="Style">Style</MenuItem>
+                  </Select>
+                </div>
+              </FormControl>
+            </section>
+            <section >
+              <div className='input'>
+                <TextField
+                  required
+                  id="email"
+                  label="Email"
+                  variant="filled"
+                  name="email"
+                  value={client.email}
+                  onChange={handleChange}
+                />
+              </div>
+              <div className='input'>
+                <TextField
+                  required
+                  id="phone"
+                  label="Phone Number"
+                  variant="filled"
+                  name="phone"
+                  value={client.phone}
+                  onChange={handleChange}
+                />
+              </div>
+              <div className='input'>
+                <TextField
+                  fullWidth
+                  id="clientNotes"
+                  multiline
+                  rows={4}
+                  label="Additional Notes"
+                  variant="filled"
+                  name="clientNotes"
+                  value={client.clientNotes}
+                  onChange={handleChange}
+                />
+              </div>
+            </section>
+          </div>
+          <Button type="submit" variant="contained" color="success">
+            Submit
+          </Button>
+        </form>
+      }
     </div >
   );
 };

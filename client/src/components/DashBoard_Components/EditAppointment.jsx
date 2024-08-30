@@ -54,7 +54,7 @@ const EditAppointment = (props) => {
 
   useEffect(() => {
     setSlots(generateTimeSlots())
-    console.log(generateTimeSlots())
+    // console.log(generateTimeSlots())
     fetchAppointments();
   }, [newInfo]);
 

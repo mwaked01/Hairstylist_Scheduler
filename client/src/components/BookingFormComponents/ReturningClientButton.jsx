@@ -2,11 +2,11 @@ import Button from '@mui/material/Button';
 
 const ReturningClientButton = (props) => {
   const {
-
+    setFormSection
   } = props;
 
   const handleReturningClientButton = () => {
-
+    setFormSection('ReturningClient')
   }
 
   return (

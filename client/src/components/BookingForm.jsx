@@ -83,6 +83,7 @@ const BookingForm = (props) => {
               setAppointmentDate={setAppointmentDate}
               handleSubmit={handleSubmit}
               setFormSection={setFormSection}
+              formSection={formSection}
             /> :
             <p>none</p>
       }
