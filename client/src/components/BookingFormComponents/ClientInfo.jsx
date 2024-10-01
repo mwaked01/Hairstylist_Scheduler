@@ -36,7 +36,7 @@ const ClientInfo = (props) => {
           <ArrowBackIosNewIcon fontSize='small' />
           Time
         </IconButton>
-        <h2 className='date'>{months[appointmentDate.month - 1]} {appointmentDate.day}, {appointmentDate.year} at {appointmentDate.time}</h2>
+        <h2 className='date' name='date'>{months[appointmentDate.month - 1]} {appointmentDate.day}, {appointmentDate.year} at {appointmentDate.time}</h2>
       </header>
 
       {formSection === 'ReturningClient' ?
@@ -62,6 +62,8 @@ const ClientInfo = (props) => {
         <form onSubmit={handleSubmit} id='NewClient'>
           <ReturningClientButton setFormSection={setFormSection} />
 
+          <input type="hidden" name="date" value={`${appointmentDate.year}-${appointmentDate.month}-${appointmentDate.day}`} />
+          <input type="hidden" name="time" value={appointmentDate.time} />
 
           <div className='client-form-input'>
             <section >

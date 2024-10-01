@@ -7,6 +7,14 @@ import Calendar from "./BookingFormComponents/Calendar";
 import TimePicker from "./BookingFormComponents/TimePicker";
 import ClientInfo from "./BookingFormComponents/ClientInfo";
 
+import emailjs from 'emailjs-com';
+import Swal from 'sweetalert2';
+
+const SERVICE_ID = "service_75bbx39";
+const TEMPLATE_ID = "template_by4xcpt";
+const USER_ID = "n_JyyoXkMteWYmNiR";
+
+
 const BookingForm = (props) => {
   const [formSection, setFormSection] = useState('Date')
   const [appointmentDate, setAppointmentDate] = useState({
@@ -54,8 +62,22 @@ const BookingForm = (props) => {
         const response = await axios.post('http://localhost:8080/api/clients', { ...client, appointment });
         console.log('Client information submitted:', response.data);
       }
-
-      navigate('/');
+      emailjs.sendForm(SERVICE_ID, TEMPLATE_ID, e.target, USER_ID)
+        .then((result) => {
+          Swal.fire({
+            icon: 'success',
+            title: 'Message Sent Successfully',
+          })
+          navigate('/')
+        }, (error) => {
+          Swal.fire({
+            icon: 'error',
+            title: 'Ooops, something went wrong',
+            text: error.text,
+          })
+        });
+      e.target.reset()
+      // navigate('/');
     } catch (error) {
       console.error('Error submitting client information:', error);
     }
