@@ -15,10 +15,16 @@ import NewClientButton from './NewClientButton';
 import ReturningClientButton from './ReturningClientButton';
 
 const ClientInfo = (props) => {
-  const { client, setClient, handleSubmit, setFormSection, formSection, appointmentDate, setAppointmentDate } = props;
+  const { client, setClient, handleSubmit, setFormSection, formSection, appointmentDate, service } = props;
   const months = [
     'January', 'February', 'March', 'April', 'May', 'June',
     'July', 'August', 'September', 'October', 'November', 'December'
+  ];
+
+  const services = [
+    ['Hair Cut', 30],  // 30 minutes for Hair Cut
+    ['Color', 60],     // 60 minutes for Color
+    ['Style', 45]      // 45 minutes for Style
   ];
 
   const handleChange = (e) => {
@@ -64,6 +70,7 @@ const ClientInfo = (props) => {
 
           <input type="hidden" name="date" value={`${appointmentDate.year}-${appointmentDate.month}-${appointmentDate.day}`} />
           <input type="hidden" name="time" value={appointmentDate.time} />
+          <input type="hidden" name="service" value={service} />
 
           <div className='client-form-input'>
             <section >
@@ -89,25 +96,8 @@ const ClientInfo = (props) => {
                   onChange={handleChange}
                 />
               </div>
-              <FormControl fullWidth variant="filled" required>
-                <div className='input'>
-                  <InputLabel
-                    id="service-label">Service Type</InputLabel>
-                  <Select
-                    fullWidth
-                    labelId="service-label"
-                    id="service"
-                    name="service"
-                    value={client.service}
-                    onChange={handleChange}
-                  >
-                    <MenuItem value="Hair Cut">Hair Cut</MenuItem>
-                    <MenuItem value="Color">Color</MenuItem>
-                    <MenuItem value="Style">Style</MenuItem>
-                  </Select>
-                </div>
-              </FormControl>
             </section>
+
             <section >
               <div className='input-right'>
                 <TextField
@@ -131,21 +121,23 @@ const ClientInfo = (props) => {
                   onChange={handleChange}
                 />
               </div>
-              <div className='input-right'>
-                <TextField
-                  fullWidth
-                  id="clientNotes"
-                  multiline
-                  rows={4}
-                  label="Additional Notes"
-                  variant="filled"
-                  name="clientNotes"
-                  value={client.clientNotes}
-                  onChange={handleChange}
-                />
-              </div>
             </section>
           </div>
+
+          <div className='input-right'>
+            <TextField
+              fullWidth
+              id="clientNotes"
+              multiline
+              rows={4}
+              label="Additional Notes"
+              variant="filled"
+              name="clientNotes"
+              value={client.clientNotes}
+              onChange={handleChange}
+            />
+          </div>
+
           <Button type="submit" variant="contained" color="success">
             Submit
           </Button>

@@ -74,9 +74,9 @@ const TimePicker = (props) => {
   return (
     <div id='time-picker'>
       <header>
-        <IconButton onClick={() => { setFormSection('Date') }} type="button" className='back-btn' aria-label="search">
+        <IconButton onClick={() => { setFormSection('Service') }} type="button" className='back-btn' aria-label="search">
           <ArrowBackIosNewIcon fontSize='small' />
-          Calendar
+          Service
         </IconButton>
         <h2 className='date'>{months[appointmentDate.month - 1]} {appointmentDate.day}, {appointmentDate.year}</h2>
       </header>

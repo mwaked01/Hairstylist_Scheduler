@@ -11,12 +11,12 @@ const Calendar = (props) => {
     setDate(newDate)
     setAppointmentDate({
       year: newDate.$y,
-      month: newDate.$M < 10 ? `0${newDate.$M + 1}` : `${newDate.$M + 1}`,
+      month: newDate.$M < 9 ? `0${newDate.$M + 1}` : `${newDate.$M + 1}`,
       day: newDate.$D < 10 ? `0${newDate.$D }` : `${newDate.$D}`,
       time: ""
     });
     // console.log(`${newDate.$M} ${newDate.$D}, ${newDate.$y}`)
-    setFormSection('Time')
+    setFormSection('Service')
   }
 
   const shouldDisableDate = (day) => {

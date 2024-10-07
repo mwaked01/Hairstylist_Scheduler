@@ -1,3 +1,27 @@
+#service-picker {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+.service-item {
+  display: flex;
+  // align-items: center;
+  justify-content: space-between;
+  // width: 5rem;
+  font-size: rem;
+  font-family: "Poetsen One", sans-serif;
+  font-weight: 300;
+  margin: 0.25em;
+  padding: 0.25em;
+  border: 2px solid #76c9e5;
+
+  &:hover {
+    background-color: rgba(175, 243, 175, 0.904);
+    cursor: pointer;
+  }
+}
+
 #time-picker {
   display: flex;
   flex-direction: column;
@@ -44,6 +68,7 @@ header {
   margin: 0.25em;
   padding: 0.25em;
   border: 2px solid #76c9e5;
+
   &:hover {
     background-color: rgba(175, 243, 175, 0.904);
     cursor: pointer;

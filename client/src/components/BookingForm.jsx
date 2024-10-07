@@ -6,6 +6,7 @@ import axios from 'axios';
 import Calendar from "./BookingFormComponents/Calendar";
 import TimePicker from "./BookingFormComponents/TimePicker";
 import ClientInfo from "./BookingFormComponents/ClientInfo";
+import ServicePicker from "./BookingFormComponents/ServicePicker";
 
 import emailjs from 'emailjs-com';
 import Swal from 'sweetalert2';
@@ -32,6 +33,7 @@ const BookingForm = (props) => {
     service: '',
     clientNotes: ''
   });
+  const [service, setService] = useState('Consultation')
 
   const navigate = useNavigate();
 
@@ -92,22 +94,30 @@ const BookingForm = (props) => {
           appointmentDate={appointmentDate}
           setAppointmentDate={setAppointmentDate}
           setFormSection={setFormSection}
-        /> : formSection === 'Time' ?
-          <TimePicker
+        /> : formSection === 'Service' ?
+          <ServicePicker
             appointmentDate={appointmentDate}
-            setAppointmentDate={setAppointmentDate}
+            setService={setService}
             setFormSection={setFormSection}
-          /> : formSection === 'NewClient' || formSection === 'ReturningClient' ?
-            <ClientInfo
-              client={client}
-              setClient={setClient}
+            setClient={setClient}
+          /> :
+          formSection === 'Time' ?
+            <TimePicker
               appointmentDate={appointmentDate}
               setAppointmentDate={setAppointmentDate}
-              handleSubmit={handleSubmit}
               setFormSection={setFormSection}
-              formSection={formSection}
-            /> :
-            <p>none</p>
+            /> : formSection === 'NewClient' || formSection === 'ReturningClient' ?
+              <ClientInfo
+                client={client}
+                setClient={setClient}
+                appointmentDate={appointmentDate}
+                setAppointmentDate={setAppointmentDate}
+                service={service}
+                handleSubmit={handleSubmit}
+                setFormSection={setFormSection}
+                formSection={formSection}
+              /> :
+              <p>none</p>
       }
 
     </div>
