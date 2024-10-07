@@ -3,9 +3,12 @@ const mongoose = require("mongoose");
 const seedAppointments = [
   {
     _id: "6649a22a353d5e20ec2414f7",
-    date: "2024-06-07",
+    date: "2024-10-07",
     time: "08:15 AM",
-    service: "Haircut",
+    "service": {
+      "name": "Consultation",
+      "duration": 30
+    },
     status: "completed",
     clientNotes: "I want red hair",
     stylistNotes: "First appointment",
@@ -14,9 +17,12 @@ const seedAppointments = [
   },
   {
     _id: "6649a22a353d5e20ec2414f8",
-    date: "2024-06-11",
+    date: "2024-10-07",
     time: "11:00 AM",
-    service: "Shave",
+    "service": {
+      "name": "Cut - Men's",
+      "duration": 60
+    },
     status: "booked",
     clientNotes: "I want clean shave",
     stylistNotes: "second appointment",
@@ -25,9 +31,12 @@ const seedAppointments = [
   },
   {
     _id: "6649a22a353d5e20ec2414f9",
-    date: "2024-05-29",
+    date: "2024-10-07",
     time: "01:15 PM",
-    service: "Haircut",
+    "service": {
+      "name": "Cut - Children's (Under 10)",
+      "duration": 30
+    },
     status: "completed",
     clientNotes: "I want short hair",
     stylistNotes: "First appointment",

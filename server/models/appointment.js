@@ -11,8 +11,14 @@ const appointmentSchema = new mongoose.Schema(
       required: true,
     },
     service: {
-      type: String,
-      required: true,
+      name: {
+        type: String,
+        required: true,
+      },
+      duration: {
+        type: Number, // Duration in minutes
+        required: true,
+      },
     },
     status: {
       type: String,
@@ -23,7 +29,6 @@ const appointmentSchema = new mongoose.Schema(
     client: {
       type: mongoose.Schema.Types.ObjectId,
       ref: "Client",
-      // required: true,
     },
     clientNotes: {
       type: String,
