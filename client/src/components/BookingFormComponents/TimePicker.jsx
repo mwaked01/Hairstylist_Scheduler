@@ -95,7 +95,7 @@ const TimePicker = (props) => {
       });
 
       // Number of slots the selected service requires
-      const requiredSlots = service.duration / 15;
+      const requiredSlots = service.duration / 15+1;
       // Filter out taken times and slots that can't accommodate the service duration
       const filteredSlots = slots.filter((slot, index) => {
         // Check if slot is already taken
@@ -113,7 +113,6 @@ const TimePicker = (props) => {
         return true; // Slot is available and has enough consecutive free slots
       });
 
-      console.log(takenTimes)
       setSlots(filteredSlots);
     } catch (error) {
       console.error('Error fetching appointments:', error);

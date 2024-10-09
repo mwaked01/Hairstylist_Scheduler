@@ -21,11 +21,6 @@ const ClientInfo = (props) => {
     'July', 'August', 'September', 'October', 'November', 'December'
   ];
 
-  const services = [
-    ['Hair Cut', 30],  // 30 minutes for Hair Cut
-    ['Color', 60],     // 60 minutes for Color
-    ['Style', 45]      // 45 minutes for Style
-  ];
 
   const handleChange = (e) => {
     const { name, value } = e.target;
@@ -70,7 +65,7 @@ const ClientInfo = (props) => {
 
           <input type="hidden" name="date" value={`${appointmentDate.year}-${appointmentDate.month}-${appointmentDate.day}`} />
           <input type="hidden" name="time" value={appointmentDate.time} />
-          <input type="hidden" name="service" value={service} />
+          <input type="hidden" name="service" value={service.name} />
 
           <div className='client-form-input'>
             <section >
