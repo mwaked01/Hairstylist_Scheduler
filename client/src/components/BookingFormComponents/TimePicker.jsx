@@ -71,7 +71,7 @@ const TimePicker = (props) => {
     // Adjust back to 12-hour format
     const period = hours >= 12 ? "PM" : "AM";
     hours = hours % 12 || 12; // Convert 0 or 24 to 12
-    
+
     // Format time as HH:MM AM/PM
     return `${hours.toString().padStart(2, "0")}:${minutes.toString().padStart(2, "0")} ${period}`;
   }
@@ -85,17 +85,35 @@ const TimePicker = (props) => {
         const startTime = appointment.time;
         const appointmentDuration = appointment.service.duration / 15; // Number of 15-minute slots
         const times = [];
-      
-        for (let i = 0; i < appointmentDuration; i++) {
+
+        for (let i = 0; i <= appointmentDuration; i++) {
           const timeSlot = addMinutesToTime(startTime, i * 15);
           times.push(timeSlot);
         }
-      
+
         return times;
       });
+
+      // Number of slots the selected service requires
+      const requiredSlots = service.duration / 15;
+      // Filter out taken times and slots that can't accommodate the service duration
+      const filteredSlots = slots.filter((slot, index) => {
+        // Check if slot is already taken
+        if (takenTimes.includes(slot)) {
+          return false;
+        }
+
+        // Check if there are enough consecutive available slots
+        for (let i = 0; i < requiredSlots; i++) {
+          const nextSlot = slots[index + i];
+          if (!nextSlot || takenTimes.includes(nextSlot)) {
+            return false; // Not enough consecutive slots or next slot is taken
+          }
+        }
+        return true; // Slot is available and has enough consecutive free slots
+      });
+
       console.log(takenTimes)
-      // Filter out taken times from slots
-      const filteredSlots = slots.filter(slot => !takenTimes.includes(slot));
       setSlots(filteredSlots);
     } catch (error) {
       console.error('Error fetching appointments:', error);
