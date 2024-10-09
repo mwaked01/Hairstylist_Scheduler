@@ -71,9 +71,9 @@ const TimePicker = (props) => {
     // Adjust back to 12-hour format
     const period = hours >= 12 ? "PM" : "AM";
     hours = hours % 12 || 12; // Convert 0 or 24 to 12
-
+    
     // Format time as HH:MM AM/PM
-    return `${hours}:${minutes.toString().padStart(2, "0")} ${period}`;
+    return `${hours.toString().padStart(2, "0")}:${minutes.toString().padStart(2, "0")} ${period}`;
   }
 
   const fetchAppointments = async () => {
