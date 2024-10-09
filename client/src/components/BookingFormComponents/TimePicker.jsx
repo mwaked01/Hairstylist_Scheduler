@@ -52,17 +52,48 @@ const TimePicker = (props) => {
     fetchAppointments();
   }, []);
 
+  // Helper function to add 15 minutes to a given time
+  function addMinutesToTime(time, minutesToAdd) {
+    let [hours, minutes] = time.match(/\d+/g).map(Number);
+    const isPM = time.includes("PM");
+
+    // Convert to 24-hour time for easier manipulation
+    if (hours === 12 && !isPM) hours = 0; // 12:00 AM case
+    if (isPM && hours !== 12) hours += 12; // Convert PM to 24-hour format
+
+    // Add the minutes
+    minutes += minutesToAdd;
+    if (minutes >= 60) {
+      hours += Math.floor(minutes / 60);
+      minutes = minutes % 60;
+    }
+
+    // Adjust back to 12-hour format
+    const period = hours >= 12 ? "PM" : "AM";
+    hours = hours % 12 || 12; // Convert 0 or 24 to 12
+
+    // Format time as HH:MM AM/PM
+    return `${hours}:${minutes.toString().padStart(2, "0")} ${period}`;
+  }
+
   const fetchAppointments = async () => {
     try {
       const response = await axios.get(`http://localhost:8080/api/appointments/${appointmentDate.year}-${appointmentDate.month}-${appointmentDate.day}`);
       const appointments = response.data;
       // Extract time part from each appointment's date
-      const takenTimes = appointments.map(appointment => {
-        const time = appointment.time;
-        const appointmentDuration = appointment.service.duration / 15;
-        return time;
+      const takenTimes = appointments.flatMap(appointment => {
+        const startTime = appointment.time;
+        const appointmentDuration = appointment.service.duration / 15; // Number of 15-minute slots
+        const times = [];
+      
+        for (let i = 0; i < appointmentDuration; i++) {
+          const timeSlot = addMinutesToTime(startTime, i * 15);
+          times.push(timeSlot);
+        }
+      
+        return times;
       });
-      // console.log(takenTimes)
+      console.log(takenTimes)
       // Filter out taken times from slots
       const filteredSlots = slots.filter(slot => !takenTimes.includes(slot));
       setSlots(filteredSlots);
