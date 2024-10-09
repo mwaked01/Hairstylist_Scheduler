@@ -33,7 +33,7 @@ const generateTimeSlots = () => {
 };
 
 const TimePicker = (props) => {
-  const { setFormSection, appointmentDate, setAppointmentDate } = props;
+  const { setFormSection, appointmentDate, setAppointmentDate, service } = props;
   const [slots, setSlots] = useState(generateTimeSlots());
   const months = [
     'January', 'February', 'March', 'April', 'May', 'June',
@@ -59,8 +59,10 @@ const TimePicker = (props) => {
       // Extract time part from each appointment's date
       const takenTimes = appointments.map(appointment => {
         const time = appointment.time;
+        const appointmentDuration = appointment.service.duration / 15;
         return time;
       });
+      // console.log(takenTimes)
       // Filter out taken times from slots
       const filteredSlots = slots.filter(slot => !takenTimes.includes(slot));
       setSlots(filteredSlots);

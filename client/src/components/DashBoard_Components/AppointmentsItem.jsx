@@ -60,7 +60,7 @@ const AppointmentsItem = (props) => {
         {appointment.status}
       </StyledTableCell>
       <StyledTableCell align="center">
-        {appointment.service}
+        {appointment.service.name}
       </StyledTableCell>
       <StyledTableCell align="center">
         {appointment.clientNotes}

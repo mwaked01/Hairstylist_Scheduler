@@ -31,11 +31,11 @@ const ServicePicker = (props) => {
     'July', 'August', 'September', 'October', 'November', 'December'
   ];
 
-  const handleSelectService = (newService) => {
-    setService(newService)
+  const handleSelectService = (newService, duration) => {
+    setService({ name: newService, duration })
     setClient(prevClient => ({
       ...prevClient,
-      ['service']: newService
+      ['service']: { name: newService, duration }
     }));
     setFormSection('Time')
   }
@@ -51,7 +51,7 @@ const ServicePicker = (props) => {
       </header>
       <section id='service-list'>
         {services.map(([name, duration]) => (
-          <div key={name} className='service-item' onClick={() => { handleSelectService(name) }}>
+          <div key={name} className='service-item' onClick={() => { handleSelectService(name, duration) }}>
             <div  >
               {name}
             </div>

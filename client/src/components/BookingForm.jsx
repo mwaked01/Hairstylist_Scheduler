@@ -33,7 +33,7 @@ const BookingForm = (props) => {
     service: '',
     clientNotes: ''
   });
-  const [service, setService] = useState('Consultation')
+  const [service, setService] = useState({ name: 'Consultation', duration: 30 })
 
   const navigate = useNavigate();
 
@@ -106,6 +106,7 @@ const BookingForm = (props) => {
               appointmentDate={appointmentDate}
               setAppointmentDate={setAppointmentDate}
               setFormSection={setFormSection}
+              service={service}
             /> : formSection === 'NewClient' || formSection === 'ReturningClient' ?
               <ClientInfo
                 client={client}

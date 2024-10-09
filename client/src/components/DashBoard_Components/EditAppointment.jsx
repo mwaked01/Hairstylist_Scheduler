@@ -39,6 +39,16 @@ const generateTimeSlots = () => {
   return slots;
 };
 
+const services = [
+  ['Consultation', 30],  // 30 minutes for Consultation
+  ['Cut - Bang Shaping', 30],  // 30 minutes for Hair Cut
+  ['Cut - Women\'s', 60],  // 60 minutes for Hair Cut
+  ['Cut - Men\'s', 30],  // 30 minutes for Hair Cut
+  ['Cut - Child\'s (Under 10)', 30],  // 30 minutes for Hair Cut
+  ['Color', 60],     // 60 minutes for Color
+  ['Style', 45]      // 45 minutes for Style
+];
+
 const EditAppointment = (props) => {
   const {
     appointment,
@@ -77,6 +87,7 @@ const EditAppointment = (props) => {
 
   const handleChange = (e) => {
     const { name, value } = e.target;
+    console.log (e.target)
     setNewInfo(prevClient => ({
       ...prevClient,
       [name]: value
@@ -164,22 +175,24 @@ const EditAppointment = (props) => {
 
               <FormControl variant="filled" required>
                 <div className='input'>
-                  <InputLabel
-                    id="service-label">Service Type</InputLabel>
+                  <InputLabel id="service-label">Service Type</InputLabel>
                   <Select
                     fullWidth
                     labelId="service-label"
                     id="service"
                     name="service"
-                    value={newInfo.service}
-                    onChange={handleChange}
+                    value={{['name']:newInfo.service.name}} // Assuming newInfo holds the selected service
+                    onChange={handleChange} // Handle change to update the service
                   >
-                    <MenuItem value="Hair Cut">Hair Cut</MenuItem>
-                    <MenuItem value="Color">Color</MenuItem>
-                    <MenuItem value="Style">Style</MenuItem>
+                    {services.map(([name, duration]) => (
+                      <MenuItem key={name} value={name}>
+                        {name} ({duration} mins)
+                      </MenuItem>
+                    ))}
                   </Select>
                 </div>
               </FormControl>
+
             </section>
             <section >
               <div className='input'>
