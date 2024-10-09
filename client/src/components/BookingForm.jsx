@@ -68,7 +68,7 @@ const BookingForm = (props) => {
         .then((result) => {
           Swal.fire({
             icon: 'success',
-            title: 'Message Sent Successfully',
+            title: `Confirmation email has been sent to ${client.email}`,
           })
           navigate('/')
         }, (error) => {
