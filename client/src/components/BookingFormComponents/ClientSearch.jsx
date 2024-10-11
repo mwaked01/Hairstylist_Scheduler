@@ -29,16 +29,17 @@ const ClientSearch = (props) => {
         };
 
         const response = await axios.get(`http://localhost:8080/api/clients/searchByEmail?email=${searchQuery}`);
-        const client_id = response.data._id;
 
         if (response.data) {
+          const client_id = response.data._id;
           // console.log(response.data)
           // setReturningClient(response.data._id)
           // setClient(response.data._id)
-        const newAppt = await axios.post(`http://localhost:8080/api/clients/addAppointment/${client_id}`, {  appointment });
-        console.log('Appointment information submitted:', newAppt.data);
+          const newAppt = await axios.post(`http://localhost:8080/api/clients/addAppointment/${client_id}`, { appointment });
+          console.log('Appointment information submitted:', newAppt.data);
           // setSearchError("")
         } else {
+          setFormSection('ClientForm')
           // setClients([])
           // setSearchError("")
           // setSearchError('No clients found');

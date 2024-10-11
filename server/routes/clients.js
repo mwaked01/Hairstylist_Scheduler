@@ -77,7 +77,7 @@ router.get("/searchByEmail", async (req, res) => {
   const { email } = req.query;
   try {
     const client = await Client.findOne({
-      email: { $regex: email, $options: "i" }
+      email: { $eq: email.toLowerCase() }
     });
     res.status(200).json(client);
   } catch (error) {
@@ -89,7 +89,7 @@ router.get("/searchByEmail", async (req, res) => {
 router.post("/addAppointment/:client_id", async (req, res) => {
 
   // console.log('Request Body:', req.body.appointment); // Check if the body contains the appointment details
-  
+
   const { client_id } = req.params;
   const {
     date,
