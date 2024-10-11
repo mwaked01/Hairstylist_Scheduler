@@ -1,4 +1,6 @@
 import { useState, useEffect } from 'react';
+import { useNavigate } from 'react-router-dom';
+
 import axios from 'axios';
 
 import TextField from '@mui/material/TextField';
@@ -10,7 +12,11 @@ const ClientSearch = (props) => {
     setFormSection,
     appointmentDate,
     client,
+    setClient,
+    sendConfirmationEmail
   } = props;
+
+  const navigate = useNavigate();
 
   const [searchQuery, setSearchQuery] = useState('');
   const [searchError, setSearchError] = useState('');
@@ -32,17 +38,17 @@ const ClientSearch = (props) => {
 
         if (response.data) {
           const client_id = response.data._id;
-          // console.log(response.data)
-          // setReturningClient(response.data._id)
-          // setClient(response.data._id)
           const newAppt = await axios.post(`http://localhost:8080/api/clients/addAppointment/${client_id}`, { appointment });
-          console.log('Appointment information submitted:', newAppt.data);
-          // setSearchError("")
+          console.log('Appointment information submitted:', newAppt.data.client);
+          sendConfirmationEmail(appointment, client, newAppt.data.client, navigate)
+          setSearchError("")
         } else {
           setFormSection('ClientForm')
-          // setClients([])
-          // setSearchError("")
-          // setSearchError('No clients found');
+          setClient(prevClient => ({
+            ...prevClient,
+            ['email']: searchQuery
+          }));
+          setSearchError("")
         }
       } catch (error) {
         console.error('Error searching clients:', error);

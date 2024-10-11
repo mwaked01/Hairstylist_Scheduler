@@ -8,12 +8,7 @@ import TimePicker from "./BookingFormComponents/TimePicker";
 import ClientInfo from "./BookingFormComponents/ClientInfo";
 import ServicePicker from "./BookingFormComponents/ServicePicker";
 
-import emailjs from 'emailjs-com';
-import Swal from 'sweetalert2';
-
-const SERVICE_ID = "service_75bbx39";
-const TEMPLATE_ID = "template_by4xcpt";
-const USER_ID = "n_JyyoXkMteWYmNiR";
+import { sendConfirmationEmail } from '../utils/helpers';
 
 
 const BookingForm = (props) => {
@@ -48,31 +43,13 @@ const BookingForm = (props) => {
         status: "pending",
         clientNotes: client.clientNotes
       };
-      // if (returningClient) {
-      //   const response = await axios.post(`http://localhost:8080/api/clients/addAppointment/${returningClient}`, {  appointment });
-      //   console.log('Appointment information submitted:', response.data);
-      // } else {
+
       const response = await axios.post('http://localhost:8080/api/clients', { ...client, appointment });
       console.log('New Client information submitted:', response.data);
-      // }
 
-      // emailjs.sendForm(SERVICE_ID, TEMPLATE_ID, e.target, USER_ID)
-      //   .then((result) => {
-      //     Swal.fire({
-      //       icon: 'success',
-      //       title: `Confirmation email has been sent to ${client.email}`,
-      //     })
-      //     navigate('/')
-      //   }, (error) => {
-      //     Swal.fire({
-      //       icon: 'error',
-      //       title: 'Ooops, something went wrong',
-      //       text: error.text,
-      //     })
-      //   });
-      // e.target.reset()
+      sendConfirmationEmail(appointment, client, null, navigate)
 
-      // navigate('/');
+      e.target.reset()
     } catch (error) {
       console.error('Error submitting client information:', error);
     }
@@ -110,6 +87,7 @@ const BookingForm = (props) => {
                 handleSubmit={handleSubmit}
                 setFormSection={setFormSection}
                 formSection={formSection}
+                sendConfirmationEmail={sendConfirmationEmail}
               /> :
               <p>none</p>
       }

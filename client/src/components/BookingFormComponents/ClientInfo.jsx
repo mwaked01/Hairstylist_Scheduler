@@ -17,7 +17,8 @@ const ClientInfo = (props) => {
     setFormSection,
     formSection,
     appointmentDate,
-    service
+    service,
+    sendConfirmationEmail
   } = props;
 
   const [formErrors, setFormErrors] = useState({});
@@ -79,24 +80,35 @@ const ClientInfo = (props) => {
 
   return (
     <div id='client-info'>
-      <header>
-        <IconButton onClick={() => { setFormSection('Time') }} type="button" className='back-btn' aria-label="search">
-          <ArrowBackIosNewIcon fontSize='small' />
-          Time
-        </IconButton>
-        <h2 className='date' name='date'>{months[appointmentDate.month - 1]} {appointmentDate.day}, {appointmentDate.year} at {appointmentDate.time}</h2>
-      </header>
+
 
       {formSection === 'ClientSearch' ?
         <div id='ClientSearch'>
+          <header>
+            <IconButton onClick={() => { setFormSection('Time') }} type="button" className='back-btn' aria-label="search">
+              <ArrowBackIosNewIcon fontSize='small' />
+              Time
+            </IconButton>
+            <h2 className='date' name='date'>{months[appointmentDate.month - 1]} {appointmentDate.day}, {appointmentDate.year} at {appointmentDate.time}</h2>
+          </header>
           <ClientSearch
             setFormSection={setFormSection}
             appointmentDate={appointmentDate}
             client={client}
+            setClient={setClient}
+            sendConfirmationEmail={sendConfirmationEmail}
           />
         </div>
         :
+
         <form onSubmit={handleSubmit} id='NewClient'>
+          <header>
+            <IconButton onClick={() => { setFormSection('ClientSearch') }} type="button" className='back-btn' aria-label="search">
+              <ArrowBackIosNewIcon fontSize='small' />
+              Email
+            </IconButton>
+            <h2 className='date' name='date'>{months[appointmentDate.month - 1]} {appointmentDate.day}, {appointmentDate.year} at {appointmentDate.time}</h2>
+          </header>
 
           <input type="hidden" name="date" value={`${appointmentDate.year}-${appointmentDate.month}-${appointmentDate.day}`} />
           <input type="hidden" name="time" value={appointmentDate.time} />
