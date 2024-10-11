@@ -19,10 +19,10 @@ const DashBoard = () => {
   const [currentDate, setCurrentDate] = useState(new Date());
   const [appointments, setAppointments] = useState([]);
   const [clientSelected, setClientSelected] = useState("");
-  const [searchQuery, setSearchQuery] = useState('');
   const [searchDate, setSearchDate] = useState(format(currentDate, 'yyyy-MM-dd'));
   const [sortBY, setSortBy] = useState('Date')
   const [clients, setClients] = useState([]);
+  const [searchQuery, setSearchQuery] = useState('');
   const [searchError, setSearchError] = useState('');
 
   useEffect(() => {

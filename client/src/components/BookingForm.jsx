@@ -33,52 +33,45 @@ const BookingForm = (props) => {
     service: '',
     clientNotes: ''
   });
+
   const [service, setService] = useState({ name: 'Consultation', duration: 30 })
 
   const navigate = useNavigate();
 
   const handleSubmit = async (e) => {
-    e.preventDefault();
+    if (e) e.preventDefault();
     try {
       const appointment = {
         date: `${appointmentDate.year}-${appointmentDate.month}-${appointmentDate.day}`,
         time: appointmentDate.time,
         service: client.service,
-        status: "booked",
+        status: "pending",
         clientNotes: client.clientNotes
       };
+      // if (returningClient) {
+      //   const response = await axios.post(`http://localhost:8080/api/clients/addAppointment/${returningClient}`, {  appointment });
+      //   console.log('Appointment information submitted:', response.data);
+      // } else {
+      const response = await axios.post('http://localhost:8080/api/clients', { ...client, appointment });
+      console.log('New Client information submitted:', response.data);
+      // }
 
-      const searchResponse = await axios.get('http://localhost:8080/api/clients/searchByEmailAndPhone', {
-        params: {
-          email: client.email,
-          phone: client.phone
-        }
-      });
+      // emailjs.sendForm(SERVICE_ID, TEMPLATE_ID, e.target, USER_ID)
+      //   .then((result) => {
+      //     Swal.fire({
+      //       icon: 'success',
+      //       title: `Confirmation email has been sent to ${client.email}`,
+      //     })
+      //     navigate('/')
+      //   }, (error) => {
+      //     Swal.fire({
+      //       icon: 'error',
+      //       title: 'Ooops, something went wrong',
+      //       text: error.text,
+      //     })
+      //   });
+      // e.target.reset()
 
-      if (searchResponse.data) {
-        // Client exists, add a new appointment to this client
-        const addAppointmentResponse = await axios.post(`http://localhost:8080/api/clients/addAppointment/${searchResponse.data._id}`, appointment);
-        console.log('Added appointment to existing client:', addAppointmentResponse.data);
-      } else {
-        // Client does not exist, create a new client
-        const response = await axios.post('http://localhost:8080/api/clients', { ...client, appointment });
-        console.log('Client information submitted:', response.data);
-      }
-      emailjs.sendForm(SERVICE_ID, TEMPLATE_ID, e.target, USER_ID)
-        .then((result) => {
-          Swal.fire({
-            icon: 'success',
-            title: `Confirmation email has been sent to ${client.email}`,
-          })
-          navigate('/')
-        }, (error) => {
-          Swal.fire({
-            icon: 'error',
-            title: 'Ooops, something went wrong',
-            text: error.text,
-          })
-        });
-      e.target.reset()
       // navigate('/');
     } catch (error) {
       console.error('Error submitting client information:', error);
@@ -107,7 +100,7 @@ const BookingForm = (props) => {
               setAppointmentDate={setAppointmentDate}
               setFormSection={setFormSection}
               service={service}
-            /> : formSection === 'NewClient' || formSection === 'ReturningClient' ?
+            /> : formSection === 'ClientForm' || formSection === 'ClientSearch' ?
               <ClientInfo
                 client={client}
                 setClient={setClient}

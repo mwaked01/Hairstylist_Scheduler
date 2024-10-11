@@ -5,9 +5,9 @@ import TextField from '@mui/material/TextField';
 import Button from '@mui/material/Button';
 import IconButton from '@mui/material/IconButton';
 import ArrowBackIosNewIcon from '@mui/icons-material/ArrowBackIosNew';
-import PersonSearchOutlinedIcon from '@mui/icons-material/PersonSearchOutlined';
-import NewClientButton from './NewClientButton';
-import ReturningClientButton from './ReturningClientButton';
+
+
+import ClientSearch from './ClientSearch';
 
 const ClientInfo = (props) => {
   const {
@@ -87,28 +87,16 @@ const ClientInfo = (props) => {
         <h2 className='date' name='date'>{months[appointmentDate.month - 1]} {appointmentDate.day}, {appointmentDate.year} at {appointmentDate.time}</h2>
       </header>
 
-      {formSection === 'ReturningClient' ?
-        <div id='ReturningClient'>
-          <NewClientButton setFormSection={setFormSection} />
-          <form id='returning-client-search-bar'>
-            <TextField
-              // onInput={(e) => {
-              //   setSearchQuery(e.target.value);
-              // }}
-              label="Enter an Email or a Phone Number..."
-              variant="outlined"
-              placeholder="Search..."
-              size="small"
-              fullWidth
-            />
-            <IconButton type="submit" aria-label=" search">
-              <PersonSearchOutlinedIcon />
-            </IconButton>
-          </form>
+      {formSection === 'ClientSearch' ?
+        <div id='ClientSearch'>
+          <ClientSearch
+            setFormSection={setFormSection}
+            appointmentDate={appointmentDate}
+            client={client}
+          />
         </div>
         :
         <form onSubmit={handleSubmit} id='NewClient'>
-          <ReturningClientButton setFormSection={setFormSection} />
 
           <input type="hidden" name="date" value={`${appointmentDate.year}-${appointmentDate.month}-${appointmentDate.day}`} />
           <input type="hidden" name="time" value={appointmentDate.time} />

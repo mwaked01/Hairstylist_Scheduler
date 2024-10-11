@@ -73,29 +73,31 @@ router.post("/", async (req, res) => {
 });
 
 // Route to search clients by email and phone number
-router.get("/searchByEmailAndPhone", async (req, res) => {
-  const { email, phone } = req.query;
+router.get("/searchByEmail", async (req, res) => {
+  const { email } = req.query;
   try {
     const client = await Client.findOne({
-      email: { $regex: email, $options: "i" },
-      phone: { $regex: phone, $options: "i" },
-    }).populate("appointments");
+      email: { $regex: email, $options: "i" }
+    });
     res.status(200).json(client);
   } catch (error) {
-    res.status(500).json({ message: "Error searching clients", error });
+    res.status(500).json({ message: "Error searching emails", error });
   }
 });
 
 // Route to add a new appointment to an existing client
-router.post("/addAppointment/:clientId", async (req, res) => {
-  const { clientId } = req.params;
+router.post("/addAppointment/:client_id", async (req, res) => {
+
+  // console.log('Request Body:', req.body.appointment); // Check if the body contains the appointment details
+  
+  const { client_id } = req.params;
   const {
     date,
     time,
     service,
     status,
     clientNotes
-  } = req.body;
+  } = req.body.appointment;
 
   try {
     const newAppointment = new Appointment({
@@ -104,17 +106,18 @@ router.post("/addAppointment/:clientId", async (req, res) => {
       service,
       status,
       clientNotes,
-      client: clientId
+      client: client_id
     });
 
     await newAppointment.save();
 
-    const client = await Client.findById(clientId);
+    const client = await Client.findById(client_id);
     client.appointments.push(newAppointment._id);
     await client.save();
 
     res.status(201).json({ client, appointment: newAppointment });
   } catch (error) {
+    console.error('Server error:', error);
     res
       .status(500)
       .json({ message: "Error creating appointment", error });
