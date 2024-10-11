@@ -95,7 +95,7 @@ const TimePicker = (props) => {
       });
 
       // Number of slots the selected service requires
-      const requiredSlots = service.duration / 15+1;
+      const requiredSlots = service.duration / 15 + 1;
       // Filter out taken times and slots that can't accommodate the service duration
       const filteredSlots = slots.filter((slot, index) => {
         // Check if slot is already taken
@@ -132,7 +132,7 @@ const TimePicker = (props) => {
       </header>
 
       <div className='slots'>
-        {slots.map((slot, index) => {
+        {slots.length > 0 ? slots.map((slot, index) => {
           const firstTwoChars = slot.slice(0, 2);
           const previousFirstTwoChars = index > 0 ? slots[index - 1].slice(0, 2) : null;
 
@@ -169,7 +169,8 @@ const TimePicker = (props) => {
           }
 
           return null;
-        })}
+        }) :
+          <div>No Availability for this Day</div>}
       </div>
     </div>
   );
