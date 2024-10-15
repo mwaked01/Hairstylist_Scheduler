@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 // import '../../styles/ClientInfo.scss'
 
 import TextField from '@mui/material/TextField';
@@ -26,8 +26,16 @@ const ClientInfo = (props) => {
   const validateEmail = (email) => /^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email); // Email format
   const validatePhone = (phone) => /^\d{10}$/.test(phone); // 10-digit phone number
 
-  const [formErrors, setFormErrors] = useState(!validateEmail(client.email)?{['email'] : "Please enter a valid email address."}:{});
+  const [formErrors, setFormErrors] = useState({});
   const [disableSubmit, setDisableSubmit] = useState(true);
+
+  useEffect(() => {
+    if (client.email && !validateEmail(client.email)) {
+      setFormErrors({ email: "Please enter a valid email address." });
+    } else {
+      setFormErrors({});
+    }
+  }, [client.email]);
 
   const months = [
     'January', 'February', 'March', 'April', 'May', 'June',
