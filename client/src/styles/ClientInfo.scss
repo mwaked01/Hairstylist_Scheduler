@@ -19,27 +19,6 @@
   width: 25rem;
 }
 
-header {
-  display: flex;
-  align-items: center;
-  justify-content: space-between;
-  width: 25rem;
-  .back-btn {
-    font-size: medium;
-    font-family: "Poetsen One", sans-serif;
-    font-weight: 300;
-    color: rgb(23, 74, 95);
-    border: solid;
-    border-radius: 10px;
-    border-color: rgb(23, 74, 95);
-  }
-
-  .date {
-    font-family: "Poetsen One", sans-serif;
-    font-weight: 300;
-    color: rgb(23, 74, 95);
-  }
-}
 
 .input {
   padding: 10px;
@@ -64,7 +43,7 @@ header {
 }
 
 #ClientSearch {
-  width: 25rem;
+  // width: 25rem;
 }
 
 #returning-client-search-bar {

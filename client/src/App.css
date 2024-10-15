@@ -1,16 +1,54 @@
 #root {
-  /* max-width: 1280px; */
-  /* margin: 0 auto; */
-  padding-inline: 2rem;
-  padding-top: 10rem;
-  /* text-align: center; */
+  width: 100vw;
+  height: 100vh;
+  top: 0;
+  right: 0;
+  position: fixed;
+  /* border: solid; */
+  background-image: url('/main_background.jpeg');
+  background-size: cover;
+  background-repeat: no-repeat;
+  background-position: center center;
+  background-attachment: fixed;
+  margin: 0;
+  padding: 0;
+
+  /* Mobile styles */
+  margin-top: 15vh;
+  padding-top: 1em;
+  font-size: 1rem;
+
+  nav {
+    font-size: 1em;
+  }
+
+
+  /* Tablet styles */
+  @media (min-width: 601px) and (max-width: 1024px) {
+    padding-top: 1em;
+    font-size: 1.25rem;
+    nav {
+      font-size: 1em;
+    }
+  }
+
+  /* Desktop styles */
+  @media (min-width: 1025px) {
+    padding-top: 1em;
+    font-size: 1rem;
+    nav {
+      font-size: 1.75em;
+    }
+  }
 }
-body {
-  background-image: url('/main_background.jpeg'); /* Adjust the path if necessary */
-  background-size: cover; /* Ensures the image covers the entire background */
-  background-repeat: no-repeat; /* Prevents the image from repeating */
-  background-position: center center; /* Centers the image */
-  background-attachment: fixed; /* Keeps the image fixed when scrolling */
-  margin: 0; /* Removes default margin */
-  padding: 0; /* Removes default padding */
-}
+
+
+/* body {
+  background-image: url('/main_background.jpeg');
+  background-size: cover;
+  background-repeat: no-repeat;
+  background-position: center center;
+  background-attachment: fixed;
+  margin: 0;
+  padding: 0;
+} */

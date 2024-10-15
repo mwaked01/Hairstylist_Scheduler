@@ -6,21 +6,29 @@ const NavBar = (props) => {
     <nav>
       <div className="logo" >
         <img src="/Logo_head.png" alt="Logo" />
-        Beautify By Brooke
+        <div id="logo-name">
+          Hair by
+          <br />
+          Brooke
+        </div>
       </div>
       <div className="nav-btns">
-        <NavLink
-          to="/"
-          className={({ isActive }) => (isActive ? 'active' : '')}
-        >
-          Home
-        </NavLink>
-        <NavLink
-          to="/Booking"
-          className={({ isActive }) => (isActive ? 'active' : '')}
-        >
-          Book an Appointment
-        </NavLink>
+        <div>
+          <NavLink
+            to="/"
+            className={({ isActive }) => (isActive ? 'active' : '')}
+          >
+            Home
+          </NavLink>
+        </div>
+        <div id="booking-btn">
+          <NavLink
+            to="/Booking"
+            className={({ isActive }) => (isActive ? 'active' : '')}
+          >
+            Book an Appointment
+          </NavLink>
+        </div>
         <NavLink
           to="/Dashboard"
           className={({ isActive }) => (isActive ? 'active' : '')}

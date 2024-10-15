@@ -3,31 +3,31 @@ nav {
   top: 0;
   right: 0;
   width: 100%;
+  min-height: 15vh;
+  max-height: 15vh;
   background-color: #76c9e5;
   box-shadow: 0 2px 4px rgba(0, 0, 0, 0.4);
   display: flex;
-  justify-content: space-between;
+  justify-content: space-around;
   align-items: center;
-  font-size: 1.5rem;
-  font-family: "Poetsen One", sans-serif;
-  font-weight: 300;
   z-index: 20;
-  .logo {
-    color: rgb(255, 223, 43);
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    justify-content: center;
-    padding: 0.5em;
-    font-size: 1.25rem;
-    img{
-      width: 5rem;
+  font-family: "Poetsen One", sans-serif;
+    .logo {
+      color: rgb(255, 223, 43);
+      display: flex;
+      align-items: center;
+      padding: 0.5em;
+      font-size: 1em;
+      img {
+        width: 2.5em;
+        padding-right: 5px;
+      }
     }
-  }
 
-  .nav-btns{
+
+  .nav-btns {
     display: flex;
-    justify-content: space-between;
+    flex-wrap: wrap;
     align-items: center;
   }
 
