@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from 'react';
-import '../../styles/Booking.scss'
+// import '../../styles/BookingForm.scss'
 import axios from 'axios';
 
 import IconButton from '@mui/material/IconButton';
@@ -123,12 +123,12 @@ const TimePicker = (props) => {
   let slotGroup = []
   return (
     <div id='time-picker'>
-      <header>
+      <header className='Booking-Nav'>
         <IconButton onClick={() => { setFormSection('Service') }} type="button" className='back-btn' aria-label="search">
           <ArrowBackIosNewIcon fontSize='small' />
           Service
         </IconButton>
-        <h2 className='date'>{months[appointmentDate.month - 1]} {appointmentDate.day}, {appointmentDate.year}</h2>
+        <div className='date'>{months[appointmentDate.month - 1]} {appointmentDate.day}, {appointmentDate.year}</div>
       </header>
 
       <div className='slots'>

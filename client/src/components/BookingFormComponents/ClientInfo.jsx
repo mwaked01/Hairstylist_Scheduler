@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import '../../styles/ClientInfo.scss'
+// import '../../styles/ClientInfo.scss'
 
 import TextField from '@mui/material/TextField';
 import Button from '@mui/material/Button';
@@ -21,18 +21,19 @@ const ClientInfo = (props) => {
     sendConfirmationEmail
   } = props;
 
-  const [formErrors, setFormErrors] = useState({});
-  const [disableSubmit, setDisableSubmit] = useState(false);
+  // Validation functions
+  const validateName = (name) => /^[A-Za-z]+$/.test(name); // Letters only
+  const validateEmail = (email) => /^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email); // Email format
+  const validatePhone = (phone) => /^\d{10}$/.test(phone); // 10-digit phone number
+
+  const [formErrors, setFormErrors] = useState(!validateEmail(client.email)?{['email'] : "Please enter a valid email address."}:{});
+  const [disableSubmit, setDisableSubmit] = useState(true);
 
   const months = [
     'January', 'February', 'March', 'April', 'May', 'June',
     'July', 'August', 'September', 'October', 'November', 'December'
   ];
 
-  // Validation functions
-  const validateName = (name) => /^[A-Za-z]+$/.test(name); // Letters only
-  const validateEmail = (email) => /^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email); // Email format
-  const validatePhone = (phone) => /^\d{10}$/.test(phone); // 10-digit phone number
 
   const handleChange = (e) => {
     const { name, value } = e.target;
@@ -80,16 +81,14 @@ const ClientInfo = (props) => {
 
   return (
     <div id='client-info'>
-
-
       {formSection === 'ClientSearch' ?
         <div id='ClientSearch'>
-          <header>
-            <IconButton onClick={() => { setFormSection('Time') }} type="button" className='back-btn' aria-label="search">
+          <header className='Booking-Nav'>
+            <IconButton onClick={() => { setFormSection('Time'); setFormErrors({}) }} type="button" className='back-btn' aria-label="search">
               <ArrowBackIosNewIcon fontSize='small' />
               Time
             </IconButton>
-            <h2 className='date' name='date'>{months[appointmentDate.month - 1]} {appointmentDate.day}, {appointmentDate.year} at {appointmentDate.time}</h2>
+            <div className='date' name='date'>{months[appointmentDate.month - 1]} {appointmentDate.day}, {appointmentDate.year} at {appointmentDate.time}</div>
           </header>
           <ClientSearch
             setFormSection={setFormSection}
@@ -102,12 +101,12 @@ const ClientInfo = (props) => {
         :
 
         <form onSubmit={handleSubmit} id='NewClient'>
-          <header>
+          <header className='Booking-Nav'>
             <IconButton onClick={() => { setFormSection('ClientSearch') }} type="button" className='back-btn' aria-label="search">
               <ArrowBackIosNewIcon fontSize='small' />
               Email
             </IconButton>
-            <h2 className='date' name='date'>{months[appointmentDate.month - 1]} {appointmentDate.day}, {appointmentDate.year} at {appointmentDate.time}</h2>
+            <div className='date' name='date'>{months[appointmentDate.month - 1]} {appointmentDate.day}, {appointmentDate.year} at {appointmentDate.time}</div>
           </header>
 
           <input type="hidden" name="date" value={`${appointmentDate.year}-${appointmentDate.month}-${appointmentDate.day}`} />
@@ -115,8 +114,8 @@ const ClientInfo = (props) => {
           <input type="hidden" name="service" value={service.name} />
 
           <div className='client-form-input'>
-            <section>
-              <div className='input'>
+            <section id="form-name">
+              <div className='input-left'>
                 <TextField
                   required
                   id="first-name"
@@ -129,23 +128,6 @@ const ClientInfo = (props) => {
                   helperText={formErrors.firstName}
                 />
               </div>
-              <div className='input'>
-                <TextField
-                  required
-                  id="email"
-                  label="Email"
-                  type='Email'
-                  variant="filled"
-                  name="email"
-                  value={client.email}
-                  onChange={handleChange}
-                  error={!!formErrors.email}
-                  helperText={formErrors.email}
-                />
-              </div>
-            </section>
-
-            <section>
               <div className='input-right'>
                 <TextField
                   required
@@ -157,6 +139,23 @@ const ClientInfo = (props) => {
                   onChange={handleChange}
                   error={!!formErrors.lastName}
                   helperText={formErrors.lastName}
+                />
+              </div>
+            </section>
+
+            <section id="form-contact">
+              <div className='input-left'>
+                <TextField
+                  required
+                  id="email"
+                  label="Email"
+                  type='email'
+                  variant="filled"
+                  name="email"
+                  value={client.email}
+                  onChange={handleChange}
+                  error={!!formErrors.email}
+                  helperText={formErrors.email}
                 />
               </div>
               <div className='input-right'>
@@ -173,9 +172,7 @@ const ClientInfo = (props) => {
                 />
               </div>
             </section>
-          </div>
-
-          <div className='input-right'>
+          <div id='form-message'>
             <TextField
               fullWidth
               id="clientNotes"
@@ -188,6 +185,8 @@ const ClientInfo = (props) => {
               onChange={handleChange}
             />
           </div>
+          </div>
+
 
           <Button type="submit" variant="contained" color="success" disabled={disableSubmit}>
             Submit

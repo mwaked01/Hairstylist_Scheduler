@@ -1,0 +1,87 @@
+#BookingForm {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+
+  .Booking-Nav {
+    display: flex;
+    // flex-wrap: wrap;
+    justify-content: space-between;
+    align-items: center;
+    font-family: "Poetsen One", sans-serif;
+    color: rgb(23, 74, 95);
+    padding: 1rem;
+
+    .back-btn {
+
+      color: rgb(23, 74, 95);
+      font-family: "Poetsen One", sans-serif;
+      border: solid;
+      border-radius: 10px;
+      border-color: rgb(23, 74, 95);
+      padding: 0.25em;
+    }
+
+  }
+
+  .service-item {
+    display: flex;
+    justify-content: space-between;
+    margin: 0.25em;
+    padding: 0.25em;
+    border: 2px solid #76c9e5;
+
+    &:hover {
+      background-color: rgba(175, 243, 175, 0.904);
+      cursor: pointer;
+    }
+  }
+
+  .slot-group {
+    display: flex;
+    align-items: center;
+  }
+
+  .slot {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 5em;
+    font-size: 0.75em;
+    // font-family: "Poetsen One", sans-serif;
+
+    margin: 0.25em;
+    padding: 0.1em;
+    border: 2px solid #76c9e5;
+
+    &:hover {
+      background-color: rgba(175, 243, 175, 0.904);
+      cursor: pointer;
+    }
+  }
+
+  #returning-client-search-bar {
+    padding: 10px;
+    display: flex;
+  }
+
+  #form-name{
+    padding: 0.25em;
+    display: flex;
+    justify-content: space-between;
+  }
+
+  #form-contact{
+    padding: 0.25em;
+    display: flex;
+    justify-content: space-between;
+  }
+
+  #form-message{
+    padding: 0.25em;
+  }
+  .input-left{
+    padding-right: 0.25em;
+  }
+
+}

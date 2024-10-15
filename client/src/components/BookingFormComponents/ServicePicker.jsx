@@ -1,13 +1,5 @@
 import React, { useState, useEffect } from 'react';
-import '../../styles/Booking.scss'
-import axios from 'axios';
-
-import TextField from '@mui/material/TextField';
-import Button from '@mui/material/Button';
-import MenuItem from '@mui/material/MenuItem';
-import Select from '@mui/material/Select';
-import InputLabel from '@mui/material/InputLabel';
-import FormControl from '@mui/material/FormControl';
+// import '../../styles/Booking.scss'
 
 import IconButton from '@mui/material/IconButton';
 import ArrowBackIosNewIcon from '@mui/icons-material/ArrowBackIosNew';
@@ -42,12 +34,12 @@ const ServicePicker = (props) => {
 
   return (
     <div id='service-picker'>
-      <header>
+      <header className='Booking-Nav'>
         <IconButton onClick={() => { setFormSection('Date') }} type="button" className='back-btn' aria-label="search">
           <ArrowBackIosNewIcon fontSize='small' />
           Calendar
         </IconButton>
-        <h2 className='date'>{months[appointmentDate.month - 1]} {appointmentDate.day}, {appointmentDate.year}</h2>
+        <div className='date'>{months[appointmentDate.month - 1]} {appointmentDate.day}, {appointmentDate.year}</div>
       </header>
       <section id='service-list'>
         {services.map(([name, duration]) => (

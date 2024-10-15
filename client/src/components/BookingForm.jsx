@@ -8,6 +8,7 @@ import TimePicker from "./BookingFormComponents/TimePicker";
 import ClientInfo from "./BookingFormComponents/ClientInfo";
 import ServicePicker from "./BookingFormComponents/ServicePicker";
 
+import '../styles/BookingForm.scss'
 import { sendConfirmationEmail } from '../utils/helpers';
 
 
@@ -56,7 +57,7 @@ const BookingForm = (props) => {
   };
 
   return (
-    <div>
+    <div id="BookingForm">
       {formSection === 'Date' ?
         <Calendar
           date={date}
