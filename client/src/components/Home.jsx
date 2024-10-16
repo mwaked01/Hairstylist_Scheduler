@@ -1,10 +1,12 @@
-
+import BookingCard from "./HomeComponents/BookingCard";
+import PhotoGallery from "./HomeComponents/PhotoGallery"
 const Home = (props) => {
 
 
   return (
     <section>
-      <h1>Brooke's Hair Service</h1>
+      <BookingCard />
+      {/* <PhotoGallery/> */}
     </section>
   );
 };
