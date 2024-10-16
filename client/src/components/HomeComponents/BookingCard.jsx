@@ -22,7 +22,7 @@ const BookingCard = (props) => {
     Monday: { open: null, close: null },
   };
 
-  const shopAddress = '5965 Wyandotte St E, Windsor, ON N8S 1M9';
+  const shopAddress = '5965 Wyandotte St E, Windsor, ON';
 
   const [status, setStatus] = useState("");
   const [nextOpening, setNextOpening] = useState("");
@@ -68,52 +68,57 @@ const BookingCard = (props) => {
   };
 
   return (
-    <div>
-      <Button>Book Now</Button>
-
-      <section id="open-hours" style={{ display: 'flex', alignItems: 'center' }}>
-        <AccessTimeIcon />
-        <span>{status} {status === "Closed" && nextOpening}</span>
-        <IconButton onClick={handleClick}>
-          <ArrowDropDownIcon />
-        </IconButton>
-        <Menu
-          anchorEl={anchorEl}
-          open={Boolean(anchorEl)}
-          onClose={handleClose}
-        >
-          {Object.keys(shopHours).map((day) => (
-            <MenuItem key={day}>
-              {day}: {shopHours[day].open ? `${shopHours[day].open} a.m - ${shopHours[day].close} p.m` : "Closed"}
-            </MenuItem>
-          ))}
-        </Menu>
+    <div id="BookingCard">
+      <section id="booking-btn">
+        <Button className="btn">Book Now</Button>
       </section>
+      
+      <div id="shop-info">
+        <section id="open-hours" style={{ display: 'flex', alignItems: 'center' }}>
+          <AccessTimeIcon />
+          <span>{status} {status === "Closed" && nextOpening}</span>
+          <IconButton onClick={handleClick}>
+            <ArrowDropDownIcon />
+          </IconButton>
+          <Menu
+            anchorEl={anchorEl}
+            open={Boolean(anchorEl)}
+            onClose={handleClose}
+          >
+            {Object.keys(shopHours).map((day) => (
+              <MenuItem key={day}>
+                {day}: {shopHours[day].open ? `${shopHours[day].open} a.m - ${shopHours[day].close} p.m` : "Closed"}
+              </MenuItem>
+            ))}
+          </Menu>
+        </section>
 
-      {/* Location with copy button */}
-      <section id='location' style={{ display: 'flex', alignItems: 'center' }}>
-        <LocationOnIcon />
-        <span>{shopAddress}</span>
-        <IconButton onClick={handleCopyAddress}>
-          <ContentCopyIcon />
-        </IconButton>
-      </section>
-      {copySuccess && <p style={{ color: 'green' }}>{copySuccess}</p>} {/* Optional copy success message */}
+        {/* Location with copy button */}
+        <section id='location' style={{ display: 'flex', alignItems: 'center' }}>
+          <div id="address">
+            <LocationOnIcon />
+            <span>{shopAddress}</span>
+            <IconButton onClick={handleCopyAddress}>
+              <ContentCopyIcon />
+            </IconButton>
+          </div>
+          {copySuccess && <p style={{ color: 'green' }}>{copySuccess}</p>} {/* Optional copy success message */}
 
-      <APIProvider apiKey={apiKey}>
-        <Map
-          style={{ width: '20vw', height: '20vh' }}
-          center={{ lat: 42.328800, lng: -82.965390 }}
-          zoom={15}
-          gestureHandling={'greedy'}
-          disableDefaultUI={true}
-          mapId={'b7e23fa7e58213f '}
-          controlled={true}
-        >
-          <AdvancedMarker position={{ lat: 42.328800, lng: -82.965390 }} />
-        </Map>
-      </APIProvider>
-
+          <APIProvider apiKey={apiKey}>
+            <Map
+              style={{ width: '94%', height: '10rem', padding: '0.5em' }}
+              center={{ lat: 42.328800, lng: -82.965390 }}
+              zoom={15}
+              gestureHandling={'greedy'}
+              disableDefaultUI={true}
+              mapId={'b7e23fa7e58213f '}
+              controlled={true}
+            >
+              <AdvancedMarker position={{ lat: 42.328800, lng: -82.965390 }} />
+            </Map>
+          </APIProvider>
+        </section>
+      </div>
 
     </div>
   );

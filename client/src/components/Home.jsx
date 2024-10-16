@@ -1,10 +1,13 @@
 import BookingCard from "./HomeComponents/BookingCard";
 import PhotoGallery from "./HomeComponents/PhotoGallery"
+import '../styles/Home.scss'
+
+
 const Home = (props) => {
 
 
   return (
-    <section>
+    <section id="Home">
       <BookingCard />
       {/* <PhotoGallery/> */}
     </section>
