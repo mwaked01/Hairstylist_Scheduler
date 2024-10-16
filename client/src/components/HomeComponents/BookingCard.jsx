@@ -4,6 +4,11 @@ import AccessTimeIcon from '@mui/icons-material/AccessTime';
 import ArrowDropDownIcon from '@mui/icons-material/ArrowDropDown';
 import LocationOnIcon from '@mui/icons-material/LocationOn';
 import ContentCopyIcon from '@mui/icons-material/ContentCopy'; // Import copy icon
+import Accordion from '@mui/material/Accordion';
+import AccordionActions from '@mui/material/AccordionActions';
+import AccordionSummary from '@mui/material/AccordionSummary';
+import AccordionDetails from '@mui/material/AccordionDetails';
+import ExpandMoreIcon from '@mui/icons-material/ExpandMore';
 
 import { convertTo12HourFormat, findNextOpening } from '../../utils/helpers';
 
@@ -26,7 +31,7 @@ const BookingCard = (props) => {
 
   const [status, setStatus] = useState("");
   const [nextOpening, setNextOpening] = useState("");
-  const [anchorEl, setAnchorEl] = useState(null);
+  const [expanded, setExpanded] = useState(false);
   const [copySuccess, setCopySuccess] = useState("");
 
 
@@ -49,12 +54,8 @@ const BookingCard = (props) => {
 
 
   // Handle dropdown menu
-  const handleClick = (event) => {
-    setAnchorEl(event.currentTarget);
-  };
-
-  const handleClose = () => {
-    setAnchorEl(null);
+  const handleExpansion = () => {
+    setExpanded((prevExpanded) => !prevExpanded);
   };
 
   // Handle copying the address to clipboard
@@ -72,25 +73,21 @@ const BookingCard = (props) => {
       <section id="booking-btn">
         <Button className="btn">Book Now</Button>
       </section>
-      
+
       <div id="shop-info">
         <section id="open-hours" style={{ display: 'flex', alignItems: 'center' }}>
-          <AccessTimeIcon />
-          <span>{status} {status === "Closed" && nextOpening}</span>
-          <IconButton onClick={handleClick}>
-            <ArrowDropDownIcon />
-          </IconButton>
-          <Menu
-            anchorEl={anchorEl}
-            open={Boolean(anchorEl)}
-            onClose={handleClose}
-          >
+          <Accordion>
+            <AccordionSummary expandIcon={<ExpandMoreIcon />}>
+              <AccessTimeIcon />
+              <span>{status} {status === "Closed" && nextOpening}</span>
+            </AccordionSummary>
             {Object.keys(shopHours).map((day) => (
-              <MenuItem key={day}>
+              <AccordionDetails key={day}>
                 {day}: {shopHours[day].open ? `${shopHours[day].open} a.m - ${shopHours[day].close} p.m` : "Closed"}
-              </MenuItem>
+              </AccordionDetails>
             ))}
-          </Menu>
+          </Accordion>
+
         </section>
 
         {/* Location with copy button */}
