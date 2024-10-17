@@ -76,7 +76,7 @@ const BookingCard = (props) => {
 
       <div id="shop-info">
         <section id="open-hours" style={{ display: 'flex', alignItems: 'center' }}>
-          <Accordion>
+          <Accordion id="hours">
             <AccordionSummary expandIcon={<ExpandMoreIcon />}>
               <AccessTimeIcon />
               <span>{status} {status === "Closed" && nextOpening}</span>

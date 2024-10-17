@@ -11,6 +11,7 @@
     border: 1px solid #76c9e5;
     border-radius: 10px;
     box-shadow: 0px 0px 10px 0px rgba(0, 0, 0, 0.4);
+    background-color: #eff1f0;
 
     #booking-btn {
       display: flex;
@@ -33,6 +34,10 @@
       width: 100%;
       padding-top: .5em;
 
+      #hours {
+        background-color: #eff1f0;
+        box-shadow: 0px 0px 0px 0px;
+      }
     }
 
     #location {
