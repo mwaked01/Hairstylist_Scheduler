@@ -9,7 +9,7 @@ const Home = (props) => {
   return (
     <section id="Home">
       <BookingCard />
-      {/* <PhotoGallery/> */}
+      <PhotoGallery/>
     </section>
   );
 };
