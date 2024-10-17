@@ -83,7 +83,7 @@ const BookingCard = (props) => {
             </AccordionSummary>
             {Object.keys(shopHours).map((day) => (
               <AccordionDetails key={day}>
-                {day}: {shopHours[day].open ? `${shopHours[day].open} a.m - ${shopHours[day].close} p.m` : "Closed"}
+                {day}: {shopHours[day].open ? `${shopHours[day].open} a.m - ${convertTo12HourFormat(shopHours[day].close)} p.m` : "Closed"}
               </AccordionDetails>
             ))}
           </Accordion>
