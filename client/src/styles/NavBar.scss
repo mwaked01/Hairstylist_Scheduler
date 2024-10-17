@@ -12,17 +12,20 @@ nav {
   align-items: center;
   z-index: 20;
   font-family: "Poetsen One", sans-serif;
-    .logo {
-      color: rgb(255, 223, 43);
-      display: flex;
-      align-items: center;
-      padding: 0.5em;
-      font-size: 1em;
-      img {
-        width: 2.5em;
-        padding-right: 5px;
-      }
+
+  .logo {
+    cursor: pointer;
+    color: rgb(255, 223, 43);
+    display: flex;
+    align-items: center;
+    padding: 0.5em;
+    font-size: 1em;
+
+    img {
+      width: 2.5em;
+      padding-right: 5px;
     }
+  }
 
 
   .nav-btns {

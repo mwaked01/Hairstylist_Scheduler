@@ -1,11 +1,13 @@
 import { useState, useEffect } from "react";
-import { Button, IconButton, Menu, MenuItem } from "@mui/material";
+import { useNavigate } from 'react-router-dom';
+
+import { Button, IconButton } from "@mui/material";
+
 import AccessTimeIcon from '@mui/icons-material/AccessTime';
-import ArrowDropDownIcon from '@mui/icons-material/ArrowDropDown';
 import LocationOnIcon from '@mui/icons-material/LocationOn';
-import ContentCopyIcon from '@mui/icons-material/ContentCopy'; // Import copy icon
+import ContentCopyIcon from '@mui/icons-material/ContentCopy';
+
 import Accordion from '@mui/material/Accordion';
-import AccordionActions from '@mui/material/AccordionActions';
 import AccordionSummary from '@mui/material/AccordionSummary';
 import AccordionDetails from '@mui/material/AccordionDetails';
 import ExpandMoreIcon from '@mui/icons-material/ExpandMore';
@@ -31,9 +33,8 @@ const BookingCard = (props) => {
 
   const [status, setStatus] = useState("");
   const [nextOpening, setNextOpening] = useState("");
-  const [expanded, setExpanded] = useState(false);
   const [copySuccess, setCopySuccess] = useState("");
-
+  const navigate = useNavigate();
 
   useEffect(() => {
     // Get current date and time
@@ -51,13 +52,6 @@ const BookingCard = (props) => {
     }
   }, []);
 
-
-
-  // Handle dropdown menu
-  const handleExpansion = () => {
-    setExpanded((prevExpanded) => !prevExpanded);
-  };
-
   // Handle copying the address to clipboard
   const handleCopyAddress = () => {
     navigator.clipboard.writeText(shopAddress).then(() => {
@@ -71,7 +65,7 @@ const BookingCard = (props) => {
   return (
     <div id="BookingCard">
       <section id="booking-btn">
-        <Button className="btn">Book Now</Button>
+        <Button className="btn" onClick={() => { navigate('/Booking') }}>Book Now</Button>
       </section>
 
       <div id="shop-info">

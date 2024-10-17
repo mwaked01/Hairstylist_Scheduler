@@ -1,10 +1,12 @@
 import "../styles/NavBar.scss"
-import { NavLink } from 'react-router-dom';
+import { NavLink, useNavigate } from 'react-router-dom';
 
-const NavBar = (props) => {
+const NavBar = () => {
+  const navigate = useNavigate();
+
   return (
     <nav>
-      <div className="logo" >
+      <div className="logo" onClick={()=>{navigate('/')}}>
         <img src="/Logo_head.png" alt="Logo" />
         <div id="logo-name">
           Hair by
