@@ -1,7 +1,8 @@
 #Home {
   display: flex;
-  justify-content: center;
-  align-items: center;
+  justify-content: space-between;
+  align-items: start;
+  width: 105%;
 
   #BookingCard {
     display: flex;
@@ -12,6 +13,7 @@
     border-radius: 10px;
     box-shadow: 0px 0px 10px 0px rgba(0, 0, 0, 0.4);
     background-color: #eff1f0;
+    height: 24rem;
 
     #booking-btn {
       display: flex;
@@ -54,6 +56,51 @@
         justify-content: center;
 
       }
+    }
+  }
+
+  #PhotoGallery {
+    display: flex;
+    // flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    border: 1px solid #76c9e5;
+    border-radius: 10px;
+    box-shadow: 0px 0px 10px 0px rgba(0, 0, 0, 0.4);
+    background-color: #eff1f0;
+    height: 24rem;
+    width: 18rem;
+    position: relative;
+
+    button {
+      position: absolute;
+      color: white;
+      size: 50%;
+      border-radius: none;
+      background: transparent;
+      border: none;
+
+      :hover{
+        cursor: pointer;
+      }
+
+      &:first-of-type {
+        left: 0%; /* Position the left button */
+        top: 50%;
+        transform: translateY(-50%);
+      }
+      &:last-of-type {
+        right: 0%; /* Position the right button */
+        top: 50%;
+        transform: translateY(-50%);
+      }
+    }
+
+    img {
+      height: 100%;
+      border-radius: 10px;
+      width: 100%;
+      // object-fit: cover;
     }
   }
 
