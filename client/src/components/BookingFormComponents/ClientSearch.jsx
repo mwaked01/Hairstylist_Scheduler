@@ -56,8 +56,13 @@ const ClientSearch = (props) => {
     }
   };
 
+  const handleFormSubmit = (e) => {
+    e.preventDefault(); // Prevent default form submission
+    handleClientSearch(); // Trigger custom search
+  };
+
   return (
-    <form id='returning-client-search-bar'>
+    <form id='returning-client-search-bar' onSubmit={handleFormSubmit}>
       <TextField
         onInput={(e) => {
           setSearchQuery(e.target.value);
