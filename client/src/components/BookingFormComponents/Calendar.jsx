@@ -12,16 +12,34 @@ const Calendar = (props) => {
     setAppointmentDate({
       year: newDate.$y,
       month: newDate.$M < 9 ? `0${newDate.$M + 1}` : `${newDate.$M + 1}`,
-      day: newDate.$D < 10 ? `0${newDate.$D }` : `${newDate.$D}`,
+      day: newDate.$D < 10 ? `0${newDate.$D}` : `${newDate.$D}`,
       time: ""
     });
-    // console.log(`${newDate.$M} ${newDate.$D}, ${newDate.$y}`)
     setFormSection('Service')
   }
 
   const shouldDisableDate = (day) => {
-    return day.day() === 0; // 0 is Sunday
+    const now = new Date();
+    const currentDayOfWeek = now.getDay();
+    const currentTime = now.toTimeString().slice(0, 5);
+
+    // Disable Sundays (0) and Mondays (1)
+    if (day.day() === 0 || day.day() === 1) {
+      return true;
+    }
+    // Disable Saturdays (6) if current time is past 15:30
+    if (day.day() === currentDayOfWeek && currentDayOfWeek === 6 && currentTime >= '15:30') {
+      return true;
+    }
+    // Disable other days only if it's the same day and the current time is past 19:00
+    if (day.day() === currentDayOfWeek && currentTime >= '19:00') {
+      return true;
+    }
+
+    // Enable all other cases
+    return false;
   };
+
 
   const handleChange = (newValue, selectionState, selectedView) => {
     if (selectedView === 'day') {
