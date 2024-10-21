@@ -2,7 +2,6 @@ import { useState, useEffect } from "react";
 import { useNavigate } from 'react-router-dom';
 
 import { Button, IconButton } from "@mui/material";
-
 import AccessTimeIcon from '@mui/icons-material/AccessTime';
 import LocationOnIcon from '@mui/icons-material/LocationOn';
 import ContentCopyIcon from '@mui/icons-material/ContentCopy';
@@ -13,34 +12,26 @@ import AccordionDetails from '@mui/material/AccordionDetails';
 import ExpandMoreIcon from '@mui/icons-material/ExpandMore';
 
 import { convertTo12HourFormat, findNextOpening } from '../../utils/helpers';
+import axios from 'axios';
 
 import { APIProvider, Map, AdvancedMarker } from '@vis.gl/react-google-maps';
 const apiKey = import.meta.env.VITE_GOOGLE_MAPS_API_KEY;
 
 const BookingCard = (props) => {
-  // Shop hours (24-hour format for comparison)
-  const shopHours = {
-    Tuesday: { open: "09:00", close: "19:00" },
-    Wednesday: { open: "09:00", close: "19:00" },
-    Thursday: { open: "09:00", close: "19:00" },
-    Friday: { open: "09:00", close: "19:00" },
-    Saturday: { open: "08:00", close: "15:30" },
-    Sunday: { open: null, close: null },
-    Monday: { open: null, close: null },
-  };
-
-  const shopAddress = '5965 Wyandotte St E, Windsor, ON';
+  const { shopInfo } = props;
+  const shopHours = shopInfo.operationHours;
+  const shopAddress = shopInfo.address;
 
   const [status, setStatus] = useState("");
   const [nextOpening, setNextOpening] = useState("");
   const [copySuccess, setCopySuccess] = useState("");
+  const [coordinates, setCoordinates] = useState({ lat: 0, lng: 0 });
   const navigate = useNavigate();
 
   useEffect(() => {
     // Get current date and time
     const now = new Date();
     const dayOfWeek = now.toLocaleDateString("en-US", { weekday: 'long' });
-
     const currentTime = now.toTimeString().slice(0, 5);
     const isOpen = shopHours[dayOfWeek]?.open && currentTime >= shopHours[dayOfWeek]?.open && currentTime <= shopHours[dayOfWeek]?.close;
 
@@ -50,12 +41,26 @@ const BookingCard = (props) => {
       setStatus("Closed");
       setNextOpening(findNextOpening(dayOfWeek, currentTime, shopHours));
     }
-  }, []);
+
+    fetchCoordinates(shopAddress);
+  }, [shopAddress]);
+
+  const fetchCoordinates = async (address) => {
+    try {
+      const response = await axios.get(
+        `https://maps.googleapis.com/maps/api/geocode/json?address=${encodeURIComponent(address)}&key=${apiKey}`
+      );
+      const location = response.data.results[0].geometry.location;
+      setCoordinates({ lat: location.lat, lng: location.lng });
+    } catch (error) {
+      console.error('Error fetching coordinates:', error);
+    }
+  };
 
   // Handle copying the address to clipboard
   const handleCopyAddress = () => {
     navigator.clipboard.writeText(shopAddress).then(() => {
-      setCopySuccess("Address copied!"); // Optional success message
+      setCopySuccess("Address copied!");
       setTimeout(() => setCopySuccess(""), 2000); // Clear success message after 2 seconds
     }).catch(() => {
       setCopySuccess("Failed to copy address.");
@@ -84,7 +89,6 @@ const BookingCard = (props) => {
 
         </section>
 
-        {/* Location with copy button */}
         <section id='location' style={{ display: 'flex', alignItems: 'center' }}>
           <div id="address">
             <LocationOnIcon />
@@ -93,19 +97,19 @@ const BookingCard = (props) => {
               <ContentCopyIcon />
             </IconButton>
           </div>
-          {copySuccess && <p style={{ color: 'green' }}>{copySuccess}</p>} {/* Optional copy success message */}
+          {copySuccess && <p style={{ color: 'green' }}>{copySuccess}</p>}
 
           <APIProvider apiKey={apiKey}>
             <Map
               style={{ width: '94%', height: '10rem', padding: '0.5em' }}
-              center={{ lat: 42.328800, lng: -82.965390 }}
+              center={{ lat: coordinates.lat, lng: coordinates.lng }}
               zoom={15}
               gestureHandling={'greedy'}
               disableDefaultUI={true}
               mapId={'b7e23fa7e58213f '}
               controlled={true}
             >
-              <AdvancedMarker position={{ lat: 42.328800, lng: -82.965390 }} />
+              <AdvancedMarker position={{ lat: coordinates.lat, lng: coordinates.lng }} />
             </Map>
           </APIProvider>
         </section>
