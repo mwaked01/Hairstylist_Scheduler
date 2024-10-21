@@ -5,7 +5,7 @@ const cors = require('cors');
 
 const appointmentRoutes = require('./routes/appointments');
 const clientsRoute = require('./routes/clients');
-
+const salonInfo = require('./routes/salonInfo')
 
 
 const app = express();
@@ -27,6 +27,7 @@ mongoose.connect('mongodb://localhost:27017/brookes_scheduler', {})
 // Use routes
 app.use('/api/appointments', appointmentRoutes);
 app.use('/api/clients', clientsRoute);
+app.use('/api/salonInfo', salonInfo);
 
 const PORT = process.env.PORT || 8080;
 app.listen(PORT, () => {
