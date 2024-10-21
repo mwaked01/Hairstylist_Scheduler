@@ -1,4 +1,3 @@
-
 const seedSalonInfo = [
   {
     name: "Hair By Brooke",
@@ -13,7 +12,11 @@ const seedSalonInfo = [
     },
     phone: "226-555-5555",
     email: "brooke@example.com",
-    address: '5965 Wyandotte St E, Windsor, ON',
+    location: {
+      address: "5965 Wyandotte St E, Windsor, ON",
+      lat: 42.3289945,
+      lng: -82.9654805,
+    },
   },
 ];
 
