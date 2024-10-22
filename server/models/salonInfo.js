@@ -10,7 +10,7 @@ const salonInfoSchema = new mongoose.Schema(
       type: Map,
       of: new mongoose.Schema({
         open: { type: String, default: null },
-        close: { type: String, default: null }
+        close: { type: String, default: null },
       }),
       required: true,
     },
@@ -22,10 +22,18 @@ const salonInfoSchema = new mongoose.Schema(
       type: String,
       required: true,
     },
-    address: {
-      type: String,
-      required: true,
+    location: {
+      address: { type: String, default: null },
+      lat: { type: Number, default: null },
+      lng: { type: Number, default: null },
     },
+    services: [
+      {
+        name: { type: String, required: true },
+        cost: { type: Number, required: true },
+        duration: { type: Number, required: true }, // duration in minutes
+      },
+    ],
   },
   {
     timestamps: true,

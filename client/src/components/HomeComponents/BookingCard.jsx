@@ -20,7 +20,7 @@ const apiKey = import.meta.env.VITE_GOOGLE_MAPS_API_KEY;
 const BookingCard = (props) => {
   const { shopInfo } = props;
   const shopHours = shopInfo.operationHours;
-  const shopAddress = shopInfo.address;
+  const shopAddress = shopInfo.location;
 
   const [status, setStatus] = useState("");
   const [nextOpening, setNextOpening] = useState("");
@@ -42,20 +42,7 @@ const BookingCard = (props) => {
       setNextOpening(findNextOpening(dayOfWeek, currentTime, shopHours));
     }
 
-    fetchCoordinates(shopAddress);
-  }, [shopAddress]);
-
-  const fetchCoordinates = async (address) => {
-    try {
-      const response = await axios.get(
-        `https://maps.googleapis.com/maps/api/geocode/json?address=${encodeURIComponent(address)}&key=${apiKey}`
-      );
-      const location = response.data.results[0].geometry.location;
-      setCoordinates({ lat: location.lat, lng: location.lng });
-    } catch (error) {
-      console.error('Error fetching coordinates:', error);
-    }
-  };
+  }, []);
 
   // Handle copying the address to clipboard
   const handleCopyAddress = () => {
@@ -92,7 +79,7 @@ const BookingCard = (props) => {
         <section id='location' style={{ display: 'flex', alignItems: 'center' }}>
           <div id="address">
             <LocationOnIcon />
-            <span>{shopAddress}</span>
+            <span>{shopAddress.address}</span>
             <IconButton onClick={handleCopyAddress}>
               <ContentCopyIcon />
             </IconButton>
@@ -102,14 +89,14 @@ const BookingCard = (props) => {
           <APIProvider apiKey={apiKey}>
             <Map
               style={{ width: '94%', height: '10rem', padding: '0.5em' }}
-              center={{ lat: coordinates.lat, lng: coordinates.lng }}
+              center={{ lat: shopAddress.lat, lng: shopAddress.lng }}
               zoom={15}
               gestureHandling={'greedy'}
               disableDefaultUI={true}
               mapId={'b7e23fa7e58213f '}
               controlled={true}
             >
-              <AdvancedMarker position={{ lat: coordinates.lat, lng: coordinates.lng }} />
+              <AdvancedMarker position={{ lat: shopAddress.lat, lng: shopAddress.lng }} />
             </Map>
           </APIProvider>
         </section>

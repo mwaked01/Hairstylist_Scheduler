@@ -1,10 +1,3 @@
-/*
-To Do:
-update client search to look up bu email and phone number
-only on full search query match.
-
-*/
-
 import { useState, useEffect } from 'react';
 import axios from 'axios';
 import { format } from 'date-fns';
@@ -12,6 +5,7 @@ import { format } from 'date-fns';
 import AppointmentsByDateList from './DashBoard_Components/AppointmentsByDateList';
 import AppointmentsByClientList from './DashBoard_Components/AppointmentsByClientList';
 import ClientList from './DashBoard_Components/ClientList';
+import AppointmentsCalendar from './DashBoard_Components/AppointmentsCalendar';
 
 import '../styles/DashBoard.scss'
 
@@ -20,7 +14,7 @@ const DashBoard = () => {
   const [appointments, setAppointments] = useState([]);
   const [clientSelected, setClientSelected] = useState("");
   const [searchDate, setSearchDate] = useState(format(currentDate, 'yyyy-MM-dd'));
-  const [sortBY, setSortBy] = useState('Date')
+  const [sortBY, setSortBy] = useState('Calendar')
   const [clients, setClients] = useState([]);
   const [searchQuery, setSearchQuery] = useState('');
   const [searchError, setSearchError] = useState('');
@@ -126,6 +120,19 @@ const DashBoard = () => {
               sortBY={sortBY}
               handleClientListButton={handleClientListButton}
               setSearchError={setSearchError}
+            />
+            : sortBY === 'Calendar' ?
+            <AppointmentsCalendar
+            appointments={appointments}
+            setAppointments={setAppointments}
+            client={clientSelected}
+            currentDate={currentDate}
+            setCurrentDate={setCurrentDate}
+            searchDate={searchDate}
+            handleDateChange={handleDateChange}
+            setSortBy={setSortBy}
+            sortBY={sortBY}
+            handleClientListButton={handleClientListButton}
             />
             : <p>Nothing to Show</p>
       }
