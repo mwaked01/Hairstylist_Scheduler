@@ -13,6 +13,7 @@ import { sendConfirmationEmail } from '../utils/helpers';
 
 
 const BookingForm = (props) => {
+  const { services } = props
   const [formSection, setFormSection] = useState('Date')
   const [appointmentDate, setAppointmentDate] = useState({
     year: "",
@@ -68,6 +69,7 @@ const BookingForm = (props) => {
         /> : formSection === 'Service' ?
           <ServicePicker
             appointmentDate={appointmentDate}
+            services={services}
             setService={setService}
             setFormSection={setFormSection}
             setClient={setClient}

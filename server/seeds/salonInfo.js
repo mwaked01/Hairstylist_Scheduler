@@ -17,48 +17,48 @@ const seedSalonInfo = [
       lat: 42.3289945,
       lng: -82.9654805,
     },
-    services:[
+    services: [
       {
-        name: 'Consultation',
+        name: "Consultation",
         cost: 0,
-        duration:  30,
+        duration: 30,
       },
       {
-        name: 'Cut - Bang Shaping',
+        name: "Cut - Bang Shaping",
         cost: 30,
-        duration:  30,
+        duration: 30,
       },
       {
-        name: 'Cut - Women\'s',
+        name: "Cut - Women's",
         cost: 75,
-        duration:  60,
+        duration: 60,
       },
       {
-        name: 'Cut - Men\'s',
+        name: "Cut - Men's",
         cost: 30,
-        duration:  30,
+        duration: 30,
       },
       {
-        name: 'Cut - Child\'s (Under 10)',
+        name: "Cut - Child's (Under 10)",
         cost: 25,
-        duration:  30,
+        duration: 30,
       },
       {
-        name: 'Color',
+        name: "Color",
         cost: 120,
-        duration:  60,
+        duration: 60,
       },
       {
-        name: 'Style',
+        name: "Style",
         cost: 80,
-        duration:  45,
+        duration: 45,
       },
       {
-        name: 'Bridal',
+        name: "Bridal",
         cost: 60,
-        duration:  90,
+        duration: 90,
       },
-    ]
+    ],
   },
 ];
 

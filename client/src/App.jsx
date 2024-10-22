@@ -31,11 +31,17 @@ function App() {
     <Router>
       <div>
         <NavBar />
-        <Routes>
-          <Route path="/Booking" element={<BookingForm />} />
-          <Route path="/Dashboard" element={<DashBoard />} />
-          <Route path="/" element={<Home shopInfo={shopInfo} loading={loading} />} />
-        </Routes>
+        {loading ?
+          <div className="loading-icon">
+            loading..
+          </div>
+          :
+          <Routes>
+            <Route path="/Booking" element={<BookingForm services={shopInfo.services} />} />
+            <Route path="/Dashboard" element={<DashBoard />} />
+            <Route path="/" element={<Home shopInfo={shopInfo} />} />
+          </Routes>
+        }
       </div>
     </Router>
   );
