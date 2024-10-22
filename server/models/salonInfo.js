@@ -27,6 +27,13 @@ const salonInfoSchema = new mongoose.Schema(
       lat: { type: Number, default: null },
       lng: { type: Number, default: null },
     },
+    services: [
+      {
+        name: { type: String, required: true },
+        cost: { type: Number, required: true },
+        duration: { type: Number, required: true }, // duration in minutes
+      },
+    ],
   },
   {
     timestamps: true,

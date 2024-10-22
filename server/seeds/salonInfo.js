@@ -17,6 +17,48 @@ const seedSalonInfo = [
       lat: 42.3289945,
       lng: -82.9654805,
     },
+    services:[
+      {
+        name: 'Consultation',
+        cost: 0,
+        duration:  30,
+      },
+      {
+        name: 'Cut - Bang Shaping',
+        cost: 30,
+        duration:  30,
+      },
+      {
+        name: 'Cut - Women\'s',
+        cost: 75,
+        duration:  60,
+      },
+      {
+        name: 'Cut - Men\'s',
+        cost: 30,
+        duration:  30,
+      },
+      {
+        name: 'Cut - Child\'s (Under 10)',
+        cost: 25,
+        duration:  30,
+      },
+      {
+        name: 'Color',
+        cost: 120,
+        duration:  60,
+      },
+      {
+        name: 'Style',
+        cost: 80,
+        duration:  45,
+      },
+      {
+        name: 'Bridal',
+        cost: 60,
+        duration:  90,
+      },
+    ]
   },
 ];
 
