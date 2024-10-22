@@ -7,7 +7,7 @@ const NavBar = () => {
   return (
     <nav>
       <div className="logo" onClick={()=>{navigate('/')}}>
-        <img src="/Logo_head.png" alt="Logo" />
+        <img src="/Logo_head_white.svg" alt="Logo" />
         <div id="logo-name">
           Hair by
           <br />
