@@ -18,6 +18,7 @@ import { LocalizationProvider } from '@mui/x-date-pickers/LocalizationProvider';
 import { DatePicker } from '@mui/x-date-pickers/DatePicker';
 
 import AppointmentsItem from './AppointmentsItem';
+import { useEffect, useState } from 'react';
 
 // import '../../styles/DashBoard.scss'
 
@@ -45,6 +46,7 @@ const StyledTableCell = styled(TableCell)(({ theme }) => ({
 }));
 
 
+
 const AppointmentsCalendar = (props) => {
   const {
     appointments,
@@ -58,12 +60,32 @@ const AppointmentsCalendar = (props) => {
     client
   } = props;
 
-  const navigateToNextDay = () => {
-    setCurrentDate(addDays(currentDate, 1));
+  useEffect(() => {
+    getCurrentWeekDays(currentDate)
+  }, [currentDate])
+  const [currentWeekDays, setCurrentWeekDays] = useState([])
+
+  const getCurrentWeekDays = (currentDate) => {
+    const weekDays = [];
+
+    // Find the number of days to subtract to get back to Sunday
+    const dayOfWeek = currentDate.getDay(); // Sunday is 0, Monday is 1, ..., Saturday is 6
+    const startOfWeek = subDays(currentDate, dayOfWeek); // Get the Sunday of the current week
+
+    // Push each day from Sunday to Saturday into the weekDays array
+    for (let i = 0; i < 7; i++) {
+      weekDays.push(addDays(startOfWeek, i));
+    }
+
+    setCurrentWeekDays(weekDays); // Set the state with the correct week
   };
 
-  const navigateToPreviousDay = () => {
-    setCurrentDate(subDays(currentDate, 1));
+  const navigateToNextWeek = () => {
+    setCurrentDate(addDays(currentDate, 7));
+  };
+
+  const navigateToPreviousWeek = () => {
+    setCurrentDate(subDays(currentDate, 7));
   };
 
   const updateAppointmentNotes = (id, newNotes) => {
@@ -77,27 +99,16 @@ const AppointmentsCalendar = (props) => {
   };
 
   return (
-    <section className='dashboard-content'>
+    <section id='dashboard-calendar'>
 
-
-      
-      <header className='dashboard-header'>
-        <div id='date-nav'>
-          <Button id='prev_day_btn' onClick={navigateToPreviousDay} startIcon={<ArrowBackIosRoundedIcon />}>
-            Prev<br />Day
-          </Button>
-          <h3 id='date'>
-            {format(currentDate, 'yyyy-MM-dd')}
-          </h3>
-          <Button id='next_day_btn' onClick={navigateToNextDay} endIcon={<ArrowForwardIosRoundedIcon />}>
-            Next<br /> Day
-          </Button>
-        </div>
+      <header className='calendar-header'>
+        {currentDate.toLocaleDateString('en-US', { month: 'long' })}
+        {format(currentDate, ' yyyy')}
 
         <LocalizationProvider dateAdapter={AdapterDayjs}>
           <DatePicker
             label="Search by Date"
-            value={dayjs(searchDate)}
+            value={dayjs(currentDate)}
             onChange={handleDateChange}
           />
         </LocalizationProvider>
@@ -106,6 +117,30 @@ const AppointmentsCalendar = (props) => {
           Client List
         </Button>
       </header>
+
+      <div id='date-nav'>
+        <Button className='week-nav-btn' onClick={navigateToPreviousWeek} startIcon={<ArrowBackIosRoundedIcon />}>
+          Prev<br />Week
+        </Button>
+        {currentWeekDays.map((weekDate, index) => (
+          <div
+            key={index}
+            className={weekDate.getDay() === currentDate.getDay() ? 'currentDay' : 'otherDays'}
+            onClick={() => { setCurrentDate(weekDate) }}
+          >
+            <section>
+              {weekDate.toLocaleDateString('en-US', { weekday: 'short' })[0]}
+            </section>
+            <section>
+              {weekDate.getDate()}
+            </section>
+          </div>
+        ))}
+
+        <Button className='week-nav-btn' onClick={navigateToNextWeek} endIcon={<ArrowForwardIosRoundedIcon />}>
+          Next<br /> Week
+        </Button>
+      </div>
 
       <TableContainer className='dashboard-table'>
         {appointments.length > 0 ? (
