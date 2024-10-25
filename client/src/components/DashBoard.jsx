@@ -90,7 +90,6 @@ const DashBoard = () => {
           client={clientSelected}
           currentDate={currentDate}
           setCurrentDate={setCurrentDate}
-          searchDate={searchDate}
           handleDateChange={handleDateChange}
           setSortBy={setSortBy}
           sortBY={sortBY}
@@ -128,7 +127,6 @@ const DashBoard = () => {
             client={clientSelected}
             currentDate={currentDate}
             setCurrentDate={setCurrentDate}
-            searchDate={searchDate}
             handleDateChange={handleDateChange}
             setSortBy={setSortBy}
             sortBY={sortBY}
