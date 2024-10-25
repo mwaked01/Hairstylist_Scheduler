@@ -1,6 +1,7 @@
 import { useEffect, useState } from 'react';
 import { format, addDays, subDays } from 'date-fns';
 import dayjs from 'dayjs';
+import '../styles/DateNav.scss'
 
 import { AdapterDayjs } from '@mui/x-date-pickers/AdapterDayjs';
 import { LocalizationProvider } from '@mui/x-date-pickers/LocalizationProvider';

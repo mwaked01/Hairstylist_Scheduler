@@ -33,12 +33,12 @@ const generateTimeSlots = () => {
 };
 
 const TimePicker = (props) => {
-  const { setFormSection, appointmentDate, setAppointmentDate, service } = props;
+  const { setFormSection,date, appointmentDate, setAppointmentDate, service } = props;
   const [slots, setSlots] = useState(generateTimeSlots());
-  const months = [
-    'January', 'February', 'March', 'April', 'May', 'June',
-    'July', 'August', 'September', 'October', 'November', 'December'
-  ];
+  // const months = [
+  //   'January', 'February', 'March', 'April', 'May', 'June',
+  //   'July', 'August', 'September', 'October', 'November', 'December'
+  // ];
   const handleSelectTime = (newTime) => {
     setFormSection('ClientSearch')
     setAppointmentDate((prevAppointmentDate) => ({
@@ -50,7 +50,7 @@ const TimePicker = (props) => {
 
   useEffect(() => {
     fetchAppointments();
-  }, []);
+  }, [date]);
 
   // Helper function to add 15 minutes to a given time
   function addMinutesToTime(time, minutesToAdd) {
@@ -123,13 +123,13 @@ const TimePicker = (props) => {
   let slotGroup = []
   return (
     <div id='time-picker'>
-      <header className='Booking-Nav'>
+      {/* <header className='Booking-Nav'>
         <IconButton onClick={() => { setFormSection('Service') }} type="button" className='back-btn' aria-label="search">
           <ArrowBackIosNewIcon fontSize='small' />
           Service
         </IconButton>
         <div className='date'>{months[appointmentDate.month - 1]} {appointmentDate.day}, {appointmentDate.year}</div>
-      </header>
+      </header> */}
 
       <div className='slots'>
         {slots.length > 0 ? slots.map((slot, index) => {

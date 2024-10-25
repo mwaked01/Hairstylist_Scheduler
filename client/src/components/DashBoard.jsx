@@ -13,7 +13,6 @@ const DashBoard = () => {
   const [currentDate, setCurrentDate] = useState(new Date());
   const [appointments, setAppointments] = useState([]);
   const [clientSelected, setClientSelected] = useState("");
-  const [searchDate, setSearchDate] = useState(format(currentDate, 'yyyy-MM-dd'));
   const [sortBY, setSortBy] = useState('Calendar')
   const [clients, setClients] = useState([]);
   const [searchQuery, setSearchQuery] = useState('');
@@ -50,7 +49,6 @@ const DashBoard = () => {
   };
 
   const handleDateChange = (e) => {
-    setSearchDate(format(new Date(e), 'yyyy-MM-dd'));
     setCurrentDate(new Date(e));
     setSortBy('Calendar')
   };

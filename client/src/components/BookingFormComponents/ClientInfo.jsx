@@ -92,9 +92,9 @@ const ClientInfo = (props) => {
       {formSection === 'ClientSearch' ?
         <div id='ClientSearch'>
           <header className='Booking-Nav'>
-            <IconButton onClick={() => { setFormSection('Time'); setFormErrors({}) }} type="button" className='back-btn' aria-label="search">
+            <IconButton onClick={() => { setFormSection('Date'); setFormErrors({}) }} type="button" className='back-btn' aria-label="search">
               <ArrowBackIosNewIcon fontSize='small' />
-              Time
+              Date
             </IconButton>
             <div className='date' name='date'>{months[appointmentDate.month - 1]} {appointmentDate.day}, {appointmentDate.year} at {appointmentDate.time}</div>
           </header>

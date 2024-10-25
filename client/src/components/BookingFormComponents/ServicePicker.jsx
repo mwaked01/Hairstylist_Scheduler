@@ -15,7 +15,7 @@ const ServicePicker = (props) => {
       ...prevClient,
       ['service']: { name: newService, duration }
     }));
-    setFormSection('Time')
+    setFormSection('Date')
   }
 
   return (

@@ -1,0 +1,30 @@
+#date-nav {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+
+  #date-scroll-bar {
+    display: flex;
+
+    .currentDay {
+      border: solid;
+      border-color: purple;
+      border-radius: 50%;
+      background-color: #d6f1fa80;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      flex-direction: column;
+      padding-block: .125em;
+      padding-inline: .75em;
+      margin-block: 1em;
+      margin-inline: 0.125em;
+    }
+
+    .otherDays {
+      @extend .currentDay;
+      border-color: rgb(14, 150, 204);
+    }
+  }
+}

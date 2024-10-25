@@ -6,6 +6,7 @@ import NavBar from './components/NavBar';
 import Home from './components/Home';
 import BookingForm from './components/BookingForm';
 import DashBoard from './components/DashBoard';
+import Booking from './components/Booking';
 
 import "./App.css"
 
@@ -37,7 +38,8 @@ function App() {
           </div>
           :
           <Routes>
-            <Route path="/Booking" element={<BookingForm services={shopInfo.services} />} />
+            <Route path="/Booking" element={<Booking services={shopInfo.services} />} />
+            {/* <Route path="/Booking" element={<BookingForm services={shopInfo.services} />} /> */}
             <Route path="/Dashboard" element={<DashBoard />} />
             <Route path="/" element={<Home shopInfo={shopInfo} />} />
           </Routes>
