@@ -70,7 +70,6 @@ const Booking = (props) => {
 
   return (
     <div id="Booking">
-
       {
         formSection === 'Service' ?
           <ServicePicker
@@ -86,6 +85,8 @@ const Booking = (props) => {
                 currentDate={date}
                 setCurrentDate={setDate}
                 handleDateChange={handleSelectDay}
+                optionalButton = {'Service'}
+                handleOptionalButton={setFormSection}
               />
               <TimePicker
                 date={date}

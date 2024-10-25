@@ -17,6 +17,8 @@ const DateNav = (props) => {
     currentDate,
     setCurrentDate,
     handleDateChange,
+    optionalButton,
+    handleOptionalButton
   } = props
 
   useEffect(() => {
@@ -56,13 +58,19 @@ const DateNav = (props) => {
   return (
     <div id='date-nav'>
       <LocalizationProvider dateAdapter={AdapterDayjs}>
-        <Button
-          endIcon={<CalendarMonthIcon />}
-          onClick={handleOpenCalendar}
-        >
-          {currentDate.toLocaleDateString('en-US', { month: 'long' })}
-          {format(currentDate, ' yyyy')}
-        </Button>
+        <section>
+          {optionalButton &&
+            <Button onClick={() => handleOptionalButton(optionalButton)}>{optionalButton}</Button>
+          }
+          <Button
+            endIcon={<CalendarMonthIcon />}
+            onClick={handleOpenCalendar}
+          >
+            {currentDate.toLocaleDateString('en-US', { month: 'long' })}
+            {format(currentDate, ' yyyy')}
+          </Button>
+        </section>
+        
         <DatePicker
           open={openCalendar}
           onClose={handleCloseCalendar}

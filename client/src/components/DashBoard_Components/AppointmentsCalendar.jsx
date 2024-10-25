@@ -77,9 +77,9 @@ const AppointmentsCalendar = (props) => {
       </header>
 
       <DateNav
-      currentDate={currentDate}
-      setCurrentDate={setCurrentDate}
-      handleDateChange={handleDateChange}
+        currentDate={currentDate}
+        setCurrentDate={setCurrentDate}
+        handleDateChange={handleDateChange}
       />
 
       <TableContainer className='dashboard-table'>

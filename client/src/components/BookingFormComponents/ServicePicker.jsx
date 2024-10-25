@@ -20,13 +20,13 @@ const ServicePicker = (props) => {
 
   return (
     <div id='service-picker'>
-      <header className='Booking-Nav'>
+      {/* <header className='Booking-Nav'>
         <IconButton onClick={() => { setFormSection('Date') }} type="button" className='back-btn' aria-label="search">
           <ArrowBackIosNewIcon fontSize='small' />
           Calendar
         </IconButton>
         <div className='date'>{months[appointmentDate.month - 1]} {appointmentDate.day}, {appointmentDate.year}</div>
-      </header>
+      </header> */}
       <section id='service-list'>
         {services.map(({ name, cost, duration, _id }) => (
           <div key={_id} className='service-item' onClick={() => { handleSelectService(name, duration) }}>
