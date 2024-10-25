@@ -52,7 +52,7 @@ const DashBoard = () => {
   const handleDateChange = (e) => {
     setSearchDate(format(new Date(e), 'yyyy-MM-dd'));
     setCurrentDate(new Date(e));
-    setSortBy('Date')
+    setSortBy('Calendar')
   };
 
   const handleClientSearch = async () => {

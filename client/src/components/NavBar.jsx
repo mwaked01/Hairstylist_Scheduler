@@ -7,12 +7,11 @@ const NavBar = () => {
   return (
     <nav>
       <div className="logo" onClick={()=>{navigate('/')}}>
-        <img src="/Logo_head_white.svg" alt="Logo" />
-        <div id="logo-name">
-          Hair by
-          <br />
-          Brooke
-        </div>
+        <img src="/logo_new.png" alt="Logo" />
+        {/* <div id="logo-name"> */}
+          {/* Hair by Brooke */}
+          {/* <br /> */}
+        {/* </div> */}
       </div>
       <div className="nav-btns">
         {/* <div>
@@ -31,12 +30,12 @@ const NavBar = () => {
             Book an Appointment
           </NavLink>
         </div> */}
-        <NavLink
+        {/* <NavLink
           to="/Dashboard"
           className={({ isActive }) => (isActive ? 'active' : '')}
         >
           Dashboard
-        </NavLink>
+        </NavLink> */}
       </div>
     </nav>
   );

@@ -45,13 +45,13 @@ const AppointmentsItem = (props) => {
       onClick={() => { setEditAppointment(true) }}
     >
       <StyledTableCell component="th" scope="row">
-        {sortBY === 'Date' ?
+        {sortBY === 'Date' || sortBY === 'Calendar' ?
           appointment.time :
           appointment.date
         }
       </StyledTableCell>
       <StyledTableCell align="center">
-        {sortBY === 'Date' ?
+        {sortBY === 'Date' || sortBY === 'Calendar' ?
           `${appointment.client.firstName} ${appointment.client.lastName}` :
           appointment.time
         }

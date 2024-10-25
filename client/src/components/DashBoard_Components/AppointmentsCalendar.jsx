@@ -11,6 +11,8 @@ import Button from '@mui/material/Button';
 import ArrowBackIosRoundedIcon from '@mui/icons-material/ArrowBackIosRounded';
 import ArrowForwardIosRoundedIcon from '@mui/icons-material/ArrowForwardIosRounded';
 import PeopleOutlineRoundedIcon from '@mui/icons-material/PeopleOutlineRounded';
+import CalendarMonthIcon from '@mui/icons-material/CalendarMonth';
+import AddCircleOutlineIcon from '@mui/icons-material/AddCircleOutline';
 
 import dayjs from 'dayjs';
 import { AdapterDayjs } from '@mui/x-date-pickers/AdapterDayjs';
@@ -63,7 +65,9 @@ const AppointmentsCalendar = (props) => {
   useEffect(() => {
     getCurrentWeekDays(currentDate)
   }, [currentDate])
+
   const [currentWeekDays, setCurrentWeekDays] = useState([])
+  const [openCalendar, setOpenCalendar] = useState(false);
 
   const getCurrentWeekDays = (currentDate) => {
     const weekDays = [];
@@ -98,20 +102,17 @@ const AppointmentsCalendar = (props) => {
     );
   };
 
+  const handleOpenCalendar = () => setOpenCalendar(true);
+
+  const handleCloseCalendar = () => setOpenCalendar(false);
+
   return (
     <section id='dashboard-calendar'>
 
-      <header className='calendar-header'>
-        {currentDate.toLocaleDateString('en-US', { month: 'long' })}
-        {format(currentDate, ' yyyy')}
-
-        <LocalizationProvider dateAdapter={AdapterDayjs}>
-          <DatePicker
-            label="Search by Date"
-            value={dayjs(currentDate)}
-            onChange={handleDateChange}
-          />
-        </LocalizationProvider>
+      <header className='button-group'>
+        <Button className='dashboard-nav-btns' endIcon={<AddCircleOutlineIcon />} onClick={() => handleClientListButton()}>
+          Add Appointment
+        </Button>
 
         <Button className='dashboard-nav-btns' endIcon={<PeopleOutlineRoundedIcon />} onClick={() => handleClientListButton()}>
           Client List
@@ -119,27 +120,55 @@ const AppointmentsCalendar = (props) => {
       </header>
 
       <div id='date-nav'>
-        <Button className='week-nav-btn' onClick={navigateToPreviousWeek} startIcon={<ArrowBackIosRoundedIcon />}>
-          Prev<br />Week
-        </Button>
-        {currentWeekDays.map((weekDate, index) => (
-          <div
-            key={index}
-            className={weekDate.getDay() === currentDate.getDay() ? 'currentDay' : 'otherDays'}
-            onClick={() => { setCurrentDate(weekDate) }}
+        <LocalizationProvider dateAdapter={AdapterDayjs}>
+          <Button
+            endIcon={<CalendarMonthIcon />}
+            onClick={handleOpenCalendar}
           >
-            <section>
-              {weekDate.toLocaleDateString('en-US', { weekday: 'short' })[0]}
-            </section>
-            <section>
-              {weekDate.getDate()}
-            </section>
-          </div>
-        ))}
+            {currentDate.toLocaleDateString('en-US', { month: 'long' })}
+            {format(currentDate, ' yyyy')}
+          </Button>
+          <DatePicker
+            open={openCalendar}
+            onClose={handleCloseCalendar}
+            value={dayjs(currentDate)}
+            onChange={handleDateChange}
+            slotProps={{
+              textField: {
+                sx: {
+                  opacity: 0,
+                  width: 0,
+                  height: 0,
+                  padding: 0,
+                },
+              },
+            }}
+          />
+        </LocalizationProvider>
 
-        <Button className='week-nav-btn' onClick={navigateToNextWeek} endIcon={<ArrowForwardIosRoundedIcon />}>
-          Next<br /> Week
-        </Button>
+        <section id='date-scroll-bar'>
+          <Button className='week-nav-btn' onClick={navigateToPreviousWeek} startIcon={<ArrowBackIosRoundedIcon />}>
+            Prev<br />Week
+          </Button>
+          {currentWeekDays.map((weekDate, index) => (
+            <Button
+              key={index}
+              className={weekDate.getDay() === currentDate.getDay() ? 'currentDay' : 'otherDays'}
+              onClick={() => { setCurrentDate(weekDate) }}
+            >
+              <section>
+                {weekDate.toLocaleDateString('en-US', { weekday: 'short' })[0]}
+              </section>
+              <section>
+                {weekDate.getDate()}
+              </section>
+            </Button>
+          ))}
+
+          <Button className='week-nav-btn' onClick={navigateToNextWeek} endIcon={<ArrowForwardIosRoundedIcon />}>
+            Next<br /> Week
+          </Button>
+        </section>
       </div>
 
       <TableContainer className='dashboard-table'>
