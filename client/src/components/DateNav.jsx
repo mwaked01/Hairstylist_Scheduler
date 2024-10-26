@@ -70,7 +70,7 @@ const DateNav = (props) => {
             {format(currentDate, ' yyyy')}
           </Button>
         </section>
-        
+
         <DatePicker
           open={openCalendar}
           onClose={handleCloseCalendar}
@@ -97,7 +97,7 @@ const DateNav = (props) => {
           <Button
             key={index}
             className={weekDate.getDay() === currentDate.getDay() ? 'currentDay' : 'otherDays'}
-            onClick={() => { setCurrentDate(weekDate) }}
+            onClick={() => handleDateChange(dayjs(weekDate))}
           >
             <section>
               {weekDate.toLocaleDateString('en-US', { weekday: 'short' })[0]}

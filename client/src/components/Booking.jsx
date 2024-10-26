@@ -17,10 +17,10 @@ const Booking = (props) => {
   const { services } = props
   const [formSection, setFormSection] = useState('Service')
   const [appointmentDate, setAppointmentDate] = useState({
-    year: "",
-    month: "",
-    day: "",
-    time: ""
+    year: new Date().getFullYear(),
+    month: new Date().getMonth() + 1, 
+    day: new Date().getDate(),
+    time: null
   })
   const [date, setDate] = useState(new Date())
   const [client, setClient] = useState({
@@ -59,6 +59,7 @@ const Booking = (props) => {
   };
 
   const handleSelectDay = (newDate) => {
+    // console.log(newDate)
     setDate(new Date(newDate))
     setAppointmentDate({
       year: newDate.$y,

@@ -1,9 +1,5 @@
 import React, { useState, useEffect } from 'react';
-// import '../../styles/BookingForm.scss'
 import axios from 'axios';
-
-import IconButton from '@mui/material/IconButton';
-import ArrowBackIosNewIcon from '@mui/icons-material/ArrowBackIosNew';
 
 const generateTimeSlots = () => {
   const slots = [];
@@ -31,14 +27,12 @@ const generateTimeSlots = () => {
   }
   return slots;
 };
+const fullTimeTable = generateTimeSlots();
 
 const TimePicker = (props) => {
-  const { setFormSection,date, appointmentDate, setAppointmentDate, service } = props;
+  const { setFormSection, date, appointmentDate, setAppointmentDate, service } = props;
   const [slots, setSlots] = useState(generateTimeSlots());
-  // const months = [
-  //   'January', 'February', 'March', 'April', 'May', 'June',
-  //   'July', 'August', 'September', 'October', 'November', 'December'
-  // ];
+
   const handleSelectTime = (newTime) => {
     setFormSection('ClientSearch')
     setAppointmentDate((prevAppointmentDate) => ({
@@ -49,6 +43,7 @@ const TimePicker = (props) => {
   }
 
   useEffect(() => {
+
     fetchAppointments();
   }, [date]);
 
@@ -80,7 +75,7 @@ const TimePicker = (props) => {
     try {
       const response = await axios.get(`http://localhost:8080/api/appointments/${appointmentDate.year}-${appointmentDate.month}-${appointmentDate.day}`);
       const appointments = response.data;
-      // Extract time part from each appointment's date
+
       const takenTimes = appointments.flatMap(appointment => {
         const startTime = appointment.time;
         const appointmentDuration = appointment.service.duration / 15; // Number of 15-minute slots
@@ -94,10 +89,11 @@ const TimePicker = (props) => {
         return times;
       });
 
+      // console.log(takenTimes)
       // Number of slots the selected service requires
       const requiredSlots = service.duration / 15 + 1;
       // Filter out taken times and slots that can't accommodate the service duration
-      const filteredSlots = slots.filter((slot, index) => {
+      const filteredSlots = fullTimeTable.filter((slot, index) => {
         // Check if slot is already taken
         if (takenTimes.includes(slot)) {
           return false;
@@ -105,7 +101,7 @@ const TimePicker = (props) => {
 
         // Check if there are enough consecutive available slots
         for (let i = 0; i < requiredSlots; i++) {
-          const nextSlot = slots[index + i];
+          const nextSlot = fullTimeTable[index + i];
           if (!nextSlot || takenTimes.includes(nextSlot)) {
             return false; // Not enough consecutive slots or next slot is taken
           }
@@ -114,6 +110,7 @@ const TimePicker = (props) => {
       });
 
       setSlots(filteredSlots);
+
     } catch (error) {
       console.error('Error fetching appointments:', error);
     }
@@ -123,14 +120,6 @@ const TimePicker = (props) => {
   let slotGroup = []
   return (
     <div id='time-picker'>
-      {/* <header className='Booking-Nav'>
-        <IconButton onClick={() => { setFormSection('Service') }} type="button" className='back-btn' aria-label="search">
-          <ArrowBackIosNewIcon fontSize='small' />
-          Service
-        </IconButton>
-        <div className='date'>{months[appointmentDate.month - 1]} {appointmentDate.day}, {appointmentDate.year}</div>
-      </header> */}
-
       <div className='slots'>
         {slots.length > 0 ? slots.map((slot, index) => {
           const firstTwoChars = slot.slice(0, 2);

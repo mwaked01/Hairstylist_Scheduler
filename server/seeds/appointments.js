@@ -3,7 +3,7 @@ const mongoose = require("mongoose");
 const seedAppointments = [
   {
     _id: "6649a22a353d5e20ec2414f7",
-    date: "2024-10-10",
+    date: "2024-10-26",
     time: "08:15 AM",
     "service": {
       "name": "Consultation",
@@ -17,7 +17,7 @@ const seedAppointments = [
   },
   {
     _id: "6649a22a353d5e20ec2414f8",
-    date: "2024-10-10",
+    date: "2024-10-26",
     time: "11:00 AM",
     "service": {
       "name": "Cut - Men's",
@@ -31,7 +31,7 @@ const seedAppointments = [
   },
   {
     _id: "6649a22a353d5e20ec2414f9",
-    date: "2024-10-10",
+    date: "2024-10-26",
     time: "01:15 PM",
     "service": {
       "name": "Cut - Children's (Under 10)",
