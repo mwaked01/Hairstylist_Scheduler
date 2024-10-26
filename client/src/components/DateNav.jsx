@@ -10,6 +10,8 @@ import Button from '@mui/material/Button';
 
 
 import CalendarMonthIcon from '@mui/icons-material/CalendarMonth';
+import ArrowRightIcon from '@mui/icons-material/ArrowRight';
+import ArrowLeftIcon from '@mui/icons-material/ArrowLeft';
 
 const DateNav = (props) => {
   const {
@@ -28,6 +30,7 @@ const DateNav = (props) => {
   useEffect(() => {
     getCurrentWeekDays(currentDate);
     if (shouldDisableDate(dayjs(currentDate))) setCurrentDate(addDays(currentDate, 1));
+    if (!shouldDisableDate(dayjs(currentDate))) handleDateChange(dayjs(currentDate))
   }, [currentDate]);
 
   useEffect(() => {
@@ -81,7 +84,7 @@ const DateNav = (props) => {
     const currentDayOfWeek = now.getDay();
     const currentTime = now.toTimeString().slice(0, 5);
     const currentDate = now.getDate();
-    console.log(currentDate)
+
     // Disable all previous days
     if (day.isBefore(now, 'day')) {
       return true;
@@ -156,6 +159,7 @@ const DateNav = (props) => {
           className='week-nav-btn'
           onClick={navigateToPreviousWeek}
           disabled={!isPreviousWeekAvailable}
+          startIcon={<ArrowLeftIcon/>}
         >
           Prev<br />Week
         </Button>
@@ -167,7 +171,7 @@ const DateNav = (props) => {
             disabled={disableDays && shouldDisableDate(dayjs(weekDate))}
           >
             <section>
-              {weekDate.toLocaleDateString('en-US', { weekday: 'short' })[0]}
+              {weekDate.toLocaleDateString('en-US', { weekday: 'short' })}
             </section>
             <section className={`${disableDays && shouldDisableDate(dayjs(weekDate)) ? 'disabled-button' : ''}`}>
               {weekDate.getDate()}
@@ -178,6 +182,7 @@ const DateNav = (props) => {
         <Button
           className='week-nav-btn'
           onClick={navigateToNextWeek}
+          endIcon={<ArrowRightIcon/>}
         >
           Next<br /> Week
         </Button>
