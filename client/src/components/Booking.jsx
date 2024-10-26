@@ -88,6 +88,7 @@ const Booking = (props) => {
                 handleDateChange={handleSelectDay}
                 optionalButton = {'Service'}
                 handleOptionalButton={setFormSection}
+                disableDays={true}
               />
               <TimePicker
                 date={date}
