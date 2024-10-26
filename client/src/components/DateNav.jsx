@@ -27,6 +27,7 @@ const DateNav = (props) => {
 
   useEffect(() => {
     getCurrentWeekDays(currentDate);
+    if (shouldDisableDate(dayjs(currentDate))) setCurrentDate(addDays(currentDate, 1));
   }, [currentDate]);
 
   useEffect(() => {
@@ -79,7 +80,8 @@ const DateNav = (props) => {
     const now = new Date();
     const currentDayOfWeek = now.getDay();
     const currentTime = now.toTimeString().slice(0, 5);
-
+    const currentDate = now.getDate();
+    console.log(currentDate)
     // Disable all previous days
     if (day.isBefore(now, 'day')) {
       return true;
@@ -89,11 +91,11 @@ const DateNav = (props) => {
       return true;
     }
     // Disable Saturdays (6) if current time is past 15:30
-    if (day.day() === currentDayOfWeek && currentDayOfWeek === 6 && currentTime >= '15:30') {
+    if (day.date() === currentDate && currentDayOfWeek === 6 && currentTime >= '15:30') {
       return true;
     }
     // Disable other days only if it's the same day and the current time is past 19:00
-    if (day.day() === currentDayOfWeek && currentTime >= '19:00') {
+    if (day.date() === currentDate && currentTime >= '19:00') {
       return true;
     }
 
