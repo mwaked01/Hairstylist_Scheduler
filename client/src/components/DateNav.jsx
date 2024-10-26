@@ -134,7 +134,7 @@ const DateNav = (props) => {
           onClose={handleCloseCalendar}
           value={dayjs(currentDate)}
           onChange={handleDateChange}
-          disablePast ={disableDays}
+          disablePast={disableDays}
           shouldDisableDate={disableDays && shouldDisableDate}
           slotProps={{
             textField: {
@@ -160,14 +160,14 @@ const DateNav = (props) => {
         {currentWeekDays.map((weekDate, index) => (
           <Button
             key={index}
-            className={weekDate.getDay() === currentDate.getDay() ? 'currentDay' : 'otherDays'}
+            className={`${weekDate.getDay() === currentDate.getDay() ? 'currentDay' : 'otherDays'} `}
             onClick={() => handleDateChange(dayjs(weekDate))}
             disabled={disableDays && shouldDisableDate(dayjs(weekDate))}
           >
             <section>
               {weekDate.toLocaleDateString('en-US', { weekday: 'short' })[0]}
             </section>
-            <section>
+            <section className={`${disableDays && shouldDisableDate(dayjs(weekDate)) ? 'disabled-button' : ''}`}>
               {weekDate.getDate()}
             </section>
           </Button>
