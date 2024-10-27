@@ -12,7 +12,6 @@ import AccordionDetails from '@mui/material/AccordionDetails';
 import ExpandMoreIcon from '@mui/icons-material/ExpandMore';
 
 import { convertTo12HourFormat, findNextOpening } from '../../utils/helpers';
-import axios from 'axios';
 
 import { APIProvider, Map, AdvancedMarker } from '@vis.gl/react-google-maps';
 const apiKey = import.meta.env.VITE_GOOGLE_MAPS_API_KEY;
@@ -25,7 +24,7 @@ const BookingCard = (props) => {
   const [status, setStatus] = useState("");
   const [nextOpening, setNextOpening] = useState("");
   const [copySuccess, setCopySuccess] = useState("");
-  const [coordinates, setCoordinates] = useState({ lat: 0, lng: 0 });
+  
   const navigate = useNavigate();
 
   useEffect(() => {

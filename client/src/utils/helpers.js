@@ -59,14 +59,18 @@ export const convertTo12HourFormat = (time24) => {
 };
 
 export const findNextOpening = (dayOfWeek, currentTime, shopHours) => {
-    if (dayOfWeek !== 'Sunday' && dayOfWeek !== 'Monday') {
-        if (currentTime < shopHours[dayOfWeek].open) {
-            return (`Opens at ${shopHours[dayOfWeek].open} A.M`)
-        } else if (currentTime >= shopHours[dayOfWeek].close) {
-            const nextDay = findNextDay(dayOfWeek);
-            return `Opens on ${nextDay} ${shopHours[nextDay]?.open} A.M`;
-        }
-    } else {
-        return `Opens on Tuesday 09:00 A.M`
+    if (dayOfWeek === 'Sunday' || dayOfWeek === 'Monday') {
+        return `Opens on Tuesday 09:00 A.M`;
+    }
+
+    if (dayOfWeek === 'Saturday' && currentTime >= "15:30") {
+        return `Opens on Tuesday 09:00 A.M`;
+    }
+
+    if (currentTime < shopHours[dayOfWeek].open) {
+        return `Opens at ${shopHours[dayOfWeek].open} A.M`;
+    } else if (currentTime >= shopHours[dayOfWeek].close) {
+        const nextDay = findNextDay(dayOfWeek);
+        return `Opens on ${nextDay} ${shopHours[nextDay]?.open} A.M`;
     }
 };
