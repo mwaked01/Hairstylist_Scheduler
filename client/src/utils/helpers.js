@@ -1,9 +1,10 @@
 import emailjs from 'emailjs-com';
 import Swal from 'sweetalert2';
 
-const SERVICE_ID = "service_75bbx39";
-const TEMPLATE_ID = "template_by4xcpt";
-const USER_ID = "n_JyyoXkMteWYmNiR";
+
+const SERVICE_ID = import.meta.env.VITE_SERVICE_ID;
+const TEMPLATE_ID = import.meta.env.VITE_TEMPLATE_ID;
+const USER_ID = import.meta.env.VITE_USER_ID;
 
 // Function to send an email
 export const sendConfirmationEmail = (appointment, client, clientByEmail, navigate) => {
