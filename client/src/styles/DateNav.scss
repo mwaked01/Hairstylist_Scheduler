@@ -3,13 +3,13 @@
   flex-direction: column;
   align-items: center;
   justify-content: center;
-
+  
   #date-scroll-bar {
     display: flex;
 
-    .currentDay {
+    .day-buttons {
+      all: unset;
       border: solid;
-      border-color: purple;
       border-radius: 50%;
       background-color: #d6f1fa80;
       display: flex;
@@ -22,13 +22,18 @@
       margin-inline: 0.125em;
     }
 
+    .currentDay {
+      @extend .day-buttons;
+      border-color: purple;
+    }
+
     .otherDays {
-      @extend .currentDay;
+      @extend .day-buttons;
       border-color: rgb(14, 150, 204);
     }
 
-    .disabled-button{
-      text-decoration:line-through;
+    .disabled-button {
+      text-decoration: line-through;
     }
   }
 }

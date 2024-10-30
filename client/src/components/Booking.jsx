@@ -1,9 +1,9 @@
 import { useState } from "react";
 import { useNavigate } from 'react-router-dom';
-
 import axios from 'axios';
+const VITE_IP = import.meta.env.VITE_IP;
 
-import Calendar from "./BookingFormComponents/Calendar";
+// import Calendar from "./BookingFormComponents/Calendar";
 import DateNav from "./DateNav";
 import TimePicker from "./BookingFormComponents/TimePicker";
 import ClientInfo from "./BookingFormComponents/ClientInfo";
@@ -18,7 +18,7 @@ const Booking = (props) => {
   const [formSection, setFormSection] = useState('Service')
   const [appointmentDate, setAppointmentDate] = useState({
     year: new Date().getFullYear(),
-    month: new Date().getMonth() + 1, 
+    month: new Date().getMonth() + 1,
     day: new Date().getDate(),
     time: null
   })
@@ -47,7 +47,7 @@ const Booking = (props) => {
         clientNotes: client.clientNotes
       };
 
-      const response = await axios.post('http://localhost:8080/api/clients', { ...client, appointment });
+      const response = await axios.post(`http://${VITE_IP}:8080/api/clients`, { ...client, appointment });
       console.log('New Client information submitted:', response.data);
 
       sendConfirmationEmail(appointment, client, null, navigate)
@@ -86,7 +86,7 @@ const Booking = (props) => {
                 currentDate={date}
                 setCurrentDate={setDate}
                 handleDateChange={handleSelectDay}
-                optionalButton = {'Service'}
+                optionalButton={'Service'}
                 handleOptionalButton={setFormSection}
                 disableDays={true}
               />

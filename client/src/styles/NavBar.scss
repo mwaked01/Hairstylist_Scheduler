@@ -3,8 +3,8 @@ nav {
   top: 0;
   right: 0;
   width: 100%;
-  min-height: 15vh;
-  max-height: 15vh;
+  min-height: 5em;
+  max-height: 5em;
   background-color: white;
   // background-color: #76c9e5; //blue
   box-shadow: 0 2px 4px rgba(0, 0, 0, 0.4);
@@ -23,7 +23,7 @@ nav {
     font-size: 1em;
 
     img {
-      width: 5em;
+      width: 8em;
       // padding-right: 15px;
     }
   }

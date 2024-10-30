@@ -133,7 +133,6 @@ const DateNav = (props) => {
             {format(currentDate, ' yyyy')}
           </Button>
         </section>
-
         <DatePicker
           open={openCalendar}
           onClose={handleCloseCalendar}
@@ -152,21 +151,33 @@ const DateNav = (props) => {
             },
           }}
         />
+        <section>
+          <Button
+            className='week-nav-btn'
+            onClick={navigateToPreviousWeek}
+            disabled={!isPreviousWeekAvailable}
+            startIcon={<ArrowLeftIcon />}
+          >
+            Prev<br />Week
+          </Button>
+          <Button
+            className='week-nav-btn'
+            onClick={navigateToNextWeek}
+            endIcon={<ArrowRightIcon />}
+          >
+            Next<br /> Week
+          </Button>
+        </section>
       </LocalizationProvider>
 
       <section id='date-scroll-bar'>
-        <Button
-          className='week-nav-btn'
-          onClick={navigateToPreviousWeek}
-          disabled={!isPreviousWeekAvailable}
-          startIcon={<ArrowLeftIcon/>}
-        >
-          Prev<br />Week
-        </Button>
         {currentWeekDays.map((weekDate, index) => (
           <Button
             key={index}
-            className={`${weekDate.getDay() === currentDate.getDay() ? 'currentDay' : 'otherDays'} `}
+            className={`
+              ${weekDate.getDay() === currentDate.getDay() ? 'currentDay' : 'otherDays'} 
+              day-buttons
+            `}
             onClick={() => handleDateChange(dayjs(weekDate))}
             disabled={disableDays && shouldDisableDate(dayjs(weekDate))}
           >
@@ -179,13 +190,6 @@ const DateNav = (props) => {
           </Button>
         ))}
 
-        <Button
-          className='week-nav-btn'
-          onClick={navigateToNextWeek}
-          endIcon={<ArrowRightIcon/>}
-        >
-          Next<br /> Week
-        </Button>
       </section>
     </div>
   );

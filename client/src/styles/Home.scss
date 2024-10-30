@@ -2,7 +2,7 @@
   display: flex;
   justify-content: space-between;
   align-items: start;
-  width: 105%;
+  // width: 105%;
 
   #BookingCard {
     display: flex;
@@ -13,7 +13,8 @@
     border-radius: 10px;
     box-shadow: 0px 0px 10px 0px rgba(0, 0, 0, 0.4);
     background-color: #eff1f0;
-    // height: 24rem;
+    margin-bottom: 10px;
+    width: 100%;
 
     #booking-btn {
       display: flex;
@@ -69,8 +70,8 @@
     border-radius: 10px;
     box-shadow: 0px 0px 10px 0px rgba(0, 0, 0, 0.4);
     background-color: #eff1f0;
-    height: 24rem;
-    width: 18rem;
+    // height: 24rem;
+    // width: fit-content;
     position: relative;
 
     button {
@@ -98,7 +99,7 @@
     }
 
     img {
-      height: 100%;
+      // height: 100%;
       border-radius: 10px;
       width: 100%;
       // object-fit: cover;

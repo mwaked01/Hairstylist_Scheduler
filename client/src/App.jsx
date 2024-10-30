@@ -1,10 +1,11 @@
 import React, { useState, useEffect } from 'react';
 import { BrowserRouter as Router, Route, Routes } from 'react-router-dom';
 import axios from 'axios';
+const VITE_IP = import.meta.env.VITE_IP;
 
 import NavBar from './components/NavBar';
 import Home from './components/Home';
-import BookingForm from './components/BookingForm';
+// import BookingForm from './components/BookingForm';
 import DashBoard from './components/DashBoard';
 import Booking from './components/Booking';
 
@@ -20,7 +21,7 @@ function App() {
 
   const fetchSalonInfo = async () => {
     try {
-      const response = await axios.get('http://localhost:8080/api/salonInfo');
+      const response = await axios.get(`http://${VITE_IP}:8080/api/salonInfo`);
       setShopInfo(response.data[0]);
       setLoading(false);
     } catch (error) {
