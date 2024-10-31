@@ -52,7 +52,7 @@ router.get("/confirm/:appointmentId", async (req, res) => {
     appointment.status = "booked";
     await appointment.save();
 
-    res.redirect(`http://localhost:5173`);
+    res.redirect(`http://${process.env.IP}:5173`);
     // res.redirect(`http://localhost:5173/confirmation?appointmentId=${appointmentId}`);
   } catch (error) {
     console.error("Error confirming appointment:", error);
