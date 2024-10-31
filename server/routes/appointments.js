@@ -1,30 +1,30 @@
-const express = require('express');
+const express = require("express");
 const router = express.Router();
-const Appointment = require('../models/appointment');
+const Appointment = require("../models/appointment");
 
 // Route to get all appointments
-router.get('/', async (req, res) => {
+router.get("/", async (req, res) => {
   try {
-    const appointments = await Appointment.find().populate('client');
+    const appointments = await Appointment.find().populate("client");
     res.status(200).json(appointments);
   } catch (error) {
-    res.status(500).json({ message: 'Error retrieving appointments', error });
+    res.status(500).json({ message: "Error retrieving appointments", error });
   }
 });
 
 // Route to get all appointments on a specific day
-router.get('/:date', async (req, res) => {
+router.get("/:date", async (req, res) => {
   try {
     const { date } = req.params;
-    const appointments = await Appointment.find({ date }).populate('client');
+    const appointments = await Appointment.find({ date }).populate("client");
     res.status(200).json(appointments);
   } catch (error) {
-    res.status(500).json({ message: 'Error retrieving appointments', error });
+    res.status(500).json({ message: "Error retrieving appointments", error });
   }
 });
 
 // Route to update stylist notes for an appointment
-router.put('/:id', async (req, res) => {
+router.put("/:id", async (req, res) => {
   try {
     const { id } = req.params;
     const { stylistNotes } = req.body;
@@ -35,7 +35,28 @@ router.put('/:id', async (req, res) => {
     );
     res.status(200).json(appointment);
   } catch (error) {
-    res.status(500).json({ message: 'Error updating stylist notes', error });
+    res.status(500).json({ message: "Error updating stylist notes", error });
+  }
+});
+
+router.get("/confirm/:appointmentId", async (req, res) => {
+  const { appointmentId } = req.params;
+
+  try {
+    const appointment = await Appointment.findById(appointmentId);
+
+    if (!appointment) {
+      return res.status(404).send("Appointment not found");
+    }
+
+    appointment.status = "booked";
+    await appointment.save();
+
+    res.redirect(`http://localhost:5173`);
+    // res.redirect(`http://localhost:5173/confirmation?appointmentId=${appointmentId}`);
+  } catch (error) {
+    console.error("Error confirming appointment:", error);
+    res.status(500).send("Error confirming appointment");
   }
 });
 
