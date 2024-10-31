@@ -4,7 +4,7 @@ require("dotenv").config({ path: "./server/sendgrid.env" });
 sgMail.setApiKey(process.env.SENDGRID_API_KEY);
 
 // Function to send an email
-const sendConfirmationEmail = (appointment, client, clientByEmail) => {
+const sendConfirmationEmail = (appointment, client) => {
   const msg = {
     to: "marcelwaked@gmail.com",
     from: "mwaked01@gmail.com",

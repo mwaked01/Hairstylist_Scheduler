@@ -2,7 +2,7 @@ const express = require("express");
 const router = express.Router();
 const Client = require("../models/client");
 const Appointment = require("../models/appointment");
-const {sendConfirmationEmail} = require("../helpers")
+const { sendConfirmationEmail } = require("../helpers")
 
 // Route to get all clients
 router.get("/", async (req, res) => {
@@ -31,8 +31,6 @@ router.get("/search", async (req, res) => {
     res.status(500).json({ message: "Error searching clients", error });
   }
 });
-
-
 
 // Route to add a new client
 router.post("/", async (req, res) => {
@@ -65,7 +63,7 @@ router.post("/", async (req, res) => {
     newAppointment.client = newClient._id
     await newAppointment.save();
     await newClient.save();
-    sendConfirmationEmail(newAppointment,newClient,null)
+    sendConfirmationEmail(newAppointment, newClient)
 
     res.status(201).json({ client: newClient, appointment: newAppointment });
   } catch (error) {
@@ -91,8 +89,6 @@ router.get("/searchByEmail", async (req, res) => {
 // Route to add a new appointment to an existing client
 router.post("/addAppointment/:client_id", async (req, res) => {
 
-  // console.log('Request Body:', req.body.appointment); // Check if the body contains the appointment details
-
   const { client_id } = req.params;
   const {
     date,
@@ -117,6 +113,7 @@ router.post("/addAppointment/:client_id", async (req, res) => {
     const client = await Client.findById(client_id);
     client.appointments.push(newAppointment._id);
     await client.save();
+    sendConfirmationEmail(newAppointment,client)
 
     res.status(201).json({ client, appointment: newAppointment });
   } catch (error) {
