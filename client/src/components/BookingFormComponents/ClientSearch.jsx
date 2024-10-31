@@ -1,7 +1,7 @@
 import { useState, useEffect } from 'react';
 import { useNavigate } from 'react-router-dom';
-
 import axios from 'axios';
+const VITE_IP = import.meta.env.VITE_IP;
 
 import TextField from '@mui/material/TextField';
 import IconButton from '@mui/material/IconButton';
@@ -34,11 +34,11 @@ const ClientSearch = (props) => {
           clientNotes: client.clientNotes
         };
 
-        const response = await axios.get(`http://localhost:8080/api/clients/searchByEmail?email=${searchQuery}`);
+        const response = await axios.get(`http://${VITE_IP}:8080/api/clients/searchByEmail?email=${searchQuery}`);
 
         if (response.data) {
           const client_id = response.data._id;
-          const newAppt = await axios.post(`http://localhost:8080/api/clients/addAppointment/${client_id}`, { appointment });
+          const newAppt = await axios.post(`http://${VITE_IP}:8080/api/clients/addAppointment/${client_id}`, { appointment });
           console.log('Appointment information submitted:', newAppt.data.client);
           sendConfirmationEmail(appointment, client, newAppt.data.client, navigate)
           setSearchError("")

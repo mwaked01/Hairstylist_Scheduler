@@ -2,6 +2,7 @@ const express = require("express");
 const router = express.Router();
 const Client = require("../models/client");
 const Appointment = require("../models/appointment");
+const {sendConfirmationEmail} = require("../helpers")
 
 // Route to get all clients
 router.get("/", async (req, res) => {
@@ -64,6 +65,8 @@ router.post("/", async (req, res) => {
     newAppointment.client = newClient._id
     await newAppointment.save();
     await newClient.save();
+    sendConfirmationEmail(newAppointment,newClient,null)
+
     res.status(201).json({ client: newClient, appointment: newAppointment });
   } catch (error) {
     res
