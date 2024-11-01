@@ -11,7 +11,7 @@ import ServicePicker from "./BookingFormComponents/ServicePicker";
 
 import '../styles/Booking.scss'
 
-import { sendConfirmationEmail } from '../utils/helpers';
+import { appointmentSubmitMessage } from '../utils/helpers';
 
 const Booking = (props) => {
   const { services } = props
@@ -50,7 +50,7 @@ const Booking = (props) => {
       const response = await axios.post(`http://${VITE_IP}:8080/api/clients`, { ...client, appointment });
       console.log('New Client information submitted:', response.data);
 
-      sendConfirmationEmail(navigate)
+      appointmentSubmitMessage(navigate,client.email,appointment,"Submit")
 
       e.target.reset()
     } catch (error) {
@@ -108,7 +108,7 @@ const Booking = (props) => {
                 handleSubmit={handleSubmit}
                 setFormSection={setFormSection}
                 formSection={formSection}
-                sendConfirmationEmail={sendConfirmationEmail}
+                appointmentSubmitMessage={appointmentSubmitMessage}
               /> :
               <p>none</p>
       }

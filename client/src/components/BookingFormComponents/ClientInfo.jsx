@@ -18,7 +18,7 @@ const ClientInfo = (props) => {
     formSection,
     appointmentDate,
     service,
-    sendConfirmationEmail
+    appointmentSubmitMessage
   } = props;
 
   // Validation functions
@@ -103,7 +103,7 @@ const ClientInfo = (props) => {
             appointmentDate={appointmentDate}
             client={client}
             setClient={setClient}
-            sendConfirmationEmail={sendConfirmationEmail}
+            appointmentSubmitMessage={appointmentSubmitMessage}
           />
         </div>
         :

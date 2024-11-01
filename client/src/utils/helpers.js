@@ -1,13 +1,21 @@
 import Swal from "sweetalert2";
 
-export const sendConfirmationEmail = (navigate) => {
-  Swal.fire({
-    icon: "success",
-    title: `appointment sent`
-    //   clientByEmail !== null
-    //     ? `Confirmation email has been sent to ${clientByEmail.email}`
-    //     : `Confirmation email has been sent to ${client.email}`,
-  });
+export const appointmentSubmitMessage = (navigate, clientEmail,appointmentInfo, type) => {
+  type === "Submit" ?
+    Swal.fire(`Confirmation Request Sent to ${clientEmail}!`, `Check your email to confirm the appointment`, "info")
+    : Swal.fire({
+      title: `Your Appointment is Booked!`,
+      icon: "success",
+      html: `
+        Service: ${appointmentInfo.service.name}
+        <br/>
+        Date: ${appointmentInfo.date}
+      `,
+      confirmButtonText: `
+       Great!
+      `,
+      confirmButtonAriaLabel: "great!"
+    });
   navigate("/");
 };
 
