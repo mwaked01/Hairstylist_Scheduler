@@ -52,12 +52,28 @@ router.get("/confirm/:appointmentId", async (req, res) => {
     appointment.status = "booked";
     await appointment.save();
 
-    res.redirect(`http://${process.env.IP}:5173`);
-    // res.redirect(`http://localhost:5173/confirmation?appointmentId=${appointmentId}`);
+    res.redirect(`http://${process.env.IP}:5173/AppointmentConfirmation?appointmentId=${appointment._id}`);
   } catch (error) {
     console.error("Error confirming appointment:", error);
     res.status(500).send("Error confirming appointment");
   }
 });
+
+// Route to get all appointments on a specific appointment id
+router.get("/AppointmentConfirmation/:appointmentId", async (req, res) => {
+  try {
+    const { appointmentId } = req.params;  
+    const appointments = await Appointment.findById(appointmentId).populate("client");
+
+    if (!appointments) {
+      return res.status(404).json({ message: "Appointment not found" });
+    }
+
+    res.status(200).json(appointments);
+  } catch (error) {
+    res.status(500).json({ message: "Error retrieving appointments", error });
+  }
+});
+
 
 module.exports = router;

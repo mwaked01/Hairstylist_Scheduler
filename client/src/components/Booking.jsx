@@ -50,7 +50,7 @@ const Booking = (props) => {
       const response = await axios.post(`http://${VITE_IP}:8080/api/clients`, { ...client, appointment });
       console.log('New Client information submitted:', response.data);
 
-      // sendConfirmationEmail(appointment, client, null, navigate)
+      sendConfirmationEmail(navigate)
 
       e.target.reset()
     } catch (error) {

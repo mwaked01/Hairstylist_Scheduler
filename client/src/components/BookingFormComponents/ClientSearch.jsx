@@ -40,7 +40,7 @@ const ClientSearch = (props) => {
           const client_id = response.data._id;
           const newAppt = await axios.post(`http://${VITE_IP}:8080/api/clients/addAppointment/${client_id}`, { appointment });
           console.log('Appointment information submitted:', newAppt.data.client);
-          // sendConfirmationEmail(appointment, client, newAppt.data.client, navigate)
+          sendConfirmationEmail(navigate)
           setSearchError("")
         } else {
           setFormSection('ClientForm')

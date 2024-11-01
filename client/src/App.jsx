@@ -5,9 +5,9 @@ const VITE_IP = import.meta.env.VITE_IP;
 
 import NavBar from './components/NavBar';
 import Home from './components/Home';
-// import BookingForm from './components/BookingForm';
 import DashBoard from './components/DashBoard';
 import Booking from './components/Booking';
+import AppointmentConfirmation from './components/AppointmentConfirmation';
 
 import "./App.css"
 
@@ -43,6 +43,7 @@ function App() {
             {/* <Route path="/Booking" element={<BookingForm services={shopInfo.services} />} /> */}
             <Route path="/Dashboard" element={<DashBoard />} />
             <Route path="/" element={<Home shopInfo={shopInfo} />} />
+            <Route path="/AppointmentConfirmation" element={<AppointmentConfirmation shopInfo={shopInfo} loading={loading} setLoading={setLoading} />} />
           </Routes>
         }
       </div>
