@@ -1,4 +1,4 @@
-import { useState, useEffect } from 'react';
+import { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import axios from 'axios';
 const VITE_IP = import.meta.env.VITE_IP;
@@ -35,12 +35,10 @@ const ClientSearch = (props) => {
         };
 
         const response = await axios.get(`http://${VITE_IP}:8080/api/clients/searchByEmail?email=${searchQuery}`);
-
         if (response.data) {
           const client_id = response.data._id;
-          const newAppt = await axios.post(`http://${VITE_IP}:8080/api/clients/addAppointment/${client_id}`, { appointment });
-          console.log('Appointment information submitted:', newAppt.data.client);
-          appointmentSubmitMessage(navigate, searchQuery,"Submit")
+          await axios.post(`http://${VITE_IP}:8080/api/clients/addAppointment/${client_id}`, { appointment });
+          appointmentSubmitMessage(navigate, searchQuery, appointment, "Submit")
           setSearchError("")
         } else {
           setFormSection('ClientForm')
@@ -57,14 +55,14 @@ const ClientSearch = (props) => {
   };
 
   const handleFormSubmit = (e) => {
-    e.preventDefault(); // Prevent default form submission
-    handleClientSearch(); // Trigger custom search
+    e.preventDefault();
+    handleClientSearch();
   };
 
   return (
     <form id='returning-client-search-bar' onSubmit={handleFormSubmit}>
       <TextField
-        onInput={(e) => {
+        onChange={(e) => {
           setSearchQuery(e.target.value);
         }}
         label="Enter your Email Address"

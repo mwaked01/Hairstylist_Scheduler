@@ -52,7 +52,9 @@ router.get("/confirm/:appointmentId", async (req, res) => {
     appointment.status = "booked";
     await appointment.save();
 
-    res.redirect(`http://${process.env.IP}:5173/AppointmentConfirmation?appointmentId=${appointment._id}`);
+    res.redirect(
+      `http://${process.env.IP}:5173/AppointmentConfirmation?appointmentId=${appointment._id}`
+    );
   } catch (error) {
     console.error("Error confirming appointment:", error);
     res.status(500).send("Error confirming appointment");
@@ -62,18 +64,25 @@ router.get("/confirm/:appointmentId", async (req, res) => {
 // Route to get all appointments on a specific appointment id
 router.get("/AppointmentConfirmation/:appointmentId", async (req, res) => {
   try {
-    const { appointmentId } = req.params;  
-    const appointments = await Appointment.findById(appointmentId).populate("client");
+    const { appointmentId } = req.params;
+    const appointment = await Appointment.findById(appointmentId).populate(
+      "client"
+    );
 
-    if (!appointments) {
-      return res.status(404).json({ message: "Appointment not found" });
+    if (!appointment) {
+      return res.status(404).json({ message: "Appointment Not Found" });
     }
 
-    res.status(200).json(appointments);
+    const appointmentDetails = {
+      serviceName: appointment.service.name,
+      date: appointment.date,
+      clientEmail: appointment.client.email
+    };
+
+    res.status(200).json(appointmentDetails);
   } catch (error) {
     res.status(500).json({ message: "Error retrieving appointments", error });
   }
 });
-
 
 module.exports = router;

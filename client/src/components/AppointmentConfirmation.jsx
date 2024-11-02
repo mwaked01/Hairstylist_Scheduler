@@ -25,7 +25,7 @@ const AppointmentConfirmation = (props) => {
         const response = await axios.get(`http://${VITE_IP}:8080/api/appointments/AppointmentConfirmation/${appointmentId}`);
         setConfirmedAppointment(response.data)
         setLoading(false)
-        console.log(response.data)
+        // console.log(response.data)
       } else {
         console.error('No appointmentId found in the URL');
       }
@@ -43,7 +43,7 @@ const AppointmentConfirmation = (props) => {
         </div>
       ) : confirmedAppointment ? (
         <div>
-          {appointmentSubmitMessage(navigate,confirmedAppointment.client.email,confirmedAppointment,"Confirm")}
+          {appointmentSubmitMessage(navigate,confirmedAppointment.clientEmail,confirmedAppointment,"Confirm")}
         </div>
       ) : (
         <div>

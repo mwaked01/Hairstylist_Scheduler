@@ -7,7 +7,7 @@ export const appointmentSubmitMessage = (navigate, clientEmail,appointmentInfo, 
       title: `Your Appointment is Booked!`,
       icon: "success",
       html: `
-        Service: ${appointmentInfo.service.name}
+        Service: ${appointmentInfo.serviceName}
         <br/>
         Date: ${appointmentInfo.date}
       `,
