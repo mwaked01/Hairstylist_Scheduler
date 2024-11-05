@@ -18,7 +18,7 @@ app.use(cors({ origin: '*' }));
 
 
 // Database connection
-mongoose.connect('mongodb://localhost:27017/brookes_scheduler', {})
+mongoose.connect(process.env.MONGO_URI, {})
 .then(() => {
   console.log('MongoDB connected');
 }).catch((error) => {
