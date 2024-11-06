@@ -14,7 +14,7 @@ const app = express();
 
 // Middleware
 app.use(bodyParser.json());
-app.use(cors({ origin: '*' }));
+app.use(cors({ origin: 'https://beautybybrooke.netlify.app' }));
 
 
 // Database connection
