@@ -40,7 +40,7 @@ const TimePicker = (props) => {
       ...prevAppointmentDate,
       time: newTime
     }));
-    // console.log(newTime)
+    console.log(newTime)
   }
 
   useEffect(() => {

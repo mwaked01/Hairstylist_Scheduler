@@ -50,7 +50,7 @@ const Booking = (props) => {
       const response = await axios.post(`${VITE_BACKEND_URL}/api/clients`, { ...client, appointment });
       console.log('New Client information submitted:', response.data);
 
-      appointmentSubmitMessage(navigate,client.email,appointment,"Submit")
+      appointmentSubmitMessage(navigate, client.email, appointment, "Submit")
 
       e.target.reset()
     } catch (error) {
@@ -61,12 +61,12 @@ const Booking = (props) => {
   const handleSelectDay = (newDate) => {
     // console.log(newDate)
     setDate(new Date(newDate))
-    setAppointmentDate({
+    setAppointmentDate(prevState => ({
+      ...prevState, // Copy the previous state
       year: newDate.$y,
       month: newDate.$M < 9 ? `0${newDate.$M + 1}` : `${newDate.$M + 1}`,
       day: newDate.$D < 10 ? `0${newDate.$D}` : `${newDate.$D}`,
-      time: ""
-    });
+    }));
   }
 
   return (
