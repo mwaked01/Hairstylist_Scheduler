@@ -33,7 +33,6 @@ const ClientSearch = (props) => {
           status: "pending",
           clientNotes: client.clientNotes
         };
-        console.log(appointment)
         const response = await axios.get(`${VITE_BACKEND_URL}/api/clients/searchByEmail?email=${searchQuery}`);
         if (response.data) {
           const client_id = response.data._id;

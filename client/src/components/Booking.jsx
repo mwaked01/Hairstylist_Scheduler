@@ -59,7 +59,6 @@ const Booking = (props) => {
   };
 
   const handleSelectDay = (newDate) => {
-    // console.log(newDate)
     setDate(new Date(newDate))
     setAppointmentDate(prevState => ({
       ...prevState, // Copy the previous state
