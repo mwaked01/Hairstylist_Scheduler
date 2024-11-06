@@ -1,7 +1,7 @@
 import { useState } from "react";
 import { useNavigate } from 'react-router-dom';
 import axios from 'axios';
-const VITE_IP = import.meta.env.VITE_IP;
+const VITE_BACKEND_URL = import.meta.env.VITE_BACKEND_URL;
 
 import Calendar from "./BookingFormComponents/Calendar";
 import TimePicker from "./BookingFormComponents/TimePicker";
@@ -46,7 +46,7 @@ const BookingForm = (props) => {
         clientNotes: client.clientNotes
       };
 
-      const response = await axios.post(`http://${VITE_IP}:8080/api/clients`, { ...client, appointment });
+      const response = await axios.post(`${VITE_BACKEND_URL}/api/clients`, { ...client, appointment });
       console.log('New Client information submitted:', response.data);
 
       sendConfirmationEmail(appointment, client, null, navigate)

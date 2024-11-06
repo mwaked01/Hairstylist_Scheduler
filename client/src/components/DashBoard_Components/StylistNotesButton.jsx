@@ -1,6 +1,6 @@
 import { useState } from 'react';
 import axios from 'axios';
-const VITE_IP = import.meta.env.VITE_IP;
+const VITE_BACKEND_URL = import.meta.env.VITE_BACKEND_URL;
 
 import '../../styles/StylistNotesButton.scss'
 
@@ -28,7 +28,7 @@ const StylistNotesButton = (props) => {
   const handleSubmit = async (e) => {
     e.preventDefault();
     try {
-      const response = await axios.put(`http://${VITE_IP}:8080/api/appointments/${appointment._id}`, {
+      const response = await axios.put(`${VITE_BACKEND_URL}/api/appointments/${appointment._id}`, {
         stylistNotes
       });
       if (response.status === 200) {

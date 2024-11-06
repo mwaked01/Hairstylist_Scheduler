@@ -3,7 +3,7 @@ import { useNavigate } from 'react-router-dom';
 
 import '../styles/Home.scss'
 import axios from 'axios';
-const VITE_IP = import.meta.env.VITE_IP;
+const VITE_BACKEND_URL = import.meta.env.VITE_BACKEND_URL;
 
 import { appointmentSubmitMessage } from '../utils/helpers';
 
@@ -22,7 +22,7 @@ const AppointmentConfirmation = (props) => {
       const params = new URLSearchParams(window.location.search);
       const appointmentId = params.get("appointmentId");
       if (appointmentId) {
-        const response = await axios.get(`http://${VITE_IP}:8080/api/appointments/AppointmentConfirmation/${appointmentId}`);
+        const response = await axios.get(`${VITE_BACKEND_URL}/api/appointments/AppointmentConfirmation/${appointmentId}`);
         setConfirmedAppointment(response.data)
         setLoading(false)
         // console.log(response.data)

@@ -1,6 +1,6 @@
 import { useState, useEffect } from 'react';
 import axios from 'axios';
-const VITE_IP = import.meta.env.VITE_IP;
+const VITE_BACKEND_URL = import.meta.env.VITE_BACKEND_URL;
 
 import '../../styles/StylistNotesButton.scss'
 
@@ -71,7 +71,7 @@ const EditAppointment = (props) => {
 
   const fetchAppointments = async () => {
     try {
-      const response = await axios.get(`http://${VITE_IP}:8080/api/appointments/${newInfo.date}`);
+      const response = await axios.get(`${VITE_BACKEND_URL}/api/appointments/${newInfo.date}`);
       const appointments = response.data;
       // Extract time part from each appointment's date
       const takenTimes = appointments.map(appointment => {
@@ -108,7 +108,7 @@ const EditAppointment = (props) => {
   const handleSubmit = async (e) => {
     e.preventDefault();
     try {
-      const response = await axios.put(`http://${VITE_IP}:8080/api/appointments/${appointment._id}`, {
+      const response = await axios.put(`${VITE_BACKEND_URL}/api/appointments/${appointment._id}`, {
         stylistNotes
       });
       if (response.status === 200) {

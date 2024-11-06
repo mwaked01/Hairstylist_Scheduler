@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import axios from 'axios';
-const VITE_IP = import.meta.env.VITE_IP;
+const VITE_BACKEND_URL = import.meta.env.VITE_BACKEND_URL;
 
 const generateTimeSlots = () => {
   const slots = [];
@@ -74,7 +74,7 @@ const TimePicker = (props) => {
 
   const fetchAppointments = async () => {
     try {
-      const response = await axios.get(`http://${VITE_IP}:8080/api/appointments/${appointmentDate.year}-${appointmentDate.month}-${appointmentDate.day}`);
+      const response = await axios.get(`${VITE_BACKEND_URL}/api/appointments/${appointmentDate.year}-${appointmentDate.month}-${appointmentDate.day}`);
       const appointments = response.data;
 
       const takenTimes = appointments.flatMap(appointment => {

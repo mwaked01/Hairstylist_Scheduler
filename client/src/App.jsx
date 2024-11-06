@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import { BrowserRouter as Router, Route, Routes } from 'react-router-dom';
 import axios from 'axios';
-const VITE_IP = import.meta.env.VITE_IP;
+const VITE_BACKEND_URL = import.meta.env.VITE_BACKEND_URL;
 
 import NavBar from './components/NavBar';
 import Home from './components/Home';
@@ -21,7 +21,7 @@ function App() {
 
   const fetchSalonInfo = async () => {
     try {
-      const response = await axios.get(`http://${VITE_IP}:8080/api/salonInfo`);
+      const response = await axios.get(`${VITE_BACKEND_URL}/api/salonInfo`);
       setShopInfo(response.data[0]);
       setLoading(false);
     } catch (error) {
