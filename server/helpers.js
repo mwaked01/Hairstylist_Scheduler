@@ -1,7 +1,7 @@
 const sgMail = require("@sendgrid/mail");
 sgMail.setApiKey(process.env.SENDGRID_API_KEY);
 
-// Function to send an email
+// Function to send an email 
 const sendConfirmationEmail = (appointment, client) => {
   const msg = {
     to: "mwaked01@gmail.com",
