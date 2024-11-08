@@ -20,6 +20,7 @@ app.use(cors({ origin: 'https://beautybybrooke.netlify.app' }));
 // Database connection
 mongoose.connect(process.env.MONGO_URI, {})
 .then(() => {
+  console.log('test')
   console.log('MongoDB connected');
 }).catch((error) => {
   console.error('Error connecting to MongoDB',  error.message);
