@@ -21,6 +21,7 @@ const AppointmentConfirmation = (props) => {
     try {
       const params = new URLSearchParams(window.location.search);
       const appointmentId = params.get("appointmentId");
+      console.log(appointmentId)
       if (appointmentId) {
         const response = await axios.get(`${VITE_BACKEND_URL}/api/appointments/AppointmentConfirmation/${appointmentId}`);
         setConfirmedAppointment(response.data)

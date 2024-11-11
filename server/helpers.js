@@ -28,7 +28,7 @@ const sendConfirmationEmail = (appointment, client) => {
       <br/>
       <div style="display: flex; justify-content:center">
         <a 
-          href="${process.env.PORT}/api/appointments/confirm/${appointment._id}" 
+          href="${process.env.BACKEND_URL}/api/appointments/confirm/${appointment._id}" 
           style="padding: 10px 20px; color: white; background-color: green; text-decoration: none; border-radius: 5px;"
         > 
           Confirm Appointment
