@@ -40,10 +40,9 @@ function App() {
           :
           <Routes>
             <Route path="/Booking" element={<Booking services={shopInfo.services} />} />
-            {/* <Route path="/Booking" element={<BookingForm services={shopInfo.services} />} /> */}
             <Route path="/Dashboard" element={<DashBoard />} />
             <Route path="/" element={<Home shopInfo={shopInfo} />} />
-            <Route path="/AppointmentConfirmation" element={<AppointmentConfirmation shopInfo={shopInfo} loading={loading} setLoading={setLoading} />} />
+            <Route path="/AppointmentConfirmation" element={<AppointmentConfirmation />} />
           </Routes>
         }
       </div>

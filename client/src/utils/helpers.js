@@ -1,6 +1,6 @@
 import Swal from "sweetalert2";
 
-export const appointmentSubmitMessage = (navigate, clientEmail,appointmentInfo, type) => {
+export const appointmentSubmitMessage = (navigate, clientEmail, appointmentInfo, type) => {
   type === "Submit" ?
     Swal.fire(`Confirmation Request Sent to ${clientEmail}!`, `Check your email to confirm the appointment`, "info")
     : Swal.fire({
@@ -15,8 +15,11 @@ export const appointmentSubmitMessage = (navigate, clientEmail,appointmentInfo, 
        Great!
       `,
       confirmButtonAriaLabel: "great!"
+    }).then((result) => {
+      if (result.isConfirmed) {
+        navigate("/");
+      }
     });
-  navigate("/");
 };
 
 export const findNextDay = (dayOfWeek) => {
