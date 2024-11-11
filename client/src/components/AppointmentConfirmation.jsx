@@ -13,38 +13,40 @@ const AppointmentConfirmation = (props) => {
   const navigate = useNavigate();
 
   useEffect(() => {
-    setLoading(true)
+    const fetchAppointment = async () => {
+      try {
+        const params = new URLSearchParams(window.location.search);
+        const appointmentId = params.get("appointmentId");
+        console.log(appointmentId)
+        if (appointmentId) {
+          setLoading(true)
+          const response = await axios.get(`${VITE_BACKEND_URL}/api/appointments/AppointmentConfirmation/${appointmentId}`);
+          setConfirmedAppointment(response.data)
+          setLoading(false)
+          // console.log(response.data)
+        } else {
+          console.error('No appointmentId found in the URL');
+          setLoading(false)
+        }
+
+      } catch (error) {
+        console.error('Error fetching appointment info', error);
+        setLoading(false)
+      }
+    };
     fetchAppointment();
   }, []);
 
-  const fetchAppointment = async () => {
-    try {
-      const params = new URLSearchParams(window.location.search);
-      const appointmentId = params.get("appointmentId");
-      console.log(appointmentId)
-      if (appointmentId) {
-        const response = await axios.get(`${VITE_BACKEND_URL}/api/appointments/AppointmentConfirmation/${appointmentId}`);
-        setConfirmedAppointment(response.data)
-        setLoading(false)
-        // console.log(response.data)
-      } else {
-        console.error('No appointmentId found in the URL');
-      }
-
-    } catch (error) {
-      console.error('Error fetching appointment info', error);
-    }
-  }
 
   return (
     <section id="Home">
-      {loading && confirmedAppointment === null ? (
+      {loading && !confirmedAppointment ? (
         <div className="loading-icon">
           loading..
         </div>
       ) : confirmedAppointment ? (
         <div>
-          {appointmentSubmitMessage(navigate,confirmedAppointment.clientEmail,confirmedAppointment,"Confirm")}
+          {appointmentSubmitMessage(navigate, confirmedAppointment.clientEmail, confirmedAppointment, "Confirm")}
         </div>
       ) : (
         <div>
@@ -53,7 +55,7 @@ const AppointmentConfirmation = (props) => {
       )}
     </section>
   );
-  
+
 };
 
 export default AppointmentConfirmation;
