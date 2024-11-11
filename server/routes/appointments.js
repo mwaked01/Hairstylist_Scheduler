@@ -53,7 +53,7 @@ router.get("/confirm/:appointmentId", async (req, res) => {
     await appointment.save();
 
     res.redirect(
-      `http://${process.env.IP}:5173/AppointmentConfirmation?appointmentId=${appointment._id}`
+      `${process.env.FRONTEND_URL}/AppointmentConfirmation?appointmentId=${appointment._id}`
     );
   } catch (error) {
     console.error("Error confirming appointment:", error);
