@@ -36,6 +36,7 @@ const ClientSearch = (props) => {
 
         const response = await axios.get(`${VITE_BACKEND_URL}/api/clients/searchByEmail?email=${searchQuery}`);
         if (response.data) {
+          console.log(appointment)
           const client_id = response.data._id;
           await axios.post(`${VITE_BACKEND_URL}/api/clients/addAppointment/${client_id}`, { appointment });
           appointmentSubmitMessage(navigate, searchQuery, appointment, "Submit")
