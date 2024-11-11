@@ -76,6 +76,7 @@ router.get("/AppointmentConfirmation/:appointmentId", async (req, res) => {
     const appointmentDetails = {
       serviceName: appointment.service.name,
       date: appointment.date,
+      time: appointment.time,
       clientEmail: appointment.client.email
     };
 

@@ -9,7 +9,7 @@ export const appointmentSubmitMessage = (navigate, clientEmail, appointmentInfo,
       html: `
         Service: ${appointmentInfo.serviceName}
         <br/>
-        Date: ${appointmentInfo.date}
+        Date: ${appointmentInfo.date}, at ${appointmentInfo.time}
       `,
       confirmButtonText: `
        Great!
