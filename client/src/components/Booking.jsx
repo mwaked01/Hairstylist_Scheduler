@@ -61,12 +61,12 @@ const Booking = (props) => {
   const handleSelectDay = (newDate) => {
     // console.log(newDate)
     setDate(new Date(newDate))
-    setAppointmentDate({
+    setAppointmentDate((prevAppointmentDate)=>({
+      ...prevAppointmentDate,
       year: newDate.$y,
       month: newDate.$M < 9 ? `0${newDate.$M + 1}` : `${newDate.$M + 1}`,
-      day: newDate.$D < 10 ? `0${newDate.$D}` : `${newDate.$D}`,
-      time: ""
-    });
+      day: newDate.$D < 10 ? `0${newDate.$D}` : `${newDate.$D}`
+    }));
   }
 
   return (
