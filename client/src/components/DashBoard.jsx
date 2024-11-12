@@ -2,19 +2,21 @@ import { useState, useEffect } from 'react';
 import axios from 'axios';
 const VITE_BACKEND_URL = import.meta.env.VITE_BACKEND_URL;
 
-import AppointmentsByDateList from './DashBoard_Components/AppointmentsByDateList';
 import AppointmentsByClientList from './DashBoard_Components/AppointmentsByClientList';
 import ClientList from './DashBoard_Components/ClientList';
 import AppointmentsCalendar from './DashBoard_Components/AppointmentsCalendar';
+import AppointmentDetail from './DashBoard_Components/AppointmentDetail';
 
 import '../styles/DashBoard.scss'
 
-const DashBoard = () => {
+const DashBoard = (props) => {
+  const { services } = props
+  const [sortBY, setSortBy] = useState('Calendar')
   const [currentDate, setCurrentDate] = useState(new Date());
   const [appointments, setAppointments] = useState([]);
-  const [clientSelected, setClientSelected] = useState("");
-  const [sortBY, setSortBy] = useState('Calendar')
+  const [appointmentSelected, setAppointmentSelected] = useState("");
   const [clients, setClients] = useState([]);
+  const [clientSelected, setClientSelected] = useState("");
   const [searchQuery, setSearchQuery] = useState('');
   const [searchError, setSearchError] = useState('');
 
@@ -81,8 +83,8 @@ const DashBoard = () => {
 
   return (
     <section id='dashboard'>
-      {sortBY === 'Date' ?
-        <AppointmentsByDateList
+      {sortBY === 'Calendar' ?
+        <AppointmentsCalendar
           appointments={appointments}
           setAppointments={setAppointments}
           client={clientSelected}
@@ -92,6 +94,7 @@ const DashBoard = () => {
           setSortBy={setSortBy}
           sortBY={sortBY}
           handleClientListButton={handleClientListButton}
+          setAppointmentSelected={setAppointmentSelected}
         /> : sortBY === 'ClientList' ?
           <ClientList
             clients={clients}
@@ -117,18 +120,13 @@ const DashBoard = () => {
               sortBY={sortBY}
               handleClientListButton={handleClientListButton}
               setSearchError={setSearchError}
+              setAppointmentSelected={setAppointmentSelected}
             />
-            : sortBY === 'Calendar' ?
-              <AppointmentsCalendar
-                appointments={appointments}
-                setAppointments={setAppointments}
-                client={clientSelected}
-                currentDate={currentDate}
-                setCurrentDate={setCurrentDate}
-                handleDateChange={handleDateChange}
-                setSortBy={setSortBy}
-                sortBY={sortBY}
-                handleClientListButton={handleClientListButton}
+            : sortBY === 'Appointment' ?
+              <AppointmentDetail
+                appointment={appointmentSelected}
+                setAppointmentSelected={setAppointmentSelected}
+                services={services}
               />
               : <p>Nothing to Show</p>
       }

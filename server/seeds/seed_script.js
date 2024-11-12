@@ -5,9 +5,10 @@ const Appointment = require("../models/appointment"); // Adjusted import
 const seedAppointments = require("./appointments");
 const seedClients = require("./clients")
 const seedSalonInfo = require('./salonInfo');
+require('dotenv').config();
 // Database connection
 mongoose
-  .connect("mongodb://localhost:27017/brookes_scheduler", {})
+  .connect(process.env.MONGO_URI, {})
   .then(() => {
     console.log("MongoDB connected");
   })

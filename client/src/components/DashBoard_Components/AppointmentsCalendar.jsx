@@ -1,3 +1,11 @@
+import { useEffect, useState } from 'react';
+import { format, addDays, subDays } from 'date-fns';
+import dayjs from 'dayjs';
+
+import { AdapterDayjs } from '@mui/x-date-pickers/AdapterDayjs';
+import { LocalizationProvider } from '@mui/x-date-pickers/LocalizationProvider';
+import { DatePicker } from '@mui/x-date-pickers/DatePicker';
+
 import Table from '@mui/material/Table';
 import TableBody from '@mui/material/TableBody';
 import TableCell, { tableCellClasses } from '@mui/material/TableCell';
@@ -9,8 +17,11 @@ import Button from '@mui/material/Button';
 
 import PeopleOutlineRoundedIcon from '@mui/icons-material/PeopleOutlineRounded';
 import AddCircleOutlineIcon from '@mui/icons-material/AddCircleOutline';
+import CalendarMonthIcon from '@mui/icons-material/CalendarMonth';
+import ArrowRightIcon from '@mui/icons-material/ArrowRight';
+import ArrowLeftIcon from '@mui/icons-material/ArrowLeft';
 
-import AppointmentsItem from './AppointmentsItem';
+import AppointmentsItem from './AppointmentsListItem';
 import DateNav from '../DateNav';
 
 // import '../../styles/DashBoard.scss'
@@ -47,9 +58,25 @@ const AppointmentsCalendar = (props) => {
     handleDateChange,
     handleClientListButton,
     sortBY,
-    client
+    setSortBy,
+    client,
+    setAppointmentSelected
   } = props;
+  const [openCalendar, setOpenCalendar] = useState(false);
 
+  const handleOpenCalendar = () => setOpenCalendar(true);
+
+  const handleCloseCalendar = () => setOpenCalendar(false);
+
+  const navigateToNextDay = () => {
+    setCurrentDate(addDays(currentDate, 1));
+    handleDateChange(dayjs(addDays(currentDate, 1)))
+  };
+
+  const navigateToPreviousDay = () => {
+    setCurrentDate(subDays(currentDate, 1));
+    handleDateChange(dayjs(subDays(currentDate, 1)))
+  };
 
   const updateAppointmentNotes = (id, newNotes) => {
     setAppointments((prevAppointments) =>
@@ -76,12 +103,49 @@ const AppointmentsCalendar = (props) => {
         </Button>
       </header>
 
-      <DateNav
-        currentDate={currentDate}
-        setCurrentDate={setCurrentDate}
-        handleDateChange={handleDateChange}
-      />
-
+      <section>
+        <LocalizationProvider dateAdapter={AdapterDayjs}>
+          <Button
+            className='week-nav-btn'
+            onClick={navigateToPreviousDay}
+            startIcon={<ArrowLeftIcon />}
+          >
+            Prev<br />Day
+          </Button>
+          <Button
+            endIcon={<CalendarMonthIcon />}
+            onClick={handleOpenCalendar}
+          >
+            {currentDate.toLocaleDateString('en-US', { weekday: 'short' })}{' '}
+            {currentDate.toLocaleDateString('en-US', { month: 'short' })}
+            {format(currentDate, ' dd, yyyy')}
+          </Button>
+          <DatePicker
+            open={openCalendar}
+            onClose={handleCloseCalendar}
+            value={dayjs(currentDate)}
+            onChange={handleDateChange}
+            disablePast={false}
+            slotProps={{
+              textField: {
+                sx: {
+                  opacity: 0,
+                  width: 0,
+                  height: 0,
+                  padding: 0,
+                },
+              },
+            }}
+          />
+          <Button
+            className='week-nav-btn'
+            onClick={navigateToNextDay}
+            endIcon={<ArrowRightIcon />}
+          >
+            Next<br /> Day
+          </Button>
+        </LocalizationProvider>
+      </section>
       <TableContainer className='dashboard-table'>
         {appointments.length > 0 ? (
           <Table stickyHeader sx={{ border: 3, borderColor: "#76c9e5", borderRadius: "10px" }} aria-label="Appointments Table">
@@ -89,11 +153,11 @@ const AppointmentsCalendar = (props) => {
               <TableRow>
                 <StyledTableCell>Time</StyledTableCell>
                 <StyledTableCell align="center">Name</StyledTableCell>
-                <StyledTableCell align="center">Status</StyledTableCell>
+                {/* <StyledTableCell align="center">Status</StyledTableCell> */}
                 <StyledTableCell align="center">Service</StyledTableCell>
-                <StyledTableCell align="center">Client Notes</StyledTableCell>
+                {/* <StyledTableCell align="center">Client Notes</StyledTableCell>
                 <StyledTableCell align="center">Stylist Notes</StyledTableCell>
-                <StyledTableCell align="center">Edit</StyledTableCell>
+                <StyledTableCell align="center">Edit</StyledTableCell> */}
               </TableRow>
             </TableHead>
             <TableBody>
@@ -107,6 +171,8 @@ const AppointmentsCalendar = (props) => {
                   client={client}
                   updateAppointmentNotes={updateAppointmentNotes}
                   sortBY={sortBY}
+                  setSortBy={setSortBy}
+                  setAppointmentSelected={setAppointmentSelected}
                 />
               ))}
             </TableBody>

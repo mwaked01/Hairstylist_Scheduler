@@ -2,24 +2,24 @@ import Swal from "sweetalert2";
 
 export const appointmentSubmitMessage = (navigate, clientEmail, appointmentInfo, type) => {
   type === "Submit" ?
-    Swal.fire(`Confirmation Request Sent to ${clientEmail}!`, `Check your email to confirm the appointment`, "info")
-    : Swal.fire({
+    Swal.fire({
+      title: `Confirmation Request Sent to ${clientEmail}!`,
+      html: `Check your email to confirm the appointment`,
+      icon: "info",
+      willClose: () => { navigate("/") }
+    }) :
+    Swal.fire({
       title: `Your Appointment is Booked!`,
       icon: "success",
       html: `
         Service: ${appointmentInfo.serviceName}
         <br/>
-        Date: ${appointmentInfo.date}, at ${appointmentInfo.time}
+        Date: ${appointmentInfo.date} at ${appointmentInfo.time}
       `,
-      confirmButtonText: `
-       Great!
-      `,
-      confirmButtonAriaLabel: "great!"
-    }).then((result) => {
-      if (result.isConfirmed) {
-        navigate("/");
-      }
-    });
+      confirmButtonText: `Great!`,
+      confirmButtonAriaLabel: "great!",
+      willClose: () => { navigate("/") }
+    })
 };
 
 export const findNextDay = (dayOfWeek) => {
@@ -63,3 +63,54 @@ export const findNextOpening = (dayOfWeek, currentTime, shopHours) => {
     return `Opens on ${nextDay} ${shopHours[nextDay]?.open} A.M`;
   }
 };
+
+
+export const generateTimeSlots = () => {
+  const slots = [];
+  for (let i = 8; i <= 18; i++) {
+    // Format hours with leading zero if less than 10
+    const hour = i < 10 ? `0${i}` : `${i}`;
+
+    if (i < 12) {
+      slots.push(`${hour}:00 AM`);
+      slots.push(`${hour}:15 AM`);
+      slots.push(`${hour}:30 AM`);
+      slots.push(`${hour}:45 AM`);
+    } else if (i === 12) {
+      slots.push(`${hour}:00 PM`);
+      slots.push(`${hour}:15 PM`);
+      slots.push(`${hour}:30 PM`);
+      slots.push(`${hour}:45 PM`);
+    } else {
+      const hour12 = i - 12 < 10 ? `0${i - 12}` : `${i - 12}`;
+      slots.push(`${hour12}:00 PM`);
+      slots.push(`${hour12}:15 PM`);
+      slots.push(`${hour12}:30 PM`);
+      slots.push(`${hour12}:45 PM`);
+    }
+  }
+  return slots;
+};
+
+export function addMinutesToTime(time, minutesToAdd) {
+  let [hours, minutes] = time.match(/\d+/g).map(Number);
+  const isPM = time.includes("PM");
+
+  // Convert to 24-hour time for easier manipulation
+  if (hours === 12 && !isPM) hours = 0; // 12:00 AM case
+  if (isPM && hours !== 12) hours += 12; // Convert PM to 24-hour format
+
+  // Add the minutes
+  minutes += minutesToAdd;
+  if (minutes >= 60) {
+    hours += Math.floor(minutes / 60);
+    minutes = minutes % 60;
+  }
+
+  // Adjust back to 12-hour format
+  const period = hours >= 12 ? "PM" : "AM";
+  hours = hours % 12 || 12; // Convert 0 or 24 to 12
+
+  // Format time as HH:MM AM/PM
+  return `${hours.toString().padStart(2, "0")}:${minutes.toString().padStart(2, "0")} ${period}`;
+}

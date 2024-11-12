@@ -12,7 +12,7 @@ import IconButton from '@mui/material/IconButton';
 import PersonSearchOutlinedIcon from '@mui/icons-material/PersonSearchOutlined';
 import PeopleOutlineRoundedIcon from '@mui/icons-material/PeopleOutlineRounded';
 
-import AppointmentsItem from "./AppointmentsItem";
+import AppointmentsItem from "./AppointmentsListItem";
 import AppointmentsButton from './AppointmentsButton';
 
 const StyledTableCell = styled(TableCell)(({ theme }) => ({
@@ -36,7 +36,8 @@ const AppointmentsByClientList = (props) => {
     setSearchError,
     setCurrentDate,
     sortBY,
-    handleClientListButton
+    handleClientListButton,
+    setAppointmentSelected
   } = props;
 
   return (
@@ -61,11 +62,11 @@ const AppointmentsByClientList = (props) => {
             <TableRow>
               <StyledTableCell>Date</StyledTableCell>
               <StyledTableCell align="center">Time</StyledTableCell>
-              <StyledTableCell align="center">Status</StyledTableCell>
+              {/* <StyledTableCell align="center">Status</StyledTableCell> */}
               <StyledTableCell align="center">Service</StyledTableCell>
-              <StyledTableCell align="center">Client Notes</StyledTableCell>
+              {/* <StyledTableCell align="center">Client Notes</StyledTableCell>
               <StyledTableCell align="center">Stylist Notes</StyledTableCell>
-              <StyledTableCell align="center">Edit</StyledTableCell>
+              <StyledTableCell align="center">Edit</StyledTableCell> */}
             </TableRow>
           </TableHead>
           <TableBody>
@@ -77,6 +78,8 @@ const AppointmentsByClientList = (props) => {
                     appointment={appointment}
                     client={client}
                     sortBY={sortBY}
+                    setSortBy={setSortBy}
+                    setAppointmentSelected={setAppointmentSelected}
                   />
                 ))
             ) : (

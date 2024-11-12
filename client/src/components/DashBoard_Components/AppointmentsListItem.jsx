@@ -35,14 +35,20 @@ const StyledTableRow = styled(TableRow)(({ theme }) => ({
   }
 }));
 
+
 const AppointmentsItem = (props) => {
-  const { appointment, updateAppointmentNotes, sortBY, setAppointments } = props;
+  const { appointment, updateAppointmentNotes, sortBY, setSortBy, setAppointmentSelected } = props;
   const [editAppointment, setEditAppointment] = useState(false)
+
+  const handleAppointmentSelect = () => {
+    setSortBy('Appointment')
+    setAppointmentSelected(appointment)
+  }
 
   return (
     <StyledTableRow
       key={appointment._id}
-      onClick={() => { setEditAppointment(true) }}
+      onClick={handleAppointmentSelect}
     >
       <StyledTableCell component="th" scope="row">
         {sortBY === 'Date' || sortBY === 'Calendar' ?
@@ -56,13 +62,13 @@ const AppointmentsItem = (props) => {
           appointment.time
         }
       </StyledTableCell>
-      <StyledTableCell align="center">
+      {/* <StyledTableCell align="center">
         {appointment.status}
-      </StyledTableCell>
+      </StyledTableCell> */}
       <StyledTableCell align="center">
         {appointment.service.name}
       </StyledTableCell>
-      <StyledTableCell align="center">
+      {/* <StyledTableCell align="center">
         {appointment.clientNotes}
       </StyledTableCell>
       <StyledTableCell align="center">
@@ -78,7 +84,7 @@ const AppointmentsItem = (props) => {
           appointment={appointment}
           setAppointments={setAppointments}
         />
-      </StyledTableCell>
+      </StyledTableCell> */}
     </StyledTableRow>
 
   );

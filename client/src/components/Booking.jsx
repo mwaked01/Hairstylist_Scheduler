@@ -48,7 +48,7 @@ const Booking = (props) => {
       };
 
       const response = await axios.post(`${VITE_BACKEND_URL}/api/clients`, { ...client, appointment });
-      console.log('New Client information submitted:', response.data);
+      // console.log('New Client information submitted:', response.data);
 
       appointmentSubmitMessage(navigate, client.email, appointment, "Submit")
 

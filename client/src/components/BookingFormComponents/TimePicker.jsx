@@ -1,33 +1,8 @@
 import React, { useState, useEffect } from 'react';
 import axios from 'axios';
 const VITE_BACKEND_URL = import.meta.env.VITE_BACKEND_URL;
+import {generateTimeSlots } from '../../utils/helpers';
 
-const generateTimeSlots = () => {
-  const slots = [];
-  for (let i = 8; i <= 18; i++) {
-    // Format hours with leading zero if less than 10
-    const hour = i < 10 ? `0${i}` : `${i}`;
-
-    if (i < 12) {
-      slots.push(`${hour}:00 AM`);
-      slots.push(`${hour}:15 AM`);
-      slots.push(`${hour}:30 AM`);
-      slots.push(`${hour}:45 AM`);
-    } else if (i === 12) {
-      slots.push(`${hour}:00 PM`);
-      slots.push(`${hour}:15 PM`);
-      slots.push(`${hour}:30 PM`);
-      slots.push(`${hour}:45 PM`);
-    } else {
-      const hour12 = i - 12 < 10 ? `0${i - 12}` : `${i - 12}`;
-      slots.push(`${hour12}:00 PM`);
-      slots.push(`${hour12}:15 PM`);
-      slots.push(`${hour12}:30 PM`);
-      slots.push(`${hour12}:45 PM`);
-    }
-  }
-  return slots;
-};
 const fullTimeTable = generateTimeSlots();
 
 const TimePicker = (props) => {
