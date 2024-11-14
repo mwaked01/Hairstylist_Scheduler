@@ -12,7 +12,6 @@ import InputLabel from '@mui/material/InputLabel';
 import FormControl from '@mui/material/FormControl';
 import Button from '@mui/material/Button';
 import TextField from '@mui/material/TextField';
-import EditCalendarRoundedIcon from '@mui/icons-material/EditCalendarRounded';
 
 import CalendarMonthIcon from '@mui/icons-material/CalendarMonth';
 
@@ -43,6 +42,17 @@ const AppointmentDetail = (props) => {
     setAppointmentSelected((prevAppointmentSelected) => ({
       ...prevAppointmentSelected,
       service: { 'name': value, 'duration': valueDuration.duration },
+    }));
+  };
+
+  const handleDateChange = (newDate) => {
+    const appointmentDate = dayjs(newDate).format('YYYY-MM-DD');
+
+    console.log(appointment.date)
+    console.log(appointmentDate)
+    setAppointmentSelected((prevAppointmentSelected) => ({
+      ...prevAppointmentSelected,
+      date: appointmentDate
     }));
   };
 
@@ -132,13 +142,14 @@ const AppointmentDetail = (props) => {
           endIcon={<CalendarMonthIcon />}
           onClick={handleOpenCalendar}
         >
-         {appointment.date}
+          {appointment.date}
         </Button>
         <DatePicker
+          name='date'
           open={openCalendar}
           onClose={handleCloseCalendar}
           value={dayjs(appointment.date)}
-          // onChange={handleDateChange}
+          onChange={handleDateChange}
           disablePast={false}
           slotProps={{
             textField: {
