@@ -23,9 +23,10 @@ function App() {
     try {
       const response = await axios.get(`${VITE_BACKEND_URL}/api/salonInfo`);
       setShopInfo(response.data[0]);
-      setLoading(false);
     } catch (error) {
       console.error('Error fetching clients info', error);
+      setLoading(false);
+    } finally {
       setLoading(false);
     }
   }
@@ -33,18 +34,12 @@ function App() {
     <Router>
       <div>
         <NavBar />
-        {loading ?
-          <div className="loading-icon">
-            loading..
-          </div>
-          :
-          <Routes>
-            <Route path="/Booking" element={<Booking services={shopInfo.services} />} />
-            <Route path="/Dashboard" element={<DashBoard services={shopInfo.services}/>} />
-            <Route path="/" element={<Home shopInfo={shopInfo} />} />
-            <Route path="/AppointmentConfirmation" element={<AppointmentConfirmation />} />
-          </Routes>
-        }
+        <Routes>
+          <Route path="/" element={<Home shopInfo={shopInfo} loading={loading} />} />
+          <Route path="/Booking" element={<Booking shopInfo={shopInfo} loading={loading} />} />
+          <Route path="/Dashboard" element={<DashBoard shopInfo={shopInfo} loading={loading} />} />
+          <Route path="/AppointmentConfirmation" element={<AppointmentConfirmation />} />
+        </Routes>
       </div>
     </Router>
   );

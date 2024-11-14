@@ -8,9 +8,10 @@ import AppointmentsCalendar from './DashBoard_Components/AppointmentsCalendar';
 import AppointmentDetail from './DashBoard_Components/AppointmentDetail';
 
 import '../styles/DashBoard.scss'
+import { Divider, Skeleton } from '@mui/material';
 
 const DashBoard = (props) => {
-  const { services } = props
+  const { shopInfo, loading } = props
   const [sortBY, setSortBy] = useState('Calendar')
   const [currentDate, setCurrentDate] = useState(new Date());
   const [appointments, setAppointments] = useState([]);
@@ -123,11 +124,20 @@ const DashBoard = (props) => {
               setAppointmentSelected={setAppointmentSelected}
             />
             : sortBY === 'Appointment' ?
-              <AppointmentDetail
-                appointment={appointmentSelected}
-                setAppointmentSelected={setAppointmentSelected}
-                services={services}
-              />
+              loading ?
+                <div className="loading-skeleton" style={{ width: "90%" }}>
+                  <Divider />
+                  <Skeleton />
+                  <Divider />
+                  <Skeleton />
+                  <Skeleton variant="rectangular" height="30vh" animation="wave" />
+                </div>
+                :
+                <AppointmentDetail
+                  appointment={appointmentSelected}
+                  setAppointmentSelected={setAppointmentSelected}
+                  services={shopInfo.services}
+                />
               : <p>Nothing to Show</p>
       }
     </section>

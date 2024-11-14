@@ -7,13 +7,7 @@ const Home = (props) => {
 
   return (
     <section id="Home">
-      {loading ?
-        <div className="loading-icon">
-          loading..
-        </div>
-        :
-        <BookingCard shopInfo={shopInfo} />
-      }
+      <BookingCard shopInfo={shopInfo} loading={loading}/>
       <PhotoGallery />
     </section>
   );

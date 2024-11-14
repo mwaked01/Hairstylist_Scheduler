@@ -14,7 +14,7 @@ import '../styles/Booking.scss'
 import { appointmentSubmitMessage } from '../utils/helpers';
 
 const Booking = (props) => {
-  const { services } = props
+  const { shopInfo, loading } = props
   const [formSection, setFormSection] = useState('Service')
   const [appointmentDate, setAppointmentDate] = useState({
     year: new Date().getFullYear(),
@@ -75,10 +75,11 @@ const Booking = (props) => {
         formSection === 'Service' ?
           <ServicePicker
             appointmentDate={appointmentDate}
-            services={services}
+            shopInfo={shopInfo}
             setService={setService}
             setFormSection={setFormSection}
             setClient={setClient}
+            loading={loading}
           /> :
           formSection === 'Date' ?
             <section id="date-time-selection">
