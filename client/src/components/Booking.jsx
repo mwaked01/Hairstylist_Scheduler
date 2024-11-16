@@ -3,7 +3,6 @@ import { useNavigate } from 'react-router-dom';
 import axios from 'axios';
 const VITE_BACKEND_URL = import.meta.env.VITE_BACKEND_URL;
 
-// import Calendar from "./BookingFormComponents/Calendar";
 import DateNav from "./DateNav";
 import TimePicker from "./BookingFormComponents/TimePicker";
 import ClientInfo from "./BookingFormComponents/ClientInfo";

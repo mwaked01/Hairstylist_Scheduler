@@ -1,12 +1,12 @@
 import React, { useState, useEffect } from 'react';
 import axios from 'axios';
 const VITE_BACKEND_URL = import.meta.env.VITE_BACKEND_URL;
-import {generateTimeSlots } from '../../utils/helpers';
+import { generateTimeSlots } from '../../utils/helpers';
 
 const fullTimeTable = generateTimeSlots();
 
 const TimePicker = (props) => {
-  const { setFormSection, date, appointmentDate, setAppointmentDate, service } = props;
+  const { setFormSection, appointmentDate, setAppointmentDate, service } = props;
   const [slots, setSlots] = useState(generateTimeSlots());
 
   const handleSelectTime = (newTime) => {
@@ -19,9 +19,8 @@ const TimePicker = (props) => {
   }
 
   useEffect(() => {
-
     fetchAppointments();
-  }, [date]);
+  }, [appointmentDate.day]);
 
   // Helper function to add 15 minutes to a given time
   function addMinutesToTime(time, minutesToAdd) {

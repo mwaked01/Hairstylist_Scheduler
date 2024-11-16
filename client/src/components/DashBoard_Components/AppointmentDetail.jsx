@@ -47,9 +47,6 @@ const AppointmentDetail = (props) => {
 
   const handleDateChange = (newDate) => {
     const appointmentDate = dayjs(newDate).format('YYYY-MM-DD');
-
-    console.log(appointment.date)
-    console.log(appointmentDate)
     setAppointmentSelected((prevAppointmentSelected) => ({
       ...prevAppointmentSelected,
       date: appointmentDate
