@@ -20,20 +20,18 @@ const AppointmentConfirmation = () => {
     const params = new URLSearchParams(window.location.search);
     const appointmentId = params.get("appointmentId");
     try {
-      console.log(`ID:${appointmentId}`)
       if (appointmentId) {
         const response = await axios.get(`${VITE_BACKEND_URL}/api/appointments/AppointmentConfirmation/${appointmentId}`);
         setConfirmedAppointment(response.data)
-        setLoading(false)
-        // console.log(response.data)
       } else {
         console.error('No appointmentId found in the URL');
-        setLoading(false)
       }
 
     } catch (error) {
       console.error('Error fetching appointment info', error);
       setLoading(false)
+    } finally {
+      setLoading(false);
     }
   };
 
