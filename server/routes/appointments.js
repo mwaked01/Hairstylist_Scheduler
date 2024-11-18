@@ -74,7 +74,7 @@ router.put("/change/:id", async (req, res) => {
   try {
     const oldAppointmentId = req.params.id;
     const { changedAppointment } = req.body;
-console.log(req.body)
+    console.log(req.body)
     // Mark the old appointment as "changed"
     const oldAppointment = await Appointment.findByIdAndUpdate(
       oldAppointmentId,
@@ -89,10 +89,11 @@ console.log(req.body)
     if (!changedAppointment) {
       return res.status(400).json({ error: "Updated appointment data is required" });
     }
-    
+    // Remove the _id field from changedAppointment to avoid duplicate key error
+    const { _id, ...appointmentData } = changedAppointment;
     // Create a new appointment
     const newAppointment = new Appointment({
-      ...changedAppointment,
+      ...appointmentData, // Use the data without _id
       oldAppointment: oldAppointmentId, // Link old appointment
     });
 
@@ -104,4 +105,5 @@ console.log(req.body)
     res.status(500).json({ error: "Server error" });
   }
 });
+
 module.exports = router;
