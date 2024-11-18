@@ -23,22 +23,6 @@ router.get("/:date", async (req, res) => {
   }
 });
 
-// Route to update stylist notes for an appointment
-router.put("/:id", async (req, res) => {
-  try {
-    const { id } = req.params;
-    const { stylistNotes } = req.body;
-    const appointment = await Appointment.findByIdAndUpdate(
-      id,
-      { stylistNotes },
-      { new: true }
-    );
-    res.status(200).json(appointment);
-  } catch (error) {
-    res.status(500).json({ message: "Error updating stylist notes", error });
-  }
-});
-
 router.get("/confirm/:appointmentId", async (req, res) => {
   const { appointmentId } = req.params;
 
@@ -86,4 +70,34 @@ router.get("/AppointmentConfirmation/:appointmentId", async (req, res) => {
   }
 });
 
+router.put("/appointments/change/:id", async (req, res) => {
+  try {
+    const oldAppointmentId = req.params.id;
+    const { updatedAppointment } = req.body;
+
+    // Mark the old appointment as "changed"
+    const oldAppointment = await Appointment.findByIdAndUpdate(
+      oldAppointmentId,
+      { status: "changed" },
+      { new: true }
+    );
+
+    if (!oldAppointment) {
+      return res.status(404).json({ error: "Old appointment not found" });
+    }
+
+    // Create a new appointment
+    const newAppointment = new Appointment({
+      ...updatedAppointment,
+      oldAppointment: oldAppointmentId, // Link old appointment
+    });
+
+    await newAppointment.save();
+
+    res.status(200).json({ oldAppointment, newAppointment });
+  } catch (error) {
+    console.error("Error changing appointment:", error);
+    res.status(500).json({ error: "Server error" });
+  }
+});
 module.exports = router;

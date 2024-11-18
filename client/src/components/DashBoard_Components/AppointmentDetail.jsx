@@ -18,9 +18,11 @@ import CalendarMonthIcon from '@mui/icons-material/CalendarMonth';
 const VITE_BACKEND_URL = import.meta.env.VITE_BACKEND_URL;
 
 const AppointmentDetail = (props) => {
-  const { appointment, setAppointmentSelected, services } = props;
+  const { appointment, setAppointmentSelected, services, setSortBy } = props;
   const [slots, setSlots] = useState(generateTimeSlots());
   const [openCalendar, setOpenCalendar] = useState(false);
+  const [disableSubmit, setDisableSubmit] = useState(true);
+  const [changedAppointment, setChangedAppointment] = useState(appointment);
   const fullTimeTable = generateTimeSlots();
 
   const handleOpenCalendar = () => setOpenCalendar(true);
@@ -30,8 +32,8 @@ const AppointmentDetail = (props) => {
 
   const handleChange = (event) => {
     const { name, value } = event.target;
-    setAppointmentSelected((prevAppointmentSelected) => ({
-      ...prevAppointmentSelected,
+    setChangedAppointment((prevChangedAppointment) => ({
+      ...prevChangedAppointment,
       [name]: value
     }));
   }
@@ -39,16 +41,16 @@ const AppointmentDetail = (props) => {
   const handleServiceChange = (event) => {
     const { value } = event.target;
     const valueDuration = services.find(service => service.name === value);
-    setAppointmentSelected((prevAppointmentSelected) => ({
-      ...prevAppointmentSelected,
+    setChangedAppointment((prevChangedAppointment) => ({
+      ...prevChangedAppointment,
       service: { 'name': value, 'duration': valueDuration.duration },
     }));
   };
 
   const handleDateChange = (newDate) => {
     const appointmentDate = dayjs(newDate).format('YYYY-MM-DD');
-    setAppointmentSelected((prevAppointmentSelected) => ({
-      ...prevAppointmentSelected,
+    setChangedAppointment((prevChangedAppointment) => ({
+      ...prevChangedAppointment,
       date: appointmentDate
     }));
   };
@@ -57,11 +59,21 @@ const AppointmentDetail = (props) => {
     fetchAppointments();
   }, [appointment.date]);
 
+  useEffect(() => {
+    appointment.service.name === changedAppointment.service.name &&
+      appointment.status === changedAppointment.status &&
+      appointment.date === changedAppointment.date &&
+      appointment.time === changedAppointment.time &&
+      appointment.stylistNotes === changedAppointment.stylistNotes ?
+      setDisableSubmit(true) :
+      setDisableSubmit(false);
+  }, [changedAppointment])
+
   const fetchAppointments = async () => {
     const appointmentDate = {
-      year: dayjs(appointment.date).$y,
-      month: dayjs(appointment.date).$M < 9 ? `0${dayjs(appointment.date).$M + 1}` : `${dayjs(appointment.date).$M + 1}`,
-      day: dayjs(appointment.date).$D < 10 ? `0${dayjs(appointment.date).$D}` : `${dayjs(appointment.date).$D}`
+      year: dayjs(changedAppointment.date).$y,
+      month: dayjs(changedAppointment.date).$M < 9 ? `0${dayjs(changedAppointment.date).$M + 1}` : `${dayjs(changedAppointment.date).$M + 1}`,
+      day: dayjs(changedAppointment.date).$D < 10 ? `0${dayjs(changedAppointment.date).$D}` : `${dayjs(changedAppointment.date).$D}`
     }
     try {
       const response = await axios.get(`${VITE_BACKEND_URL}/api/appointments/${appointmentDate.year}-${appointmentDate.month}-${appointmentDate.day}`);
@@ -100,8 +112,35 @@ const AppointmentDetail = (props) => {
     }
   };
 
+  const handleSubmit = async (e) => {
+    e.preventDefault();
+    try {
+      const response = await axios.put(
+        `${VITE_BACKEND_URL}/api/appointments/change/${appointment._id}`,
+        { updatedAppointment: changedAppointment }
+      );
+
+      if (response.status === 200) {
+        const { newAppointment } = response.data;
+        console.log("New appointment created:", newAppointment);
+        setAppointmentSelected(""); // Reset selected appointment
+        setSortBy("Calendar"); // Optionally refresh or sort appointments
+      } else {
+        console.error("Error updating appointment");
+      }
+    } catch (error) {
+      console.error("Error updating appointment:", error);
+    }
+  };
+
+  const handleCancel = () => {
+    setAppointmentSelected("")
+    setDisableSubmit(true)
+    setSortBy("Calendar")
+  }
+
   return (
-    <form>
+    <form onSubmit={handleSubmit}>
       <div>
         {`${appointment.client.firstName} ${appointment.client.lastName}`}
       </div>
@@ -116,13 +155,43 @@ const AppointmentDetail = (props) => {
 
       <FormControl variant="filled" required>
         <div className="input">
+          <InputLabel id="service-label">Status</InputLabel>
+          <Select
+            fullWidth
+            labelId="service-label"
+            id="status"
+            name="status"
+            value={changedAppointment.status}
+            onChange={handleChange}
+          >
+            <MenuItem key={"booked"} value={"booked"}>
+              Booked
+            </MenuItem>
+            <MenuItem key={"completed"} value={"completed"}>
+              Completed
+            </MenuItem>
+            <MenuItem key={"cancelled"} value={"cancelled"}>
+              Cancelled
+            </MenuItem>
+            <MenuItem key={"pending"} value={"pending"}>
+              Pending
+            </MenuItem>
+            <MenuItem key={"changed"} value={"changed"}>
+              Changed
+            </MenuItem>
+          </Select>
+        </div>
+      </FormControl>
+
+      <FormControl variant="filled" required>
+        <div className="input">
           <InputLabel id="service-label">Service</InputLabel>
           <Select
             fullWidth
             labelId="service-label"
             id="service"
             name="service"
-            value={appointment.service.name}
+            value={changedAppointment.service.name}
             onChange={handleServiceChange}
           >
             {services.map((service) => (
@@ -139,13 +208,13 @@ const AppointmentDetail = (props) => {
           endIcon={<CalendarMonthIcon />}
           onClick={handleOpenCalendar}
         >
-          {appointment.date}
+          {new Date(changedAppointment.date).toLocaleDateString('en-US', { weekday: 'short', month: 'short', day: '2-digit', year: 'numeric' })}
         </Button>
         <DatePicker
           name='date'
           open={openCalendar}
           onClose={handleCloseCalendar}
-          value={dayjs(appointment.date)}
+          value={dayjs(changedAppointment.date)}
           onChange={handleDateChange}
           disablePast={false}
           slotProps={{
@@ -170,7 +239,7 @@ const AppointmentDetail = (props) => {
             labelId="time-label"
             id="time"
             name="time"
-            value={appointment.time}
+            value={changedAppointment.time}
             onChange={handleChange}
           >
             {slots.map((slot) =>
@@ -184,8 +253,19 @@ const AppointmentDetail = (props) => {
         Client Notes: {appointment.clientNotes}
       </div>
 
+      <div className='input'>
+        <TextField
+          id="stylistNotes"
+          label="stylistNotes"
+          variant="filled"
+          name="stylistNotes"
+          value={changedAppointment.stylistNotes}
+          onChange={handleChange}
+        />
+      </div>
       <div>
-        Stylist Notes: {appointment.stylistNotes}
+        <Button onClick={handleCancel} variant="contained" color="error" >Cancel</Button>
+        <Button type="submit" variant="contained" color="primary" disabled={disableSubmit}> Submit</Button>
       </div>
 
     </form>

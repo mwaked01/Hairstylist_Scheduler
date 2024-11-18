@@ -23,7 +23,7 @@ const appointmentSchema = new mongoose.Schema(
     status: {
       type: String,
       required: true,
-      enum: ["booked", "completed", "cancelled", "pending"],
+      enum: ["booked", "completed", "cancelled", "pending", "changed"],
       default: "booked",
     },
     client: {
@@ -37,6 +37,11 @@ const appointmentSchema = new mongoose.Schema(
     stylistNotes: {
       type: String,
       default: "",
+    },
+    oldAppointment: {
+      type: mongoose.Schema.Types.ObjectId,
+      ref: "Appointment",
+      default: null,
     },
   },
   {
