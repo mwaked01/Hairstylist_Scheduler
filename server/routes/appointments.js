@@ -73,8 +73,8 @@ router.get("/AppointmentConfirmation/:appointmentId", async (req, res) => {
 router.put("/change/:id", async (req, res) => {
   try {
     const oldAppointmentId = req.params.id;
-    const { updatedAppointment } = req.body;
-
+    const { changedAppointment } = req.body;
+console.log(req.body)
     // Mark the old appointment as "changed"
     const oldAppointment = await Appointment.findByIdAndUpdate(
       oldAppointmentId,
@@ -86,9 +86,13 @@ router.put("/change/:id", async (req, res) => {
       return res.status(404).json({ error: "Old appointment not found" });
     }
 
+    if (!changedAppointment) {
+      return res.status(400).json({ error: "Updated appointment data is required" });
+    }
+    
     // Create a new appointment
     const newAppointment = new Appointment({
-      ...updatedAppointment,
+      ...changedAppointment,
       oldAppointment: oldAppointmentId, // Link old appointment
     });
 
