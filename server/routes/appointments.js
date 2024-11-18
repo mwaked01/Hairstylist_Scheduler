@@ -70,7 +70,7 @@ router.get("/AppointmentConfirmation/:appointmentId", async (req, res) => {
   }
 });
 
-router.put("/appointments/change/:id", async (req, res) => {
+router.put("/change/:id", async (req, res) => {
   try {
     const oldAppointmentId = req.params.id;
     const { updatedAppointment } = req.body;
