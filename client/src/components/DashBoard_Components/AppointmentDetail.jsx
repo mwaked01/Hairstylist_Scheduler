@@ -113,7 +113,7 @@ const AppointmentDetail = (props) => {
   };
 
   const handleSubmit = async (e) => {
-    // e.preventDefault();
+    e.preventDefault();
     try {
       const response = await axios.put(
         `${VITE_BACKEND_URL}/api/appointments/change/${appointment._id}`,
