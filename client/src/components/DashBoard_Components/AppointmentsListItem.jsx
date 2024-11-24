@@ -1,10 +1,6 @@
-import { useState } from 'react';
-
 import TableRow from '@mui/material/TableRow';
 import TableCell, { tableCellClasses } from '@mui/material/TableCell';
 import { styled } from '@mui/material/styles';
-import StylistNotesButton from './StylistNotesButton'
-import EditAppointment from './EditAppointment';
 
 const StyledTableCell = styled(TableCell)(({ theme }) => ({
   [`&.${tableCellClasses.head}`]: {
@@ -61,29 +57,11 @@ const AppointmentsItem = (props) => {
           appointment.time
         }
       </StyledTableCell>
-      {/* <StyledTableCell align="center">
-        {appointment.status}
-      </StyledTableCell> */}
+
       <StyledTableCell align="center">
         {appointment.service.name}
       </StyledTableCell>
-      {/* <StyledTableCell align="center">
-        {appointment.clientNotes}
-      </StyledTableCell>
-      <StyledTableCell align="center">
-        {appointment.stylistNotes === "" ?
-          <StylistNotesButton
-            appointment={appointment}
-            updateAppointmentNotes={updateAppointmentNotes}
-          /> :
-          appointment.stylistNotes}
-      </StyledTableCell>
-      <StyledTableCell align="center">
-        <EditAppointment
-          appointment={appointment}
-          setAppointments={setAppointments}
-        />
-      </StyledTableCell> */}
+
     </StyledTableRow>
 
   );

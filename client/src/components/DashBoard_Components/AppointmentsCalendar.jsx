@@ -1,4 +1,4 @@
-import { useEffect, useState } from 'react';
+import { useState } from 'react';
 import { format, addDays, subDays } from 'date-fns';
 import dayjs from 'dayjs';
 
@@ -22,9 +22,7 @@ import ArrowRightIcon from '@mui/icons-material/ArrowRight';
 import ArrowLeftIcon from '@mui/icons-material/ArrowLeft';
 
 import AppointmentsItem from './AppointmentsListItem';
-import DateNav from '../DateNav';
 
-// import '../../styles/DashBoard.scss'
 
 const convertTimeToDate = (time) => {
   const [hoursMinutes, period] = time.split(' ');
@@ -152,19 +150,15 @@ const AppointmentsCalendar = (props) => {
             <TableHead>
               <TableRow>
                 <StyledTableCell>Time</StyledTableCell>
-                <StyledTableCell align="center">Name</StyledTableCell>
-                {/* <StyledTableCell align="center">Status</StyledTableCell> */}
+                <StyledTableCell align="center">Client</StyledTableCell>
                 <StyledTableCell align="center">Service</StyledTableCell>
-                {/* <StyledTableCell align="center">Client Notes</StyledTableCell>
-                <StyledTableCell align="center">Stylist Notes</StyledTableCell>
-                <StyledTableCell align="center">Edit</StyledTableCell> */}
               </TableRow>
             </TableHead>
             <TableBody>
               {appointments.sort((a, b) => {
                 return convertTimeToDate(a.time) - convertTimeToDate(b.time);
               }).map((appointment) => (
-                appointment.status !== "changed"&&
+                appointment.status !== "changed" &&
                 <AppointmentsItem
                   key={appointment._id}
                   appointment={appointment}

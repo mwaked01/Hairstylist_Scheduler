@@ -55,7 +55,6 @@ const AppointmentsByDateList = (props) => {
     handleDateChange,
     handleClientListButton,
     sortBY,
-    setSortBy,
     client
   } = props;
 

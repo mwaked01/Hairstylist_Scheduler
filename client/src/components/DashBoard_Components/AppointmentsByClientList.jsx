@@ -6,10 +6,7 @@ import TableHead from '@mui/material/TableHead';
 import TableRow from '@mui/material/TableRow';
 import { styled } from '@mui/material/styles';
 import Button from '@mui/material/Button';
-import InputBase from '@mui/material/InputBase';
 
-import IconButton from '@mui/material/IconButton';
-import PersonSearchOutlinedIcon from '@mui/icons-material/PersonSearchOutlined';
 import PeopleOutlineRoundedIcon from '@mui/icons-material/PeopleOutlineRounded';
 
 import AppointmentsItem from "./AppointmentsListItem";
@@ -62,11 +59,7 @@ const AppointmentsByClientList = (props) => {
             <TableRow>
               <StyledTableCell>Date</StyledTableCell>
               <StyledTableCell align="center">Time</StyledTableCell>
-              {/* <StyledTableCell align="center">Status</StyledTableCell> */}
               <StyledTableCell align="center">Service</StyledTableCell>
-              {/* <StyledTableCell align="center">Client Notes</StyledTableCell>
-              <StyledTableCell align="center">Stylist Notes</StyledTableCell>
-              <StyledTableCell align="center">Edit</StyledTableCell> */}
             </TableRow>
           </TableHead>
           <TableBody>
