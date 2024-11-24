@@ -208,7 +208,7 @@ const AppointmentDetail = (props) => {
             endIcon={<CalendarMonthIcon />}
             onClick={handleOpenCalendar}
           >
-            {new Date(changedAppointment.date).toLocaleDateString('en-US', { weekday: 'short', month: 'short', day: '2-digit', year: 'numeric' })}
+            {new Date(dayjs(changedAppointment.date)).toLocaleDateString('en-US', { weekday: 'short', month: 'short', day: '2-digit', year: 'numeric' })}
           </Button>
           <DatePicker
             name='date'
