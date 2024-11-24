@@ -90,10 +90,14 @@
       width: 100%;
       display: flex;
       align-items: center;
+      justify-content: space-between;
 
       #service-status {
-        padding-right: .5em;
         padding-block: .5em;
+      }
+
+      #service-type {
+        width: 50%;
       }
     }
 
@@ -103,18 +107,31 @@
       align-items: center;
 
       #service-time-picker {
+        width: 50%;
         padding-left: .5em;
         padding-block: .5em;
       }
     }
 
-    #client-notes{
+    #client-notes {
       width: 100%;
       padding-block: .5em;
     }
-    #stylist-notes{
+
+    #stylist-notes {
       width: 100%;
       padding-block: .5em;
+    }
+    #apt-detail-btns{
+width: 100%;
+display: flex;
+padding-block: 0.5em;
+justify-content: space-around;
+    }
+    #apt-note{
+      padding-block: 0.5em;
+      font-family: "Poetsen One", sans-serif;
+      color: rgb(187, 99, 16);
     }
   }
 }

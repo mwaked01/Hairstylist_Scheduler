@@ -149,11 +149,11 @@ const AppointmentDetail = (props) => {
         <br />
         {appointment.client.email}
       </div>
-        {appointment.oldAppointment &&
-          <div>
-            This appointment was changed
-          </div>
-        }
+      {appointment.oldAppointment &&
+        <div id='apt-note'>
+          This appointment was changed !
+        </div>
+      }
       <div id='service-info'>
         <FormControl variant="filled" required id="service-status">
           <InputLabel id="service-label">Status</InputLabel>
@@ -183,7 +183,7 @@ const AppointmentDetail = (props) => {
           </Select>
         </FormControl>
 
-        <FormControl variant="filled" required>
+        <FormControl variant="filled" required id="service-type">
           <InputLabel id="service-label">Service</InputLabel>
           <Select
             fullWidth
@@ -230,10 +230,12 @@ const AppointmentDetail = (props) => {
           />
         </LocalizationProvider>
 
-        <FormControl variant="filled" required id="service-time-picker">
+        <FormControl variant="filled" required id="service-time-picker" >
           <div className='input'>
-            <InputLabel
-              id="time-label">Time</InputLabel>
+            <InputLabel id="time-label">
+              Time
+            </InputLabel>
+
             <Select
               fullWidth
               labelId="time-label"
@@ -250,10 +252,6 @@ const AppointmentDetail = (props) => {
         </FormControl>
       </div>
 
-      {/* <div id='client-notes'>
-        Client Notes: {appointment.clientNotes}
-      </div> */}
-
       <div className='input' id='client-notes'>
         <TextField
           id="clientNotes"
@@ -262,9 +260,10 @@ const AppointmentDetail = (props) => {
           name="clientNotes"
           value={appointment.clientNotes}
           disabled
+          sx={{ width: "100%" }}
         />
       </div>
-      
+
       <div className='input' id='stylist-notes'>
         <TextField
           id="stylistNotes"
@@ -273,10 +272,11 @@ const AppointmentDetail = (props) => {
           name="stylistNotes"
           value={changedAppointment.stylistNotes}
           onChange={handleChange}
+          sx={{ width: "100%" }}
         />
       </div>
 
-      <div>
+      <div id='apt-detail-btns'>
         <Button onClick={handleCancel} variant="contained" color="error" >Cancel</Button>
         <Button type="submit" variant="contained" color="primary" disabled={disableSubmit}> Submit</Button>
       </div>
