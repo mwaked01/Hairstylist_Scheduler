@@ -164,6 +164,7 @@ const AppointmentsCalendar = (props) => {
               {appointments.sort((a, b) => {
                 return convertTimeToDate(a.time) - convertTimeToDate(b.time);
               }).map((appointment) => (
+                appointment.status !== "changed"&&
                 <AppointmentsItem
                   key={appointment._id}
                   appointment={appointment}

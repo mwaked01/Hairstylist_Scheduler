@@ -37,8 +37,7 @@ const StyledTableRow = styled(TableRow)(({ theme }) => ({
 
 
 const AppointmentsItem = (props) => {
-  const { appointment, updateAppointmentNotes, sortBY, setSortBy, setAppointmentSelected } = props;
-  const [editAppointment, setEditAppointment] = useState(false)
+  const { appointment, sortBY, setSortBy, setAppointmentSelected } = props;
 
   const handleAppointmentSelect = () => {
     setSortBy('Appointment')

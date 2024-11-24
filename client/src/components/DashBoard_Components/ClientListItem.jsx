@@ -3,11 +3,9 @@ import TableCell, { tableCellClasses } from '@mui/material/TableCell';
 
 import TableRow from '@mui/material/TableRow';
 import { styled } from '@mui/material/styles';
-import Button from '@mui/material/Button';
 
 import EventAvailableRoundedIcon from '@mui/icons-material/EventAvailableRounded';
 import EventBusyRoundedIcon from '@mui/icons-material/EventBusyRounded';
-import { Cursor } from 'mongoose';
 
 const StyledTableCell = styled(TableCell)(({ theme }) => ({
   [`&.${tableCellClasses.head}`]: {

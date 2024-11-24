@@ -79,7 +79,7 @@ const AppointmentDetail = (props) => {
       const response = await axios.get(`${VITE_BACKEND_URL}/api/appointments/${appointmentDate.year}-${appointmentDate.month}-${appointmentDate.day}`);
       const appointments = response.data;
       const takenTimes = appointments.flatMap(appt => {
-        if (appt._id === appointment._id) return [];
+        if (appt._id === appointment._id || appt.status === "changed") return [];
         const startTime = appt.time;
         const appointmentDuration = appt.service.duration / 15; // Number of 15-minute slots
         const times = [];
@@ -113,8 +113,7 @@ const AppointmentDetail = (props) => {
   };
 
   const handleSubmit = async (e) => {
-    e.preventDefault();
-    console.log(changedAppointment)
+    // e.preventDefault();
     try {
       const response = await axios.put(
         `${VITE_BACKEND_URL}/api/appointments/change/${appointment._id}`,
@@ -124,8 +123,8 @@ const AppointmentDetail = (props) => {
       if (response.status === 200) {
         const { newAppointment } = response.data;
         console.log("New appointment created:", newAppointment);
-        setAppointmentSelected(""); // Reset selected appointment
-        setSortBy("Calendar"); // Optionally refresh or sort appointments
+        setAppointmentSelected("");
+        setSortBy("Calendar");
       } else {
         console.error("Error updating appointment");
       }
@@ -141,21 +140,22 @@ const AppointmentDetail = (props) => {
   }
 
   return (
-    <form onSubmit={handleSubmit}>
-      <div>
-        {`${appointment.client.firstName} ${appointment.client.lastName}`}
+    <form onSubmit={handleSubmit} id='apt-detail'>
+      <div id='client-info'>
+        <div id='client-name'>
+          {`${appointment.client.firstName} ${appointment.client.lastName}`}
+        </div>
+        {appointment.client.phone}
+        <br />
+        {appointment.client.email}
       </div>
-
-      <div>
-        Phone #: {appointment.client.phone}
-      </div>
-
-      <div>
-        Email: {appointment.client.email}
-      </div>
-
-      <FormControl variant="filled" required>
-        <div className="input">
+        {appointment.oldAppointment &&
+          <div>
+            This appointment was changed
+          </div>
+        }
+      <div id='service-info'>
+        <FormControl variant="filled" required id="service-status">
           <InputLabel id="service-label">Status</InputLabel>
           <Select
             fullWidth
@@ -181,11 +181,9 @@ const AppointmentDetail = (props) => {
               Changed
             </MenuItem>
           </Select>
-        </div>
-      </FormControl>
+        </FormControl>
 
-      <FormControl variant="filled" required>
-        <div className="input">
+        <FormControl variant="filled" required>
           <InputLabel id="service-label">Service</InputLabel>
           <Select
             fullWidth
@@ -201,60 +199,73 @@ const AppointmentDetail = (props) => {
               </MenuItem>
             ))}
           </Select>
-        </div>
-      </FormControl>
-
-      <LocalizationProvider dateAdapter={AdapterDayjs}>
-        <Button
-          endIcon={<CalendarMonthIcon />}
-          onClick={handleOpenCalendar}
-        >
-          {new Date(changedAppointment.date).toLocaleDateString('en-US', { weekday: 'short', month: 'short', day: '2-digit', year: 'numeric' })}
-        </Button>
-        <DatePicker
-          name='date'
-          open={openCalendar}
-          onClose={handleCloseCalendar}
-          value={dayjs(changedAppointment.date)}
-          onChange={handleDateChange}
-          disablePast={false}
-          slotProps={{
-            textField: {
-              sx: {
-                opacity: 0,
-                width: 0,
-                height: 0,
-                padding: 0,
-              },
-            },
-          }}
-        />
-      </LocalizationProvider>
-
-      <FormControl variant="filled" required>
-        <div className='input'>
-          <InputLabel
-            id="time-label">Time</InputLabel>
-          <Select
-            fullWidth
-            labelId="time-label"
-            id="time"
-            name="time"
-            value={changedAppointment.time}
-            onChange={handleChange}
-          >
-            {slots.map((slot) =>
-              <MenuItem key={slot} value={slot}>{slot}</MenuItem>
-            )}
-          </Select>
-        </div>
-      </FormControl>
-
-      <div>
-        Client Notes: {appointment.clientNotes}
+        </FormControl>
       </div>
 
-      <div className='input'>
+      <div id='service-time'>
+        <LocalizationProvider dateAdapter={AdapterDayjs} >
+          <Button
+            endIcon={<CalendarMonthIcon />}
+            onClick={handleOpenCalendar}
+          >
+            {new Date(changedAppointment.date).toLocaleDateString('en-US', { weekday: 'short', month: 'short', day: '2-digit', year: 'numeric' })}
+          </Button>
+          <DatePicker
+            name='date'
+            open={openCalendar}
+            onClose={handleCloseCalendar}
+            value={dayjs(changedAppointment.date)}
+            onChange={handleDateChange}
+            disablePast={false}
+            slotProps={{
+              textField: {
+                sx: {
+                  opacity: 0,
+                  width: 0,
+                  height: 0,
+                  padding: 0,
+                },
+              },
+            }}
+          />
+        </LocalizationProvider>
+
+        <FormControl variant="filled" required id="service-time-picker">
+          <div className='input'>
+            <InputLabel
+              id="time-label">Time</InputLabel>
+            <Select
+              fullWidth
+              labelId="time-label"
+              id="time"
+              name="time"
+              value={changedAppointment.time}
+              onChange={handleChange}
+            >
+              {slots.map((slot) =>
+                <MenuItem key={slot} value={slot}>{slot}</MenuItem>
+              )}
+            </Select>
+          </div>
+        </FormControl>
+      </div>
+
+      {/* <div id='client-notes'>
+        Client Notes: {appointment.clientNotes}
+      </div> */}
+
+      <div className='input' id='client-notes'>
+        <TextField
+          id="clientNotes"
+          label="clientNotes"
+          variant="filled"
+          name="clientNotes"
+          value={appointment.clientNotes}
+          disabled
+        />
+      </div>
+      
+      <div className='input' id='stylist-notes'>
         <TextField
           id="stylistNotes"
           label="stylistNotes"
@@ -264,6 +275,7 @@ const AppointmentDetail = (props) => {
           onChange={handleChange}
         />
       </div>
+
       <div>
         <Button onClick={handleCancel} variant="contained" color="error" >Cancel</Button>
         <Button type="submit" variant="contained" color="primary" disabled={disableSubmit}> Submit</Button>
