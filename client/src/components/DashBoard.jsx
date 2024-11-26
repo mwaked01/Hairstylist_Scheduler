@@ -138,6 +138,7 @@ const DashBoard = (props) => {
                   setAppointmentSelected={setAppointmentSelected}
                   services={shopInfo.services}
                   setSortBy={setSortBy}
+                  setCurrentDate={setCurrentDate}
                 />
               : <p>Nothing to Show</p>
       }

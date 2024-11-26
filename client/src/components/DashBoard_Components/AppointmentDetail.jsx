@@ -18,7 +18,7 @@ import CalendarMonthIcon from '@mui/icons-material/CalendarMonth';
 const VITE_BACKEND_URL = import.meta.env.VITE_BACKEND_URL;
 
 const AppointmentDetail = (props) => {
-  const { appointment, setAppointmentSelected, services, setSortBy } = props;
+  const { appointment, setAppointmentSelected, services, setSortBy, setCurrentDate } = props;
   const [slots, setSlots] = useState(generateTimeSlots());
   const [openCalendar, setOpenCalendar] = useState(false);
   const [disableSubmit, setDisableSubmit] = useState(true);
@@ -124,6 +124,7 @@ const AppointmentDetail = (props) => {
         const { newAppointment } = response.data;
         console.log("New appointment created:", newAppointment);
         setAppointmentSelected("");
+        setCurrentDate(new Date())
         setSortBy("Calendar");
       } else {
         console.error("Error updating appointment");
