@@ -15,13 +15,13 @@ import TableRow from '@mui/material/TableRow';
 import { styled } from '@mui/material/styles';
 import Button from '@mui/material/Button';
 
-import PeopleOutlineRoundedIcon from '@mui/icons-material/PeopleOutlineRounded';
 import AddCircleOutlineIcon from '@mui/icons-material/AddCircleOutline';
 import CalendarMonthIcon from '@mui/icons-material/CalendarMonth';
 import ArrowRightIcon from '@mui/icons-material/ArrowRight';
 import ArrowLeftIcon from '@mui/icons-material/ArrowLeft';
 
 import AppointmentsItem from './AppointmentsListItem';
+import ClientsButton from './ClientsButton';
 
 
 const convertTimeToDate = (time) => {
@@ -54,7 +54,6 @@ const AppointmentsCalendar = (props) => {
     currentDate,
     setCurrentDate,
     handleDateChange,
-    handleClientListButton,
     sortBY,
     setSortBy,
     client,
@@ -76,18 +75,6 @@ const AppointmentsCalendar = (props) => {
     handleDateChange(dayjs(subDays(currentDate, 1)))
   };
 
-  const updateAppointmentNotes = (id, newNotes) => {
-    setAppointments((prevAppointments) =>
-      prevAppointments.map((appointment) =>
-        appointment._id === id
-          ? { ...appointment, stylistNotes: newNotes }
-          : appointment
-      )
-    );
-  };
-
-
-
   return (
     <section id='dashboard-calendar'>
 
@@ -95,10 +82,9 @@ const AppointmentsCalendar = (props) => {
         <Button className='dashboard-nav-btns' endIcon={<AddCircleOutlineIcon />} onClick={() => handleClientListButton()}>
           Add Appointment
         </Button>
-
-        <Button className='dashboard-nav-btns' endIcon={<PeopleOutlineRoundedIcon />} onClick={() => handleClientListButton()}>
-          Client List
-        </Button>
+        <ClientsButton
+          setSortBy={setSortBy}
+        />
       </header>
 
       <section>
@@ -164,7 +150,6 @@ const AppointmentsCalendar = (props) => {
                   appointment={appointment}
                   setAppointments={setAppointments}
                   client={client}
-                  updateAppointmentNotes={updateAppointmentNotes}
                   sortBY={sortBY}
                   setSortBy={setSortBy}
                   setAppointmentSelected={setAppointmentSelected}

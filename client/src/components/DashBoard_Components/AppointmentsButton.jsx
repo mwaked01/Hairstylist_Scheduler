@@ -5,13 +5,11 @@ const AppointmentsButton = (props) => {
   const {
     setSortBy,
     setCurrentDate,
-    setSearchError,
   } = props;
 
   const handleAppointmentButton = () => {
     setSortBy('Calendar')
     setCurrentDate(new Date())
-    setSearchError('')
   }
 
   return (

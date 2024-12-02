@@ -33,7 +33,7 @@ const StyledTableRow = styled(TableRow)(({ theme }) => ({
 
 
 const AppointmentsItem = (props) => {
-  const { appointment, sortBY, setSortBy, setAppointmentSelected } = props;
+  const { appointment, sortBY, setSortBy, setAppointmentSelected,client } = props;
 
   const handleAppointmentSelect = () => {
     setSortBy('Appointment')

@@ -1,3 +1,5 @@
+import { useEffect } from 'react';
+
 import Table from '@mui/material/Table';
 import TableBody from '@mui/material/TableBody';
 import TableCell, { tableCellClasses } from '@mui/material/TableCell';
@@ -6,14 +8,13 @@ import TableHead from '@mui/material/TableHead';
 import TableRow from '@mui/material/TableRow';
 import { styled } from '@mui/material/styles';
 import InputBase from '@mui/material/InputBase';
-import Button from '@mui/material/Button';
 
 import IconButton from '@mui/material/IconButton';
 import PersonSearchOutlinedIcon from '@mui/icons-material/PersonSearchOutlined';
-import PeopleOutlineRoundedIcon from '@mui/icons-material/PeopleOutlineRounded';
 
 import ClientListItem from './ClientListItem';
 import AppointmentsButton from './AppointmentsButton';
+import ClientsButton from './ClientsButton';
 
 const StyledTableCell = styled(TableCell)(({ theme }) => ({
   [`&.${tableCellClasses.head}`]: {
@@ -38,9 +39,13 @@ const ClientList = (props) => {
     setAppointments,
     setCurrentDate,
     searchError,
-    handleClientListButton,
     setSearchError,
+    fetchClients
   } = props;
+
+  useEffect(() => {
+    fetchClients()
+  }, [])
 
   return (
     <section className='dashboard-content'>
@@ -61,9 +66,9 @@ const ClientList = (props) => {
             {searchError !== "" && searchError}
           </div>
         </section>
-        <Button className='dashboard-nav-btns' endIcon={<PeopleOutlineRoundedIcon />} onClick={() => handleClientListButton()}>
-          Client List
-        </Button>
+        <ClientsButton
+          setSortBy={setSortBy}
+        />
         <AppointmentsButton
           setSortBy={setSortBy}
           setCurrentDate={setCurrentDate}

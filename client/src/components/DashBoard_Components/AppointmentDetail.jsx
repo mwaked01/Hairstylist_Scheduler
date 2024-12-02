@@ -14,11 +14,13 @@ import Button from '@mui/material/Button';
 import TextField from '@mui/material/TextField';
 
 import CalendarMonthIcon from '@mui/icons-material/CalendarMonth';
+import AppointmentsButton from './AppointmentsButton';
+import ClientsButton from './ClientsButton';
 
 const VITE_BACKEND_URL = import.meta.env.VITE_BACKEND_URL;
 
 const AppointmentDetail = (props) => {
-  const { appointment, setAppointmentSelected, services, setSortBy, setCurrentDate } = props;
+  const { appointment, clientSelected, setAppointmentSelected, services, setSortBy, setCurrentDate } = props;
   const [slots, setSlots] = useState(generateTimeSlots());
   const [openCalendar, setOpenCalendar] = useState(false);
   const [disableSubmit, setDisableSubmit] = useState(true);
@@ -56,9 +58,19 @@ const AppointmentDetail = (props) => {
   };
 
   useEffect(() => {
+    console.log(appointment.client)
+
+  }, [appointment]);
+
+  useEffect(() => {
+    appointment.client.firstName === undefined && setAppointmentSelected((prevAppointmentSelected) => ({
+      ...prevAppointmentSelected,
+      client: clientSelected,
+    }))
     fetchAppointments();
   }, [appointment.date]);
 
+  //Check if form was changed to enable submit button
   useEffect(() => {
     appointment.service.name === changedAppointment.service.name &&
       appointment.status === changedAppointment.status &&
@@ -142,6 +154,15 @@ const AppointmentDetail = (props) => {
 
   return (
     <form onSubmit={handleSubmit} id='apt-detail'>
+      <header className='button-group'>
+        <AppointmentsButton
+          setSortBy={setSortBy}
+          setCurrentDate={setCurrentDate}
+        />
+        <ClientsButton
+          setSortBy={setSortBy}
+        />
+      </header>
       <div id='client-info'>
         <div id='client-name'>
           {`${appointment.client.firstName} ${appointment.client.lastName}`}

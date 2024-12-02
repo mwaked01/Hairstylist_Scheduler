@@ -22,10 +22,6 @@ const DashBoard = (props) => {
   const [searchError, setSearchError] = useState('');
 
   useEffect(() => {
-    fetchClients();
-  }, []);
-
-  useEffect(() => {
     fetchAppointments(currentDate);
   }, [currentDate]);
 
@@ -76,12 +72,6 @@ const DashBoard = (props) => {
     }
   };
 
-  const handleClientListButton = () => {
-    fetchClients();
-    setSortBy('ClientList');
-    setSearchError('')
-  }
-
   return (
     <section id='dashboard'>
       {sortBY === 'Calendar' ?
@@ -94,10 +84,10 @@ const DashBoard = (props) => {
           handleDateChange={handleDateChange}
           setSortBy={setSortBy}
           sortBY={sortBY}
-          handleClientListButton={handleClientListButton}
           setAppointmentSelected={setAppointmentSelected}
         /> : sortBY === 'ClientList' ?
           <ClientList
+            fetchClients={fetchClients}
             clients={clients}
             setSortBy={setSortBy}
             searchQuery={searchQuery}
@@ -107,7 +97,6 @@ const DashBoard = (props) => {
             setAppointments={setAppointments}
             setCurrentDate={setCurrentDate}
             searchError={searchError}
-            handleClientListButton={handleClientListButton}
             setSearchError={setSearchError}
           /> : sortBY === 'Client' ?
             <AppointmentsByClientList
@@ -119,7 +108,6 @@ const DashBoard = (props) => {
               handleClientSearch={handleClientSearch}
               setCurrentDate={setCurrentDate}
               sortBY={sortBY}
-              handleClientListButton={handleClientListButton}
               setSearchError={setSearchError}
               setAppointmentSelected={setAppointmentSelected}
             />
@@ -139,6 +127,7 @@ const DashBoard = (props) => {
                   services={shopInfo.services}
                   setSortBy={setSortBy}
                   setCurrentDate={setCurrentDate}
+                  clientSelected={clientSelected}
                 />
               : <p>Nothing to Show</p>
       }

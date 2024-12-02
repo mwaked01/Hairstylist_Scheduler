@@ -5,12 +5,10 @@ import TableContainer from '@mui/material/TableContainer';
 import TableHead from '@mui/material/TableHead';
 import TableRow from '@mui/material/TableRow';
 import { styled } from '@mui/material/styles';
-import Button from '@mui/material/Button';
-
-import PeopleOutlineRoundedIcon from '@mui/icons-material/PeopleOutlineRounded';
 
 import AppointmentsItem from "./AppointmentsListItem";
 import AppointmentsButton from './AppointmentsButton';
+import ClientsButton from './ClientsButton';
 
 const StyledTableCell = styled(TableCell)(({ theme }) => ({
   [`&.${tableCellClasses.head}`]: {
@@ -30,11 +28,9 @@ const AppointmentsByClientList = (props) => {
     appointments,
     client,
     setSortBy,
-    setSearchError,
     setCurrentDate,
     sortBY,
-    handleClientListButton,
-    setAppointmentSelected
+    setAppointmentSelected,
   } = props;
 
   return (
@@ -47,11 +43,10 @@ const AppointmentsByClientList = (props) => {
         <AppointmentsButton
           setSortBy={setSortBy}
           setCurrentDate={setCurrentDate}
-          setSearchError={setSearchError}
         />
-        <Button className='dashboard-nav-btns' endIcon={<PeopleOutlineRoundedIcon />} onClick={() => handleClientListButton()}>
-          Client List
-        </Button>
+        <ClientsButton
+          setSortBy={setSortBy}
+        />
       </header>
       <TableContainer className='dashboard-table' >
         <Table stickyHeader sx={{ border: 3, borderColor: "#76c9e5", borderRadius: "10px" }} aria-label="Appointments Table">
@@ -66,6 +61,7 @@ const AppointmentsByClientList = (props) => {
             {appointments.length > 0 ? (
               appointments.sort((a, b) => new Date(b.date) - new Date(a.date))
                 .map((appointment) => (
+                  appointment.status !== "changed" &&
                   <AppointmentsItem
                     key={appointment._id}
                     appointment={appointment}
