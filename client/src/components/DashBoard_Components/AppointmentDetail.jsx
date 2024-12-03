@@ -14,13 +14,12 @@ import Button from '@mui/material/Button';
 import TextField from '@mui/material/TextField';
 
 import CalendarMonthIcon from '@mui/icons-material/CalendarMonth';
-import AppointmentsButton from './AppointmentsButton';
-import ClientsButton from './ClientsButton';
+import DashboardNav from './DashboardNav';
 
 const VITE_BACKEND_URL = import.meta.env.VITE_BACKEND_URL;
 
 const AppointmentDetail = (props) => {
-  const { appointment, clientSelected, setAppointmentSelected, services, setSortBy, setCurrentDate } = props;
+  const { appointment, clientSelected, setAppointmentSelected, services, setSortBy,sortBY, setCurrentDate } = props;
   const [slots, setSlots] = useState(generateTimeSlots());
   const [openCalendar, setOpenCalendar] = useState(false);
   const [disableSubmit, setDisableSubmit] = useState(true);
@@ -30,7 +29,6 @@ const AppointmentDetail = (props) => {
   const handleOpenCalendar = () => setOpenCalendar(true);
 
   const handleCloseCalendar = () => setOpenCalendar(false);
-
 
   const handleChange = (event) => {
     const { name, value } = event.target;
@@ -56,11 +54,6 @@ const AppointmentDetail = (props) => {
       date: appointmentDate
     }));
   };
-
-  useEffect(() => {
-    console.log(appointment.client)
-
-  }, [appointment]);
 
   useEffect(() => {
     appointment.client.firstName === undefined && setAppointmentSelected((prevAppointmentSelected) => ({
@@ -154,15 +147,11 @@ const AppointmentDetail = (props) => {
 
   return (
     <form onSubmit={handleSubmit} id='apt-detail'>
-      <header className='button-group'>
-        <AppointmentsButton
-          setSortBy={setSortBy}
-          setCurrentDate={setCurrentDate}
-        />
-        <ClientsButton
-          setSortBy={setSortBy}
-        />
-      </header>
+      <DashboardNav
+        setSortBy={setSortBy}
+        setCurrentDate={setCurrentDate}
+        sortBy={sortBY}
+      />
       <div id='client-info'>
         <div id='client-name'>
           {`${appointment.client.firstName} ${appointment.client.lastName}`}

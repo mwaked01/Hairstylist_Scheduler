@@ -13,8 +13,7 @@ import IconButton from '@mui/material/IconButton';
 import PersonSearchOutlinedIcon from '@mui/icons-material/PersonSearchOutlined';
 
 import ClientListItem from './ClientListItem';
-import AppointmentsButton from './AppointmentsButton';
-import ClientsButton from './ClientsButton';
+import DashboardNav from './DashboardNav';
 
 const StyledTableCell = styled(TableCell)(({ theme }) => ({
   [`&.${tableCellClasses.head}`]: {
@@ -39,8 +38,8 @@ const ClientList = (props) => {
     setAppointments,
     setCurrentDate,
     searchError,
-    setSearchError,
-    fetchClients
+    fetchClients,
+    sortBY
   } = props;
 
   useEffect(() => {
@@ -48,8 +47,13 @@ const ClientList = (props) => {
   }, [])
 
   return (
-    <section className='dashboard-content'>
-      <header className='dashboard-header'>
+    <section className='client-list'>
+        <DashboardNav
+          setSortBy={setSortBy}
+          setCurrentDate={setCurrentDate}
+          sortBy={sortBY}
+        />
+
         <section>
           <div>
             <InputBase
@@ -66,15 +70,6 @@ const ClientList = (props) => {
             {searchError !== "" && searchError}
           </div>
         </section>
-        <ClientsButton
-          setSortBy={setSortBy}
-        />
-        <AppointmentsButton
-          setSortBy={setSortBy}
-          setCurrentDate={setCurrentDate}
-          setSearchError={setSearchError}
-        />
-      </header>
 
       <TableContainer className='dashboard-table'>
         {clients.length > 0 ?

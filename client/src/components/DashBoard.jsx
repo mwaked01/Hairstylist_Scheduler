@@ -98,6 +98,7 @@ const DashBoard = (props) => {
             setCurrentDate={setCurrentDate}
             searchError={searchError}
             setSearchError={setSearchError}
+            sortBY={sortBY}
           /> : sortBY === 'Client' ?
             <AppointmentsByClientList
               appointments={appointments}
@@ -126,6 +127,7 @@ const DashBoard = (props) => {
                   setAppointmentSelected={setAppointmentSelected}
                   services={shopInfo.services}
                   setSortBy={setSortBy}
+                  sortBY={sortBY}
                   setCurrentDate={setCurrentDate}
                   clientSelected={clientSelected}
                 />

@@ -7,8 +7,7 @@ import TableRow from '@mui/material/TableRow';
 import { styled } from '@mui/material/styles';
 
 import AppointmentsItem from "./AppointmentsListItem";
-import AppointmentsButton from './AppointmentsButton';
-import ClientsButton from './ClientsButton';
+import DashboardNav from './DashboardNav';
 
 const StyledTableCell = styled(TableCell)(({ theme }) => ({
   [`&.${tableCellClasses.head}`]: {
@@ -35,19 +34,14 @@ const AppointmentsByClientList = (props) => {
 
   return (
     <section className='dashboard-content'>
-      <header className='dashboard-header'>
-        <h2 id='client-name'>
-          {client.firstName} {client.lastName}
-        </h2>
-
-        <AppointmentsButton
-          setSortBy={setSortBy}
-          setCurrentDate={setCurrentDate}
-        />
-        <ClientsButton
-          setSortBy={setSortBy}
-        />
-      </header>
+      <DashboardNav
+        setSortBy={setSortBy}
+        setCurrentDate={setCurrentDate}
+        sortBy={sortBY}
+      />
+      <h2 className='dashboard-header'>
+        {client.firstName} {client.lastName}
+      </h2>
       <TableContainer className='dashboard-table' >
         <Table stickyHeader sx={{ border: 3, borderColor: "#76c9e5", borderRadius: "10px" }} aria-label="Appointments Table">
           <TableHead>

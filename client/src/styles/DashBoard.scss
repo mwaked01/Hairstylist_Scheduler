@@ -122,16 +122,24 @@
       width: 100%;
       padding-block: .5em;
     }
-    #apt-detail-btns{
-width: 100%;
-display: flex;
-padding-block: 0.5em;
-justify-content: space-around;
+
+    #apt-detail-btns {
+      width: 100%;
+      display: flex;
+      padding-block: 0.5em;
+      justify-content: space-around;
     }
-    #apt-note{
+
+    #apt-note {
       padding-block: 0.5em;
       font-family: "Poetsen One", sans-serif;
       color: rgb(187, 99, 16);
     }
+  }
+
+  .client-list {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
   }
 }
